@@ -134,7 +134,6 @@ GameObject:
   - component: {fileID: 210307763}
   - component: {fileID: 210307762}
   - component: {fileID: 210307761}
-  - component: {fileID: 210307765}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -232,22 +231,6 @@ Transform:
   - {fileID: 1089953990}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &210307765
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 210307760}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 038a7da3920e4c8682d3424f9b0ba811, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _lightshipMapView: {fileID: 7395098618855432449}
-  _editorMovementSpeed: 0
-  _camera: {fileID: 0}
-  _model: {fileID: 0}
 --- !u!1001 &355520861
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -780,17 +763,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0f989f1ab23be4b4095a2d3c14e456d2, type: 3}
---- !u!114 &7395098618855432449 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 91936567887524612, guid: 0f989f1ab23be4b4095a2d3c14e456d2, type: 3}
-  m_PrefabInstance: {fileID: 7395098618855432448}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0065c20f13fc326408fe756c97b2d701, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
