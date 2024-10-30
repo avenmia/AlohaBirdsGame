@@ -12,6 +12,9 @@ EditorBuildSettings:
     guid: 27bb1636f81c69c45aa56b2791a76601
 >>>>>>> Stashed changes
   - enabled: 1
+    path: Assets/Scenes/AvidexScene.unity
+    guid: 27bb1636f81c69c45aa56b2791a76601
+  - enabled: 1
     path: Assets/Scenes/ARScene.unity
     guid: 7fb6b571f8cf67545b3cd09d38142235
   - enabled: 1
