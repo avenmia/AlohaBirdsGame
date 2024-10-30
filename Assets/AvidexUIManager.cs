@@ -20,16 +20,15 @@ public class AvidexUIManager : MonoBehaviour
             Destroy(child.gameObject);
         }
 
+        if (UserBirdManager.Instance == null || UserBirdManager.Instance.capturedBirds == null)
+        {
+            return;
+        }
         List<BirdData> capturedBirds = UserBirdManager.Instance.capturedBirds;
-
-        Debug.Log($"Avendano captured bird count {capturedBirds.Count}");
-        Debug.Log("Avendano captured birds:");
 
         foreach (BirdData bird in capturedBirds)
         {
-            Debug.Log($"Avendano bird {bird.birdName}");
             GameObject newItem = Instantiate(birdListItemPrefab, contentPanel);
-            // TODO: Testing this
             newItem.transform.SetParent(contentPanel, false);
             BirdListItemController controller = newItem.GetComponent<BirdListItemController>();
             controller.Setup(bird, OnBirdSelected);
@@ -38,8 +37,10 @@ public class AvidexUIManager : MonoBehaviour
 
     private void OnBirdSelected(BirdData bird)
     {
-        Debug.Log("Avendano, Bird selected!");
-        // Show detailed info
-        // BirdDetailUIManager.Instance.ShowDetails(bird);
+        if (BirdDetailUIManager.Instance == null)
+        {
+            return;
+        }
+        AvidexPanelManager.Instance.ShowDetailPanel(bird);
     }
 }

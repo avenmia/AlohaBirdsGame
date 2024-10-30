@@ -5,6 +5,9 @@ public class AvidexPanelManager : MonoBehaviour
     public GameObject avidexPanel; // Assign in Inspector
     public GameObject detailPanel; // Assign in Inspector
 
+    public static AvidexPanelManager Instance;
+    private void Awake() => Instance = this;
+
     private void Start()
     {
         ShowAvidexPanel();
@@ -19,8 +22,7 @@ public class AvidexPanelManager : MonoBehaviour
     public void ShowDetailPanel(BirdData birdData)
     {
         // Update detail panel content
-        detailPanel.GetComponent<BirdDetailUIManager>().ShowDetails(birdData);
-
+        BirdDetailUIManager.Instance.ShowDetails(birdData);
         avidexPanel.SetActive(false);
         detailPanel.SetActive(true);
     }

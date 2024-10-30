@@ -17,7 +17,6 @@ public class UserBirdManager : MonoBehaviour
 
     public void CaptureBird(BirdData bird)
     {
-        Debug.Log($"Avendano Captured bird! {bird.name}");
         if (!capturedBirds.Contains(bird))
         {
             capturedBirds.Add(bird);
