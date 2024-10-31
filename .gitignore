@@ -73,3 +73,5 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 Assets/Resources/Maps SDK/MapsAuthConfig.asset
 Assets/XR/Settings/LightshipSettings.asset
+
+Assets/Samples/**
