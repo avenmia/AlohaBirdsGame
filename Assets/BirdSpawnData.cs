@@ -1,22 +1,30 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
-//[CreateAssetMenu(fileName = "BirdSpawnData", menuName = "Avidex/Bird Spawn Data", order = 2)]
-//public class BirdSpawnData : ScriptableObject
-//{
-//    public BirdData birdData; // Reference to the BirdData asset
-//    public float spawnProbability;
-//    public float spawnRadius;
-//    public List<GeoLocation> possibleLocations;
-//}
 
+// Note needs to not be a serializable object so that the maps object layer can spawn it
 [System.Serializable]
-public class BirdSpawnData : MonoBehaviour
+public class BirdSpawnData : MonoBehaviour, IPointerClickHandler
 {
-    public BirdData birdData; // Reference to the BirdData asset
+    public BirdSpawnData birdData; // Reference to the BirdData asset
     public float spawnProbability;
     public float spawnRadius;
     public List<GeoLocation> possibleLocations;
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        Debug.Log($"Avendano Map Object Clicked!");
+
+        // Store the bird data in the PersistentDataManager
+        PersistentDataManager.Instance.selectedBirdData = birdData;
+
+        Debug.Log($"Opening ARScene With Bird {birdData}");
+        // Load the new scene
+        // TODO: Change this when NavigationManager gets added
+        SceneManager.LoadScene("ARScene");
+    }
 }
 
 [System.Serializable]
