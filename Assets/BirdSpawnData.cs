@@ -15,12 +15,10 @@ public class BirdSpawnData : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        Debug.Log($"Avendano Map Object Clicked!");
 
         // Store the bird data in the PersistentDataManager
         PersistentDataManager.Instance.selectedBirdData = birdData;
 
-        Debug.Log($"Opening ARScene With Bird {birdData}");
         // Load the new scene
         // TODO: Change this when NavigationManager gets added
         SceneManager.LoadScene("ARScene");
