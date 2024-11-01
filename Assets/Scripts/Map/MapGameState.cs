@@ -4,6 +4,7 @@ using Niantic.Lightship.Maps.MapLayers.Components;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MapGameState : MonoBehaviour
 {
@@ -26,6 +27,27 @@ public class MapGameState : MonoBehaviour
     void Start()
     {
         StartCoroutine(StartLocationService());
+    }
+
+    void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        // Reassign the _mapCamera when the scene is loaded
+        _mapCamera = Camera.main; // Or find it by name or tag if it's not the main camera
+
+        if (_mapCamera == null)
+        {
+            Debug.LogError("Map Camera not found after scene load.");
+        }
     }
 
     private IEnumerator StartLocationService()
@@ -65,6 +87,15 @@ public class MapGameState : MonoBehaviour
 
     private void Awake()
     {
+        _mapCamera = Camera.main;
+        if (_mapCamera != null)
+        {
+            Debug.Log("Map Camera assigned in Awake.");
+        }
+        else
+        {
+            Debug.LogError("Map Camera is null in Awake.");
+        }
         // Singleton pattern
         if (Instance == null)
         {
@@ -155,14 +186,20 @@ public class MapGameState : MonoBehaviour
 
         Debug.Log($"Spawning {birdData.name} at location {playerLocation}");
         // var location = ScreenPointToLatLong(touchPosition);
-        var cameraForward = _mapCamera.transform.forward;
-        var forward = new Vector3(cameraForward.x, 0f, cameraForward.z).normalized;
-        var rotation = Quaternion.LookRotation(forward);
 
-        //_objectSpawner.PlaceInstance(location, rotation);
-        
-        // TODO: Verify this is right
-        _objectSpawner.PlaceInstance(playerLocation, rotation);
+        if (_mapCamera != null)
+        {
+            var cameraForward = _mapCamera.transform.forward;
+            var forward = new Vector3(cameraForward.x, 0f, cameraForward.z).normalized;
+            var rotation = Quaternion.LookRotation(forward);
+
+            //_objectSpawner.PlaceInstance(location, rotation);
+
+            // TODO: Verify this is right
+
+            _objectSpawner.PlaceInstance(playerLocation, rotation);
+            return;
+        }
     }
 
     private LatLng ScreenPointToLatLong(Vector3 screenPosition)
