@@ -9,10 +9,10 @@ public class ClickToNavigate : MonoBehaviour, IPointerClickHandler
     [SerializeField] private BirdData birdData;
     public void OnPointerClick(PointerEventData eventData)
     {
+        birdData = GetComponent<BirdSpawnData>().birdData;
 
         if (PersistentDataManager.Instance != null)
         {
-
             // Store the bird data in the PersistentDataManager
             PersistentDataManager.Instance.selectedBirdData = birdData;
 

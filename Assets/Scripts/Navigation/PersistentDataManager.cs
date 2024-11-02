@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class PersistentDataManager : MonoBehaviour
@@ -5,6 +6,8 @@ public class PersistentDataManager : MonoBehaviour
     public static PersistentDataManager Instance;
 
     public BirdData selectedBirdData; // The bird data to pass to the next scene
+
+    // public event Action<BirdData> OnBirdDataSet;
 
     private void Awake()
     {
@@ -18,5 +21,11 @@ public class PersistentDataManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    public void SetBirdData(BirdData newBirdData)
+    {
+        selectedBirdData = newBirdData;
+        // OnBirdDataSet?.Invoke(newBirdData);
     }
 }
