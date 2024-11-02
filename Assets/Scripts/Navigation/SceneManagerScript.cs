@@ -17,11 +17,11 @@ public class SceneManagerScript : MonoBehaviour
         }
     }
 
-    public void returnScene()
+    public void ReturnScene()
     {
         if (NavigationManager.Instance != null)
         {
-            NavigationManager.Instance.returnToPrevScene();
+            NavigationManager.Instance.ReturnToPrevScene();
         }
         else
         {
