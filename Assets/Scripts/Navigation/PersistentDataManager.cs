@@ -4,7 +4,7 @@ public class PersistentDataManager : MonoBehaviour
 {
     public static PersistentDataManager Instance;
 
-    public BirdSpawnData selectedBirdData; // The bird data to pass to the next scene
+    public BirdData selectedBirdData; // The bird data to pass to the next scene
 
     private void Awake()
     {

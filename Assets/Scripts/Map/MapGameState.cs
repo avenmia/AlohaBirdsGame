@@ -14,6 +14,8 @@ public class MapGameState : MonoBehaviour
 
     // TODO: Remove when we're calculating birds based on location
     public List<BirdSpawnData> spawnableBirds = new List<BirdSpawnData>();
+
+    public List<BirdSpawnData> spawnedBirds = new List<BirdSpawnData>();
     
     [SerializeField]
     private LayerGameObjectPlacement _objectSpawner;
@@ -165,15 +167,19 @@ public class MapGameState : MonoBehaviour
         foreach (BirdSpawnData birdData in spawnableBirds)
         {
             // TODO: Uncomment when we add probability in
-            
+
             //float randomValue = Random.Range(0f, 1f);
             //if (randomValue <= birdData.spawnProbability)
             //{
             //    // Spawn the bird
             //    SpawnBird(birdData, playerLocation);
             //}
-
-            SpawnBird(birdData, playerLocation);
+            if(!spawnedBirds.Contains(birdData))
+            {
+                // TODO: This will need to be fixed to account for the spawned birds location
+                spawnedBirds.Add(birdData);
+                SpawnBird(birdData, playerLocation);
+            }
         }
 
 
@@ -184,7 +190,7 @@ public class MapGameState : MonoBehaviour
         // Implement the logic to spawn the bird in your game world
         // For example, instantiate a prefab or show an icon on the map
 
-        Debug.Log($"Spawning {birdData.name} at location {playerLocation}");
+        Debug.Log($"Spawning {birdData.birdData.name} at location {playerLocation}");
         // var location = ScreenPointToLatLong(touchPosition);
 
         if (_mapCamera != null)
@@ -196,7 +202,6 @@ public class MapGameState : MonoBehaviour
             //_objectSpawner.PlaceInstance(location, rotation);
 
             // TODO: Verify this is right
-
             _objectSpawner.PlaceInstance(playerLocation, rotation);
             return;
         }
