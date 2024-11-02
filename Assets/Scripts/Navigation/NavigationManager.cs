@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -35,11 +36,11 @@ public class NavigationManager : MonoBehaviour
     public void ReturnToPrevScene() 
     {
         // retrieves and pops the last scene from the list
-        string prevScene = sceneStack[sceneStack.Count - 1];
+        string prevScene = sceneStack.Last();
         sceneStack.RemoveAt(sceneStack.Count - 1);
 
         // loads the previous Scene 
-        SceneManager.LoadScene(prevScene);
+        SceneManager.LoadScene(prevScene); 
     }
 
 }
