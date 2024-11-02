@@ -398,6 +398,7 @@ MonoBehaviour:
   - {fileID: 1794560369458669573, guid: f371463e169c8e04f828302454b9b459, type: 3}
   spawnableBirds:
   - {fileID: 1794560369458669573, guid: f371463e169c8e04f828302454b9b459, type: 3}
+  spawnedBirds: []
   _objectSpawner: {fileID: 9140178210910293012, guid: 78579b7f829eda240be7dde0d260ec9c, type: 3}
   _mapCamera: {fileID: 355520862}
   _lightshipMapView: {fileID: 7395098618855432449}
@@ -647,6 +648,51 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 435294114}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &837297062
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 837297064}
+  - component: {fileID: 837297063}
+  m_Layer: 0
+  m_Name: NavManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &837297063
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 837297062}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 777ea75f9159c4baa904d932e8855f53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneQueue: []
+--- !u!4 &837297064
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 837297062}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 500, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1089953989
 GameObject:
   m_ObjectHideFlags: 0
@@ -1410,3 +1456,4 @@ SceneRoots:
   - {fileID: 210307764}
   - {fileID: 299130263}
   - {fileID: 330933990}
+  - {fileID: 837297064}

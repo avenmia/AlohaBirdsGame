@@ -7,16 +7,25 @@ public class SceneManagerScript : MonoBehaviour
 {
     public void LoadScene(string sceneName)
     {
-        SceneManager.LoadScene(sceneName);
+        if (NavigationManager.Instance != null)
+        {
+            NavigationManager.Instance.LoadNewScene(sceneName);
+        }
+        else
+        {
+            Debug.LogWarning("NavigationManager instance is not available.");
+        }
     }
 
-    public void UnloadScene(string sceneName)
+    public void ReturnScene()
     {
-        SceneManager.UnloadSceneAsync(sceneName);
-    }
-
-    public void LoadSceneAsync(string sceneName)
-    {
-        SceneManager.LoadSceneAsync(sceneName);
+        if (NavigationManager.Instance != null)
+        {
+            NavigationManager.Instance.ReturnToPrevScene();
+        }
+        else
+        {
+            Debug.LogWarning("NavigationManager instance is not available.");
+        }
     }
 }
