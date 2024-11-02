@@ -1053,20 +1053,8 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 823907113}
         m_TargetAssemblyTypeName: SceneManagerScript, Assembly-CSharp
-        m_MethodName: LoadScene
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: MapScene
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 823907113}
-        m_TargetAssemblyTypeName: SceneManagerScript, Assembly-CSharp
-        m_MethodName: UnloadScene
-        m_Mode: 5
+        m_MethodName: returnScene
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1807,7 +1795,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.38636252, y: 0.1481653}
   m_AnchorMax: {x: 0.59800005, y: 0.27825624}
-  m_AnchoredPosition: {x: 0.647316, y: -1.7010498}
+  m_AnchoredPosition: {x: 0.64730835, y: -1.7010498}
   m_SizeDelta: {x: 40, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1637092377
@@ -1957,7 +1945,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.67852986, y: 0.1481653}
   m_AnchorMax: {x: 0.89775693, y: 0.27825624}
-  m_AnchoredPosition: {x: 0.8712616, y: -1.2010498}
+  m_AnchoredPosition: {x: 0.87127686, y: -1.2010498}
   m_SizeDelta: {x: 36, y: 29}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1677581597
