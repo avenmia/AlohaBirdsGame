@@ -20,13 +20,15 @@ public class AvidexUIManager : MonoBehaviour
             Destroy(child.gameObject);
         }
 
-        if (UserBirdManager.Instance == null || UserBirdManager.Instance.capturedBirds == null)
+        if (PersistentDataManager.Instance == null || PersistentDataManager.Instance.userCapturedBirds == null)
         {
             return;
         }
-        List<BirdData> capturedBirds = UserBirdManager.Instance.capturedBirds;
+        //List<UserAvidexBird> capturedBirds = UserBirdManager.Instance.capturedBirds;
 
-        foreach (BirdData bird in capturedBirds)
+        List<UserAvidexBird> capturedBirds = PersistentDataManager.Instance.userCapturedBirds;
+
+        foreach (UserAvidexBird bird in capturedBirds)
         {
             GameObject newItem = Instantiate(birdListItemPrefab, contentPanel);
             newItem.transform.SetParent(contentPanel, false);
@@ -35,7 +37,7 @@ public class AvidexUIManager : MonoBehaviour
         }
     }
 
-    private void OnBirdSelected(BirdData bird)
+    private void OnBirdSelected(UserAvidexBird bird)
     {
         if (BirdDetailUIManager.Instance == null)
         {

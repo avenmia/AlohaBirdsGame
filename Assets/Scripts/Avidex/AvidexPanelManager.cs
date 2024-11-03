@@ -19,7 +19,7 @@ public class AvidexPanelManager : MonoBehaviour
         detailPanel.SetActive(false);
     }
 
-    public void ShowDetailPanel(BirdData birdData)
+    public void ShowDetailPanel(UserAvidexBird birdData)
     {
         // Update detail panel content
         BirdDetailUIManager.Instance.ShowDetails(birdData);

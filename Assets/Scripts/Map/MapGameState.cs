@@ -10,15 +10,18 @@ public class MapGameState : MonoBehaviour
 {
     public static MapGameState Instance;
 
-    public List<BirdSpawnData> birdSpawnDataList; // List of all bird spawn data
+    public List<BirdDataObject> birdSpawnDataList; // List of all bird spawn data
 
     // TODO: Remove when we're calculating birds based on location
-    public List<BirdSpawnData> spawnableBirds = new List<BirdSpawnData>();
+    public List<BirdDataObject> spawnableBirds = new List<BirdDataObject>();
 
-    public List<BirdSpawnData> spawnedBirds = new List<BirdSpawnData>();
+    public List<BirdDataObject> spawnedBirds = new List<BirdDataObject>();
     
     [SerializeField]
-    private LayerGameObjectPlacement _objectSpawner;
+    private LayerGameObjectPlacement _mynaSpawner;
+
+    [SerializeField]
+    private LayerGameObjectPlacement _owlSpawner;
 
     [SerializeField]
     private Camera _mapCamera;
@@ -111,7 +114,7 @@ public class MapGameState : MonoBehaviour
     }
 
     // Method to get birds that can spawn at a given location
-    public List<BirdSpawnData> GetSpawnableBirdsAtLocation(Vector2 playerLocation)
+    public List<BirdDataObject> GetSpawnableBirdsAtLocation(Vector2 playerLocation)
     {
         // TODO: Uncomment when we're getting birds based on the user's location 
 
@@ -164,7 +167,30 @@ public class MapGameState : MonoBehaviour
     {
         // TODO: Add when we incorporate player location
         // List<BirdSpawnData> spawnableBirds = GetSpawnableBirdsAtLocation(playerLocation);
-        foreach (BirdSpawnData birdData in spawnableBirds)
+
+        // TODO: Instead of getting all gameBirds, get the birds that are within a distance of the player
+        if (PersistentDataManager.Instance == null || PersistentDataManager.Instance.gameBirds == null)
+        {
+            Debug.LogWarning("GameBirds should not be null here");
+        }
+
+        var birdsInPlayersArea = PersistentDataManager.Instance.gameBirds;
+        foreach(var birdKeyValue in birdsInPlayersArea)
+        {
+            var birdDataValue = birdKeyValue.Value.birdData;
+            
+            if (spawnableBirds.Find(b => b.birdName == birdDataValue.birdName) == null)
+            {
+                spawnableBirds.Add(new BirdDataObject()
+                {
+                    birdName = birdDataValue.birdName,
+                    spawnProbability = 1,
+                    spawnRadius = 5,
+                    location = new Vector3(playerLocation.x, playerLocation.y)
+                });
+            }
+        }
+        foreach (BirdDataObject birdData in spawnableBirds)
         {
             // TODO: Uncomment when we add probability in
 
@@ -174,23 +200,24 @@ public class MapGameState : MonoBehaviour
             //    // Spawn the bird
             //    SpawnBird(birdData, playerLocation);
             //}
+
+                // TODO: This will need to be fixed to account for the spawned birds location
+                // TODO: This GeoLocation assignment isn't right. Assuming the player's location for now
+
             if(!spawnedBirds.Contains(birdData))
             {
-                // TODO: This will need to be fixed to account for the spawned birds location
                 spawnedBirds.Add(birdData);
                 SpawnBird(birdData, playerLocation);
             }
         }
-
-
     }
 
-    private void SpawnBird(BirdSpawnData birdData, Vector2 playerLocation)
+    private void SpawnBird(BirdDataObject birdData, Vector2 playerLocation)
     {
         // Implement the logic to spawn the bird in your game world
         // For example, instantiate a prefab or show an icon on the map
 
-        Debug.Log($"Spawning {birdData.birdData.name} at location {playerLocation}");
+        Debug.Log($"Spawning {birdData.birdName} at location {playerLocation}");
         // var location = ScreenPointToLatLong(touchPosition);
 
         if (_mapCamera != null)
@@ -199,11 +226,18 @@ public class MapGameState : MonoBehaviour
             var forward = new Vector3(cameraForward.x, 0f, cameraForward.z).normalized;
             var rotation = Quaternion.LookRotation(forward);
 
-            //_objectSpawner.PlaceInstance(location, rotation);
+            if (_mynaSpawner == null)
+            {
+                Debug.LogWarning("Myna Spawner should not equal null");
+            }
 
             // TODO: Verify this is right
-            _objectSpawner.PlaceInstance(playerLocation, rotation);
-            return;
+            switch(birdData.birdName)
+            {
+                case "Common Myna": _mynaSpawner.PlaceInstance(playerLocation, rotation); return;
+                // case "BarnOwl": _owlSpawner.PlaceInstance(playerLocation, rotation); return;
+                default: Debug.LogWarning($"Bird spawner does not exist for ${birdData.birdName}"); return;
+            }
         }
     }
 
@@ -221,7 +255,7 @@ public class MapGameState : MonoBehaviour
             Vector2 playerLocation = new Vector2(Input.location.lastData.latitude, Input.location.lastData.longitude);
             MapGameState.Instance.TrySpawnBirdsAtLocation(playerLocation);
             // TODO: Remove after player location
-            TrySpawnBirdsAtLocation(playerLocation);
+            // TrySpawnBirdsAtLocation(playerLocation);
         }
 
         var touchPosition = Vector3.zero;

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -6,7 +7,6 @@ using UnityEngine.UI;
 
 public class ARBirdCaptureManager : MonoBehaviour
 {
-    public List<BirdData> userBirdCollection = new List<BirdData>();
     public Transform galleryContentParent;
     public GameObject imagePrefab;
     public GameObject popupPrefab;
@@ -29,7 +29,6 @@ public class ARBirdCaptureManager : MonoBehaviour
                 RaycastHit hit;
                 if (Physics.Raycast(ray, out hit))
                 {
-
                     if (hit.collider.CompareTag("Bird"))
                     {
                         CaptureBird(hit.collider.gameObject);
@@ -43,9 +42,29 @@ public class ARBirdCaptureManager : MonoBehaviour
     void CaptureBird(GameObject birdObject)
     {
         var controller = birdObject.GetComponent<ARBirdController>();
-        var birdData = controller.birdData;
-        userBirdCollection.Add(birdData);
-        ShowPopup($"You captured a {birdData.birdName}");
+        var birdSpawnData = controller.birdData;
+        var captureData = new BirdCaptureData()
+        {
+            captureTime = DateTime.Now,
+            location = new GeoLocation(birdSpawnData.location.x, birdSpawnData.location.y)
+        };
+
+        var existingUserBird = PersistentDataManager.Instance.GetExisitingUserBird(birdSpawnData);
+        if (existingUserBird == null)
+        {
+            var bird = PersistentDataManager.Instance.GetBirdData(birdSpawnData.birdName);
+            var newUserAvidexBird = new UserAvidexBird(bird)
+            {
+                captureData = new List<BirdCaptureData>() { captureData }
+            };
+            PersistentDataManager.Instance.AddUserAvidexBird(newUserAvidexBird);
+        }
+        else
+        {
+            PersistentDataManager.Instance.UpdateUserAvidexBird(existingUserBird.birdData.name, captureData);
+        }
+
+        ShowPopup($"You captured a {birdSpawnData.birdName}");
         
         // TODO: Uncomment to save screenshot 
         // StartCoroutine(SaveScreenshotToGallery());
