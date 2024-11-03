@@ -6,16 +6,36 @@ using UnityEngine.SceneManagement;
 
 public class ClickToNavigate : MonoBehaviour, IPointerClickHandler
 {
-    [SerializeField] private BirdData birdData;
+    [SerializeField] private BirdDataObject birdSpawnData;
+    public string prefabName;
+
     public void OnPointerClick(PointerEventData eventData)
     {
-        birdData = GetComponent<BirdSpawnData>().birdData;
-
         if (PersistentDataManager.Instance != null)
         {
-            // Store the bird data in the PersistentDataManager
-            PersistentDataManager.Instance.selectedBirdData = birdData;
+            
+            switch (prefabName)
+            {
+                case "MynaPin": 
+                    {
+                        // TODO: This won't work once we incorporate location
+                        birdSpawnData = MapGameState.Instance.spawnedBirds.Find(b => b.birdName ==  "Common Myna");
+                        break;
+                    }
+                case "BarnOwlPin":
+                    {
+                        birdSpawnData = MapGameState.Instance.spawnedBirds.Find(b => b.birdName == "Barn Owl");
+                        break;
+                    }
+                default: Debug.LogWarning("This prefab does not exist"); break;
+            }
+            if (birdSpawnData == null)
+            {
+                Debug.LogWarning("Bird spawn data should not be null");
+            }
 
+            // Store the bird data in the PersistentDataManager
+            PersistentDataManager.Instance.SetBirdData(birdSpawnData);
             // Load the new scene
             SceneManager.LoadScene("ARScene");
         }

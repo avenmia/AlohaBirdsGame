@@ -6,14 +6,15 @@ public class BirdListItemController : MonoBehaviour
 {
     public Image birdThumbnail;
     public TMP_Text birdNameText;
-    private BirdData birdData;
-    private System.Action<BirdData> onClickCallback;
+    private UserAvidexBird birdData;
+    private System.Action<UserAvidexBird> onClickCallback;
 
-    public void Setup(BirdData data, System.Action<BirdData> onClick)
+    public void Setup(UserAvidexBird data, System.Action<UserAvidexBird> onClick)
     {
+        var userBirdData = data.birdData;
         birdData = data;
-        birdThumbnail.sprite = data.birdImage;
-        birdNameText.text = data.birdName;
+        birdThumbnail.sprite = userBirdData.birdImage;
+        birdNameText.text = userBirdData.birdName;
         onClickCallback = onClick;
 
         // Add click listener

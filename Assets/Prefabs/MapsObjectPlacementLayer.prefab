@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 229372716722541845}
   - component: {fileID: 7210214476910999418}
   - component: {fileID: 9140178210910293012}
+  - component: {fileID: -2323981256995030973}
   m_Layer: 0
   m_Name: MapsObjectPlacementLayer
   m_TagString: Untagged
@@ -58,8 +59,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4108dda22f7c430fa958a6cf0be673ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _name: Prefab
+  _name: CommonMynaSpawnPlacement
   _prefab: {fileID: 7087833928533607845, guid: 8e1d189bc17609247a3f7ced180736bc, type: 3}
+  _heightOffset: 0
+  _scaleWithMapRadius: 0
+  _relativeScale: 1
+  _minimumScale: 0
+  _maximumScale: Infinity
+--- !u!114 &-2323981256995030973
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5768593445530704135}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4108dda22f7c430fa958a6cf0be673ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _name: BarnOwlSpawnPlacement
+  _prefab: {fileID: 7087833928533607845, guid: 8d3a086f4dae52b4d85c1a18f477ef20, type: 3}
   _heightOffset: 0
   _scaleWithMapRadius: 0
   _relativeScale: 1

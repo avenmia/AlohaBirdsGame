@@ -14,7 +14,7 @@ public class ARBirdSpawner : MonoBehaviour
     {
         if (PersistentDataManager.Instance.selectedBirdData != null)
         {
-            BirdData birdData = PersistentDataManager.Instance.selectedBirdData;
+            BirdDataObject birdData = PersistentDataManager.Instance.selectedBirdData;
 
 
             // Instantiate the bird prefab at the specified position

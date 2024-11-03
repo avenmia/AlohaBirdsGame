@@ -61,7 +61,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: c7b53a8a1e67e3d4db6b37dacb6dec63, type: 2}
+  - {fileID: 2100000, guid: eaed10a4a8dd0434f98ae205e6c0117b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -179,7 +179,7 @@ GameObject:
   - component: {fileID: 5075578299754635620}
   - component: {fileID: 999543633898710067}
   m_Layer: 0
-  m_Name: MynaPin
+  m_Name: BarnOwlPin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -254,4 +254,4 @@ MonoBehaviour:
     spawnRadius: 0
     birdImage: {fileID: 0}
     location: {x: 0, y: 0, z: 0}
-  prefabName: MynaPin
+  prefabName: BarnOwlPin

@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class ARBirdController : MonoBehaviour
 {
-    public BirdData birdData;
+    public BirdDataObject birdData;
     
-    public void Initialize(BirdData data)
+    public void Initialize(BirdDataObject data)
     {
         birdData = data;
     }

@@ -12,11 +12,12 @@ public class BirdDetailUIManager : MonoBehaviour
     public TMP_Text birdNameText;
     public TMP_Text birdDescriptionText;
 
-    public void ShowDetails(BirdData bird)
+    public void ShowDetails(UserAvidexBird bird)
     {
-        birdImage.sprite = bird.birdImage;
-        birdNameText.text = bird.birdName;
-        birdDescriptionText.text = bird.birdDescription;
+        var userBird = bird.birdData;
+        birdImage.sprite = userBird.birdImage;
+        birdNameText.text = userBird.birdName;
+        birdDescriptionText.text = userBird.birdDescription;
     }
 
     public void HideDetails()
