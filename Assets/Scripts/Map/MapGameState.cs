@@ -53,6 +53,16 @@ public class MapGameState : MonoBehaviour
         {
             Debug.LogError("Map Camera not found after scene load.");
         }
+
+        if (Input.location != null && Input.location.status == LocationServiceStatus.Running)
+        {
+           
+            Vector2 playerLocation = new Vector2(Input.location.lastData.latitude, Input.location.lastData.longitude);
+            foreach (var birdData in spawnedBirds)
+            {
+                SpawnBird(birdData, playerLocation);
+            }
+        }
     }
 
     private IEnumerator StartLocationService()
@@ -168,18 +178,18 @@ public class MapGameState : MonoBehaviour
         // TODO: Add when we incorporate player location
         // List<BirdSpawnData> spawnableBirds = GetSpawnableBirdsAtLocation(playerLocation);
 
-        // TODO: Instead of getting all gameBirds, get the birds that are within a distance of the player
         if (PersistentDataManager.Instance == null || PersistentDataManager.Instance.gameBirds == null)
         {
             Debug.LogWarning("GameBirds should not be null here");
         }
 
+        // TODO: Instead of getting all gameBirds, get the birds that are within a distance of the player
         var birdsInPlayersArea = PersistentDataManager.Instance.gameBirds;
         foreach(var birdKeyValue in birdsInPlayersArea)
         {
             var birdDataValue = birdKeyValue.Value.birdData;
             
-            if (spawnableBirds.Find(b => b.birdName == birdDataValue.birdName) == null)
+            if (birdDataValue.birdName != null && spawnableBirds.Find(b => b.birdName == birdDataValue.birdName) == null)
             {
                 spawnableBirds.Add(new BirdDataObject()
                 {
@@ -201,9 +211,8 @@ public class MapGameState : MonoBehaviour
             //    SpawnBird(birdData, playerLocation);
             //}
 
-                // TODO: This will need to be fixed to account for the spawned birds location
-                // TODO: This GeoLocation assignment isn't right. Assuming the player's location for now
-
+            // TODO: This will need to be fixed to account for the spawned birds location
+            // TODO: This GeoLocation assignment isn't right. Assuming the player's location for now
             if(!spawnedBirds.Contains(birdData))
             {
                 spawnedBirds.Add(birdData);
@@ -214,11 +223,19 @@ public class MapGameState : MonoBehaviour
 
     private void SpawnBird(BirdDataObject birdData, Vector2 playerLocation)
     {
-        // Implement the logic to spawn the bird in your game world
-        // For example, instantiate a prefab or show an icon on the map
 
-        Debug.Log($"Spawning {birdData.birdName} at location {playerLocation}");
-        // var location = ScreenPointToLatLong(touchPosition);
+        string pinName;
+        switch (birdData.birdName)
+        {
+            case "Common Myna": pinName = "MynaPin"; break;
+            case "Barn Own": pinName = "BarnOwlPin"; break;
+            default: pinName = null; break;
+        }
+        if (pinName == null || GameObject.FindGameObjectWithTag(pinName) != null)
+        {
+            Debug.Log("Bird Already Exists");
+            return; // Bird already exists
+        }
 
         if (_mapCamera != null)
         {
@@ -229,6 +246,11 @@ public class MapGameState : MonoBehaviour
             if (_mynaSpawner == null)
             {
                 Debug.LogWarning("Myna Spawner should not equal null");
+            }
+
+            if(playerLocation == null || rotation == null || birdData == null || birdData.birdName == null)
+            {
+                Debug.LogWarning("player location, rotation, or bird name should not be null");
             }
 
             // TODO: Verify this is right
@@ -253,9 +275,16 @@ public class MapGameState : MonoBehaviour
         if (Input.location.status == LocationServiceStatus.Running)
         {
             Vector2 playerLocation = new Vector2(Input.location.lastData.latitude, Input.location.lastData.longitude);
+            
+            // TODO: Implemnt to try to spawn birds constantly
+            //if (Vector3.Distance(playerLocation, lastPlayerPosition) >= movementThreshold)
+            //{
+            //    lastPlayerPosition = playerLocation;
+            //    // TODO: Implement
+            //    // CheckForNewBirds(currentPlayerPosition);
+            //}
             MapGameState.Instance.TrySpawnBirdsAtLocation(playerLocation);
-            // TODO: Remove after player location
-            // TrySpawnBirdsAtLocation(playerLocation);
+
         }
 
         var touchPosition = Vector3.zero;
