@@ -665,51 +665,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 435294114}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &837297062
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 837297064}
-  - component: {fileID: 837297063}
-  m_Layer: 0
-  m_Name: NavManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &837297063
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 837297062}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 777ea75f9159c4baa904d932e8855f53, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sceneStack: []
---- !u!4 &837297064
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 837297062}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 500, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1089953989
 GameObject:
   m_ObjectHideFlags: 0
@@ -1018,9 +973,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1769829910}
-        m_TargetAssemblyTypeName: SceneManagerScript, Assembly-CSharp
-        m_MethodName: LoadScene
+      - m_Target: {fileID: 2402545146165990253, guid: 44736237b9191b34b9702516dd1eecb2, type: 3}
+        m_TargetAssemblyTypeName: NavigationManager, Assembly-CSharp
+        m_MethodName: LoadNewScene
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1101,7 +1056,6 @@ GameObject:
   - component: {fileID: 1769829908}
   - component: {fileID: 1769829907}
   - component: {fileID: 1769829906}
-  - component: {fileID: 1769829910}
   m_Layer: 5
   m_Name: PlayerProfileLink
   m_TagString: Untagged
@@ -1192,18 +1146,6 @@ RectTransform:
   m_AnchoredPosition: {x: 190, y: 337.5}
   m_SizeDelta: {x: 380, y: 675}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1769829910
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1769829905}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c9807e8fa3f07f64eb8a22194bdf5460, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1828262390
 GameObject:
   m_ObjectHideFlags: 0
@@ -1473,4 +1415,3 @@ SceneRoots:
   - {fileID: 210307764}
   - {fileID: 299130263}
   - {fileID: 330933990}
-  - {fileID: 837297064}

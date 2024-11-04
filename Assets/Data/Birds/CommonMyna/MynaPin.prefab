@@ -180,7 +180,7 @@ GameObject:
   - component: {fileID: 999543633898710067}
   m_Layer: 0
   m_Name: MynaPin
-  m_TagString: Untagged
+  m_TagString: MynaPin
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
