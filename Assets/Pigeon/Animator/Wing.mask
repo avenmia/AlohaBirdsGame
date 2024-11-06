@@ -1,0 +1,273 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!319 &101100000
+AvatarMask:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Wing
+  m_Mask: 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+  m_Elements:
+  - m_Path: 
+    m_Weight: 1
+  - m_Path: Dummy005
+    m_Weight: 0
+  - m_Path: Dummy005/Dummy001
+    m_Weight: 0
+  - m_Path: Dummy005/Dummy001/Bone244
+    m_Weight: 1
+  - m_Path: Dummy005/Dummy001/Bone245
+    m_Weight: 1
+  - m_Path: Dummy005/Dummy001/Bone246
+    m_Weight: 1
+  - m_Path: Dummy005/Dummy001/Bone247
+    m_Weight: 1
+  - m_Path: Dummy005/Dummy001/Bone248
+    m_Weight: 1
+  - m_Path: Dummy005/Dummy001/Bone249
+    m_Weight: 1
+  - m_Path: Dummy005/Dummy001/Bone250
+    m_Weight: 1
+  - m_Path: Dummy005/Dummy001/Bone251
+    m_Weight: 1
+  - m_Path: Dummy005/Dummy001/Bone252
+    m_Weight: 1
+  - m_Path: Dummy005/Dummy001/Bone253
+    m_Weight: 1
+  - m_Path: Dummy005/Dummy001/Bone281
+    m_Weight: 0
+  - m_Path: Dummy005/Dummy001/Bone281/Bone282
+    m_Weight: 0
+  - m_Path: Dummy005/Dummy001/Bone281/Bone282/Bone283
+    m_Weight: 0
+  - m_Path: Dummy005/Dummy001/Bone281/Bone282/Bone283/Bone284
+    m_Weight: 0
+  - m_Path: Dummy005/Dummy001/Bone281/Bone282/Bone283/Bone284/Bone285
+    m_Weight: 0
+  - m_Path: Dummy005/Dummy001/Bone281/Bone282/Bone283/Bone286
+    m_Weight: 0
+  - m_Path: Dummy005/Dummy001/Bone281/Bone282/Bone283/Bone286/Bone287
+    m_Weight: 0
+  - m_Path: Dummy005/Dummy001/Bone281/Bone282/Bone283/Bone286/Bone287/Bone288
+    m_Weight: 0
+  - m_Path: Dummy005/Dummy001/Bone281/Bone282/Bone283/Bone289
+    m_Weight: 0
+  - m_Path: Dummy005/Dummy001/Bone281/Bone282/Bone283/Bone289/Bone290
+    m_Weight: 0
+  - m_Path: Dummy005/Dummy001/Bone281/Bone282/Bone283/Bone289/Bone290/Bone291
+    m_Weight: 0
+  - m_Path: Dummy005/Dummy001/Bone281/Bone282/Bone283/Bone292
+    m_Weight: 0
+  - m_Path: Dummy005/Dummy001/Bone281/Bone282/Bone283/Bone292/Bone293
+    m_Weight: 0
+  - m_Path: Dummy005/Dummy001/Bone281/Bone282/Bone283/Bone292/Bone293/Bone294
+    m_Weight: 0
+  - m_Path: Dummy005/Dummy001/Bone295
+    m_Weight: 0
+  - m_Path: Dummy005/Dummy001/Bone295/Bone296
+    m_Weight: 0
+  - m_Path: Dummy005/Dummy001/Bone295/Bone296/Bone297
+    m_Weight: 0
+  - m_Path: Dummy005/Dummy001/Bone295/Bone296/Bone297/Bone298
+    m_Weight: 0
+  - m_Path: Dummy005/Dummy001/Bone295/Bone296/Bone297/Bone298/Bone299
+    m_Weight: 0
+  - m_Path: Dummy005/Dummy001/Bone295/Bone296/Bone297/Bone300
+    m_Weight: 0
+  - m_Path: Dummy005/Dummy001/Bone295/Bone296/Bone297/Bone300/Bone301
+    m_Weight: 0
+  - m_Path: Dummy005/Dummy001/Bone295/Bone296/Bone297/Bone300/Bone301/Bone302
+    m_Weight: 0
+  - m_Path: Dummy005/Dummy001/Bone295/Bone296/Bone297/Bone303
+    m_Weight: 0
+  - m_Path: Dummy005/Dummy001/Bone295/Bone296/Bone297/Bone303/Bone304
+    m_Weight: 0
+  - m_Path: Dummy005/Dummy001/Bone295/Bone296/Bone297/Bone303/Bone304/Bone305
+    m_Weight: 0
+  - m_Path: Dummy005/Dummy001/Bone295/Bone296/Bone297/Bone306
+    m_Weight: 0
+  - m_Path: Dummy005/Dummy001/Bone295/Bone296/Bone297/Bone306/Bone307
+    m_Weight: 0
+  - m_Path: Dummy005/Dummy001/Bone295/Bone296/Bone297/Bone306/Bone307/Bone308
+    m_Weight: 0
+  - m_Path: Dummy005/Dummy001/Bone309
+    m_Weight: 0
+  - m_Path: Dummy005/Dummy001/Bone309/Dummy002
+    m_Weight: 0
+  - m_Path: Dummy005/Dummy001/Bone309/Dummy002/Bone004
+    m_Weight: 1
+  - m_Path: Dummy005/Dummy001/Bone309/Dummy002/Bone004/Bone005
+    m_Weight: 1
+  - m_Path: Dummy005/Dummy001/Bone309/Dummy002/Bone004/Bone005/Bone006
+    m_Weight: 1
+  - m_Path: Dummy005/Dummy001/Bone309/Dummy002/Bone004/Bone005/Bone006/Bone007
+    m_Weight: 1
+  - m_Path: Dummy005/Dummy001/Bone309/Dummy002/Bone004/Bone005/Bone006/Bone007/Bone079
+    m_Weight: 1
+  - m_Path: Dummy005/Dummy001/Bone309/Dummy002/Bone004/Bone005/Bone006/Bone007/Bone079/Bone080
+    m_Weight: 1
+  - m_Path: Dummy005/Dummy001/Bone309/Dummy002/Bone004/Bone005/Bone006/Bone081
+    m_Weight: 1
+  - m_Path: Dummy005/Dummy001/Bone309/Dummy002/Bone004/Bone005/Bone006/Bone081/Bone082
+    m_Weight: 1
+  - m_Path: Dummy005/Dummy001/Bone309/Dummy002/Bone004/Bone005/Bone006/Bone083
+    m_Weight: 1
+  - m_Path: Dummy005/Dummy001/Bone309/Dummy002/Bone004/Bone005/Bone006/Bone083/Bone084
+    m_Weight: 1
+  - m_Path: Dummy005/Dummy001/Bone309/Dummy002/Bone004/Bone005/Bone006/Bone085
+    m_Weight: 1
+  - m_Path: Dummy005/Dummy001/Bone309/Dummy002/Bone004/Bone005/Bone006/Bone085/Bone086
+    m_Weight: 1
+  - m_Path: Dummy005/Dummy001/Bone309/Dummy002/Bone004/Bone005/Bone006/Bone087
+    m_Weight: 1
+  - m_Path: Dummy005/Dummy001/Bone309/Dummy002/Bone004/Bone005/Bone006/Bone087/Bone088
+    m_Weight: 1
+  - m_Path: Dummy005/Dummy001/Bone309/Dummy002/Bone004/Bone005/Bone006/Bone089
+    m_Weight: 1
+  - m_Path: Dummy005/Dummy001/Bone309/Dummy002/Bone004/Bone005/Bone006/Bone089/Bone090
+    m_Weight: 1
+  - m_Path: Dummy005/Dummy001/Bone309/Dummy002/Bone004/Bone005/Bone006/Bone091
+    m_Weight: 1
+  - m_Path: Dummy005/Dummy001/Bone309/Dummy002/Bone004/Bone005/Bone006/Bone091/Bone092
+    m_Weight: 1
+  - m_Path: Dummy005/Dummy001/Bone309/Dummy002/Bone004/Bone005/Bone006/Bone260
+    m_Weight: 1
+  - m_Path: Dummy005/Dummy001/Bone309/Dummy002/Bone004/Bone005/Bone006/Bone260/Bone261
+    m_Weight: 1
+  - m_Path: Dummy005/Dummy001/Bone309/Dummy002/Bone004/Bone005/Bone006/Bone262
+    m_Weight: 1
+  - m_Path: Dummy005/Dummy001/Bone309/Dummy002/Bone004/Bone005/Bone006/Bone262/Bone263
+    m_Weight: 1
+  - m_Path: Dummy005/Dummy001/Bone309/Dummy002/Bone004/Bone005/Bone006/Bone264
+    m_Weight: 1
+  - m_Path: Dummy005/Dummy001/Bone309/Dummy002/Bone004/Bone005/Bone006/Bone264/Bone265
+    m_Weight: 1
+  - m_Path: Dummy005/Dummy001/Bone309/Dummy002/Bone004/Bone005/Bone093
+    m_Weight: 1
+  - m_Path: Dummy005/Dummy001/Bone309/Dummy002/Bone004/Bone005/Bone094
+    m_Weight: 1
+  - m_Path: Dummy005/Dummy001/Bone309/Dummy002/Bone004/Bone005/Bone095
+    m_Weight: 1
+  - m_Path: Dummy005/Dummy001/Bone309/Dummy002/Bone004/Bone005/Bone096
+    m_Weight: 1
+  - m_Path: Dummy005/Dummy001/Bone309/Dummy002/Bone004/Bone005/Bone097
+    m_Weight: 1
+  - m_Path: Dummy005/Dummy001/Bone309/Dummy002/Bone004/Bone005/Bone255
+    m_Weight: 1
+  - m_Path: Dummy005/Dummy001/Bone309/Dummy002/Bone004/Bone005/Bone256
+    m_Weight: 1
+  - m_Path: Dummy005/Dummy001/Bone309/Dummy002/Bone004/Bone005/Bone257
+    m_Weight: 1
+  - m_Path: Dummy005/Dummy001/Bone309/Dummy002/Bone004/Bone005/Bone258
+    m_Weight: 1
+  - m_Path: Dummy005/Dummy001/Bone309/Dummy002/Bone004/Bone005/Bone259
+    m_Weight: 1
+  - m_Path: Dummy005/Dummy001/Bone309/Dummy002/Bone010
+    m_Weight: 1
+  - m_Path: Dummy005/Dummy001/Bone309/Dummy002/Bone010/Bone011
+    m_Weight: 1
+  - m_Path: Dummy005/Dummy001/Bone309/Dummy002/Bone010/Bone011/Bone124
+    m_Weight: 1
+  - m_Path: Dummy005/Dummy001/Bone309/Dummy002/Bone098
+    m_Weight: 1
+  - m_Path: Dummy005/Dummy001/Bone309/Dummy002/Bone098/Bone099
+    m_Weight: 1
+  - m_Path: Dummy005/Dummy001/Bone309/Dummy002/Bone098/Bone099/Bone100
+    m_Weight: 1
+  - m_Path: Dummy005/Dummy001/Bone309/Dummy002/Bone098/Bone099/Bone100/Bone101
+    m_Weight: 1
+  - m_Path: Dummy005/Dummy001/Bone309/Dummy002/Bone098/Bone099/Bone100/Bone101/Bone103
+    m_Weight: 1
+  - m_Path: Dummy005/Dummy001/Bone309/Dummy002/Bone098/Bone099/Bone100/Bone101/Bone103/Bone104
+    m_Weight: 1
+  - m_Path: Dummy005/Dummy001/Bone309/Dummy002/Bone098/Bone099/Bone100/Bone105
+    m_Weight: 1
+  - m_Path: Dummy005/Dummy001/Bone309/Dummy002/Bone098/Bone099/Bone100/Bone105/Bone106
+    m_Weight: 1
+  - m_Path: Dummy005/Dummy001/Bone309/Dummy002/Bone098/Bone099/Bone100/Bone107
+    m_Weight: 1
+  - m_Path: Dummy005/Dummy001/Bone309/Dummy002/Bone098/Bone099/Bone100/Bone107/Bone108
+    m_Weight: 1
+  - m_Path: Dummy005/Dummy001/Bone309/Dummy002/Bone098/Bone099/Bone100/Bone109
+    m_Weight: 1
+  - m_Path: Dummy005/Dummy001/Bone309/Dummy002/Bone098/Bone099/Bone100/Bone109/Bone110
+    m_Weight: 1
+  - m_Path: Dummy005/Dummy001/Bone309/Dummy002/Bone098/Bone099/Bone100/Bone111
+    m_Weight: 1
+  - m_Path: Dummy005/Dummy001/Bone309/Dummy002/Bone098/Bone099/Bone100/Bone111/Bone112
+    m_Weight: 1
+  - m_Path: Dummy005/Dummy001/Bone309/Dummy002/Bone098/Bone099/Bone100/Bone113
+    m_Weight: 1
+  - m_Path: Dummy005/Dummy001/Bone309/Dummy002/Bone098/Bone099/Bone100/Bone113/Bone114
+    m_Weight: 1
+  - m_Path: Dummy005/Dummy001/Bone309/Dummy002/Bone098/Bone099/Bone100/Bone115
+    m_Weight: 1
+  - m_Path: Dummy005/Dummy001/Bone309/Dummy002/Bone098/Bone099/Bone100/Bone115/Bone116
+    m_Weight: 1
+  - m_Path: Dummy005/Dummy001/Bone309/Dummy002/Bone098/Bone099/Bone100/Bone271
+    m_Weight: 1
+  - m_Path: Dummy005/Dummy001/Bone309/Dummy002/Bone098/Bone099/Bone100/Bone271/Bone272
+    m_Weight: 1
+  - m_Path: Dummy005/Dummy001/Bone309/Dummy002/Bone098/Bone099/Bone100/Bone273
+    m_Weight: 1
+  - m_Path: Dummy005/Dummy001/Bone309/Dummy002/Bone098/Bone099/Bone100/Bone273/Bone274
+    m_Weight: 1
+  - m_Path: Dummy005/Dummy001/Bone309/Dummy002/Bone098/Bone099/Bone100/Bone275
+    m_Weight: 1
+  - m_Path: Dummy005/Dummy001/Bone309/Dummy002/Bone098/Bone099/Bone100/Bone275/Bone276
+    m_Weight: 1
+  - m_Path: Dummy005/Dummy001/Bone309/Dummy002/Bone098/Bone099/Bone117
+    m_Weight: 1
+  - m_Path: Dummy005/Dummy001/Bone309/Dummy002/Bone098/Bone099/Bone118
+    m_Weight: 1
+  - m_Path: Dummy005/Dummy001/Bone309/Dummy002/Bone098/Bone099/Bone119
+    m_Weight: 1
+  - m_Path: Dummy005/Dummy001/Bone309/Dummy002/Bone098/Bone099/Bone120
+    m_Weight: 1
+  - m_Path: Dummy005/Dummy001/Bone309/Dummy002/Bone098/Bone099/Bone121
+    m_Weight: 1
+  - m_Path: Dummy005/Dummy001/Bone309/Dummy002/Bone098/Bone099/Bone266
+    m_Weight: 1
+  - m_Path: Dummy005/Dummy001/Bone309/Dummy002/Bone098/Bone099/Bone267
+    m_Weight: 1
+  - m_Path: Dummy005/Dummy001/Bone309/Dummy002/Bone098/Bone099/Bone268
+    m_Weight: 1
+  - m_Path: Dummy005/Dummy001/Bone309/Dummy002/Bone098/Bone099/Bone269
+    m_Weight: 1
+  - m_Path: Dummy005/Dummy001/Bone309/Dummy002/Bone098/Bone099/Bone270
+    m_Weight: 1
+  - m_Path: Dummy005/Dummy001/Bone309/Dummy002/Bone122
+    m_Weight: 1
+  - m_Path: Dummy005/Dummy001/Bone309/Dummy002/Bone122/Bone123
+    m_Weight: 1
+  - m_Path: Dummy005/Dummy001/Bone309/Dummy002/Bone122/Bone123/Bone125
+    m_Weight: 1
+  - m_Path: Dummy005/Dummy001/Bone309/Dummy002/Bone310
+    m_Weight: 0
+  - m_Path: Dummy005/Dummy001/Bone309/Dummy002/Bone310/Bone311
+    m_Weight: 0
+  - m_Path: Dummy005/Dummy001/Bone309/Dummy002/Dummy006
+    m_Weight: 0
+  - m_Path: Dummy005/Dummy001/Bone309/Dummy002/Dummy006/Dummy007
+    m_Weight: 0
+  - m_Path: Dummy005/Dummy001/Bone309/Dummy002/Dummy006/Dummy007/Dummy008
+    m_Weight: 0
+  - m_Path: Dummy005/Dummy001/Bone309/Dummy002/Dummy006/Dummy007/Dummy008/Bone279
+    m_Weight: 0
+  - m_Path: Dummy005/Dummy001/Bone309/Dummy002/Dummy006/Dummy007/Dummy008/Bone279/Bone280
+    m_Weight: 0
+  - m_Path: Dummy005/Dummy001/IK Chain011
+    m_Weight: 0
+  - m_Path: Dummy005/Dummy001/IK Chain012
+    m_Weight: 0
+  - m_Path: Dummy005/IK Chain009
+    m_Weight: 0
+  - m_Path: Dummy005/IK Chain010
+    m_Weight: 0
+  - m_Path: IK Chain001
+    m_Weight: 0
+  - m_Path: IK Chain002
+    m_Weight: 0
+  - m_Path: Pigeon
+    m_Weight: 0
