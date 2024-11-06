@@ -9,6 +9,8 @@ public class ClickToNavigate : MonoBehaviour, IPointerClickHandler
     [SerializeField] private BirdDataObject birdSpawnData;
     public string prefabName;
 
+    public GameObject NavPrefab;
+
     public void OnPointerClick(PointerEventData eventData)
     {
         if (PersistentDataManager.Instance != null)
@@ -36,8 +38,10 @@ public class ClickToNavigate : MonoBehaviour, IPointerClickHandler
 
             // Store the bird data in the PersistentDataManager
             PersistentDataManager.Instance.SetBirdData(birdSpawnData);
-            // Load the new scene
-            SceneManager.LoadScene("ARScene");
+            
+            // find navManager if exists from other interactions
+            NavigationManager.Instance.LoadNewScene("ARScene");
+
         }
         else
         {
