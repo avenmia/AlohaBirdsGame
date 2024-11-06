@@ -1336,13 +1336,29 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 91936567887524612, guid: 0f989f1ab23be4b4095a2d3c14e456d2, type: 3}
+      propertyPath: _centerMapAtOrigin
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 91936567887524612, guid: 0f989f1ab23be4b4095a2d3c14e456d2, type: 3}
       propertyPath: _mapLayers.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 91936567887524612, guid: 0f989f1ab23be4b4095a2d3c14e456d2, type: 3}
+      propertyPath: _startAtDefaultLocation
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 91936567887524612, guid: 0f989f1ab23be4b4095a2d3c14e456d2, type: 3}
       propertyPath: _mapLayers.Array.data[0]
       value: 
       objectReference: {fileID: 7210214476910999418, guid: 78579b7f829eda240be7dde0d260ec9c, type: 3}
+    - target: {fileID: 91936567887524612, guid: 0f989f1ab23be4b4095a2d3c14e456d2, type: 3}
+      propertyPath: _defaultLocation._latitude
+      value: 21.31624
+      objectReference: {fileID: 0}
+    - target: {fileID: 91936567887524612, guid: 0f989f1ab23be4b4095a2d3c14e456d2, type: 3}
+      propertyPath: _defaultLocation._longitude
+      value: -157.858102
+      objectReference: {fileID: 0}
     - target: {fileID: 681774726965526047, guid: 0f989f1ab23be4b4095a2d3c14e456d2, type: 3}
       propertyPath: m_Name
       value: LightshipMap

@@ -275,16 +275,20 @@ public class MapGameState : MonoBehaviour
         if (Input.location.status == LocationServiceStatus.Running)
         {
             Vector2 playerLocation = new Vector2(Input.location.lastData.latitude, Input.location.lastData.longitude);
-            
-            // TODO: Implemnt to try to spawn birds constantly
-            //if (Vector3.Distance(playerLocation, lastPlayerPosition) >= movementThreshold)
-            //{
-            //    lastPlayerPosition = playerLocation;
-            //    // TODO: Implement
-            //    // CheckForNewBirds(currentPlayerPosition);
-            //}
-            MapGameState.Instance.TrySpawnBirdsAtLocation(playerLocation);
+            if (_lightshipMapView != null)
+            {
+                var latlng = new LatLng(playerLocation.x, playerLocation.y);
+                _lightshipMapView.SetMapCenter(latlng);
 
+                // TODO: Implemnt to try to spawn birds constantly
+                //if (Vector3.Distance(playerLocation, lastPlayerPosition) >= movementThreshold)
+                //{
+                //    lastPlayerPosition = playerLocation;
+                //    // TODO: Implement
+                //    // CheckForNewBirds(currentPlayerPosition);
+                //}
+                MapGameState.Instance.TrySpawnBirdsAtLocation(playerLocation);
+            }
         }
 
         var touchPosition = Vector3.zero;
