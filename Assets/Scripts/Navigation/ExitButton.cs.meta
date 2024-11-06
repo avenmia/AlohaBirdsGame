@@ -1,10 +1,9 @@
 fileFormatVersion: 2
-guid: 09c106cbc15e41846abbaf1c9b2bf843
+guid: f1e9920edb0264b878544d01af35a2dc
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences:
-  - NavPrefab: {fileID: 5603679508638401894, guid: 44736237b9191b34b9702516dd1eecb2, type: 3}
+  defaultReferences: []
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
