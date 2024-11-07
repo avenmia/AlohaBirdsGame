@@ -50,10 +50,6 @@ public class MapGameState : MonoBehaviour
         _mapCamera = Camera.main; // Or find it by name or tag if it's not the main camera
         _lightshipMapView = FindObjectOfType<LightshipMapView>();
         
-        if (_lightshipMapView == null)
-        {
-            Debug.LogError("LightshipMapView not found after scene load.");
-        }
 
         if (_mapCamera == null)
         {
@@ -71,7 +67,7 @@ public class MapGameState : MonoBehaviour
 
                 foreach (var birdData in spawnedBirds)
                 {
-                    SpawnBird(birdData, playerLocation);
+                    SpawnBird(birdData, playerLocation, true);
                 }
             }
         }
@@ -255,7 +251,7 @@ public class MapGameState : MonoBehaviour
         }
     }
 
-    private void SpawnBird(BirdDataObject birdData, Vector2 playerLocation)
+    private void SpawnBird(BirdDataObject birdData, Vector2 playerLocation, bool isRespawn = false)
     {
         string pinName;
         switch (birdData.birdName)
@@ -287,18 +283,32 @@ public class MapGameState : MonoBehaviour
                 Debug.LogWarning("player location, rotation, or bird name should not be null");
             }
 
+            Vector3 spawnPosition;
 
-            // Convert playerLocation (latitude, longitude) to a LatLng object
-            var latLng = new LatLng(playerLocation.x, playerLocation.y);
+            if (isRespawn && birdData.location != Vector3.zero)
+            {
+                // Use the stored scene position
+                spawnPosition = birdData.location;
+            }
+            else
+            {
+                // Calculate a new spawn position
+                // spawnPosition = CalculateSpawnPosition(playerLocation, rotation);
+                // Convert playerLocation (latitude, longitude) to a LatLng object
+                var latLng = new LatLng(playerLocation.x, playerLocation.y);
 
-            // Convert the LatLng to scene coordinates
-            var scenePosition = _lightshipMapView.LatLngToScene(latLng);
+                // Convert the LatLng to scene coordinates
+                var scenePosition = _lightshipMapView.LatLngToScene(latLng);
 
-            // Define the offset distance in Unity units (1 unit = 1 meter)
-            float offsetDistance = 5.0f; // Adjust this value as needed
+                // Define the offset distance in Unity units (1 unit = 1 meter)
+                float offsetDistance = 25.0f; // Adjust this value as needed
 
-            // Calculate the spawn position by offsetting the scene position
-            var spawnPosition = scenePosition + forward * offsetDistance;
+                // Calculate the spawn position by offsetting the scene position
+                spawnPosition = scenePosition + forward * offsetDistance;
+
+                // Store the spawn position in the bird data
+                birdData.location = spawnPosition;
+            }
 
             // TODO: Verify this is right
             switch (birdData.birdName)
