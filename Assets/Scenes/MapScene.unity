@@ -260,18 +260,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06bcb98ae95d3ea4ab5d3dbd5025c8ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  birdSpawnDataList:
-  - birdName: 
-    spawnProbability: 0
-    spawnRadius: 0
-    birdImage: {fileID: 0}
-    location: {x: 0, y: 0, z: 0}
-  spawnableBirds:
-  - birdName: 
-    spawnProbability: 0
-    spawnRadius: 0
-    birdImage: {fileID: 0}
-    location: {x: 0, y: 0, z: 0}
+  birdSpawnDataList: []
+  spawnableBirds: []
   spawnedBirds: []
   _mynaSpawner: {fileID: 9140178210910293012, guid: 78579b7f829eda240be7dde0d260ec9c, type: 3}
   _owlSpawner: {fileID: 9140178210910293012, guid: 78579b7f829eda240be7dde0d260ec9c, type: 3}
@@ -1540,13 +1530,29 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 91936567887524612, guid: 0f989f1ab23be4b4095a2d3c14e456d2, type: 3}
+      propertyPath: _centerMapAtOrigin
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 91936567887524612, guid: 0f989f1ab23be4b4095a2d3c14e456d2, type: 3}
       propertyPath: _mapLayers.Array.size
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 91936567887524612, guid: 0f989f1ab23be4b4095a2d3c14e456d2, type: 3}
+      propertyPath: _startAtDefaultLocation
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 91936567887524612, guid: 0f989f1ab23be4b4095a2d3c14e456d2, type: 3}
       propertyPath: _mapLayers.Array.data[0]
       value: 
       objectReference: {fileID: 7210214476910999418, guid: 78579b7f829eda240be7dde0d260ec9c, type: 3}
+    - target: {fileID: 91936567887524612, guid: 0f989f1ab23be4b4095a2d3c14e456d2, type: 3}
+      propertyPath: _defaultLocation._latitude
+      value: 21.31624
+      objectReference: {fileID: 0}
+    - target: {fileID: 91936567887524612, guid: 0f989f1ab23be4b4095a2d3c14e456d2, type: 3}
+      propertyPath: _defaultLocation._longitude
+      value: -157.858102
+      objectReference: {fileID: 0}
     - target: {fileID: 681774726965526047, guid: 0f989f1ab23be4b4095a2d3c14e456d2, type: 3}
       propertyPath: m_Name
       value: LightshipMap
