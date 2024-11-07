@@ -15,7 +15,8 @@ public class ARBirdCaptureManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        //For testing purposes can be deleted
+        //ShowPopup("You captured a pigeon");
     }
 
     void Update()
@@ -78,7 +79,7 @@ public class ARBirdCaptureManager : MonoBehaviour
             GameObject popup = Instantiate(popupPrefab, mainCanvas.transform);
             popup.GetComponentInChildren<TMP_Text>().text = message;
             // Optionally, add animations or auto-destroy after some time
-            Destroy(popup, 10f); // Destroys the popup after 2 seconds
+            Destroy(popup, 6f); // Destroys the popup after 2 seconds
 
         }
         else
