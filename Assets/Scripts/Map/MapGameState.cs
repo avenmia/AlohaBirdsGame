@@ -48,6 +48,12 @@ public class MapGameState : MonoBehaviour
     {
         // Reassign the _mapCamera when the scene is loaded
         _mapCamera = Camera.main; // Or find it by name or tag if it's not the main camera
+        _lightshipMapView = FindObjectOfType<LightshipMapView>();
+        
+        if (_lightshipMapView == null)
+        {
+            Debug.LogError("LightshipMapView not found after scene load.");
+        }
 
         if (_mapCamera == null)
         {
@@ -58,11 +64,18 @@ public class MapGameState : MonoBehaviour
         {
            
             Vector2 playerLocation = new Vector2(Input.location.lastData.latitude, Input.location.lastData.longitude);
-            foreach (var birdData in spawnedBirds)
+            if (_lightshipMapView != null)
             {
-                SpawnBird(birdData, playerLocation);
+                var latlng = new LatLng(playerLocation.x, playerLocation.y);
+                _lightshipMapView.SetMapCenter(latlng);
+
+                foreach (var birdData in spawnedBirds)
+                {
+                    SpawnBird(birdData, playerLocation);
+                }
             }
         }
+
     }
 
     private IEnumerator StartLocationService()
@@ -120,6 +133,28 @@ public class MapGameState : MonoBehaviour
         else
         {
             Destroy(gameObject);
+        }
+    }
+
+    private void Update()
+    {
+        if (Input.location.status == LocationServiceStatus.Running)
+        {
+            Vector2 playerLocation = new Vector2(Input.location.lastData.latitude, Input.location.lastData.longitude);
+            if (_lightshipMapView != null)
+            {
+                var latlng = new LatLng(playerLocation.x, playerLocation.y);
+                _lightshipMapView.SetMapCenter(latlng);
+
+                // TODO: Implemnt to try to spawn birds constantly
+                //if (Vector3.Distance(playerLocation, lastPlayerPosition) >= movementThreshold)
+                //{
+                //    lastPlayerPosition = playerLocation;
+                //    // TODO: Implement
+                //    // CheckForNewBirds(currentPlayerPosition);
+                //}
+                MapGameState.Instance.TrySpawnBirdsAtLocation(playerLocation);
+            }
         }
     }
 
@@ -212,7 +247,6 @@ public class MapGameState : MonoBehaviour
             //}
 
             // TODO: This will need to be fixed to account for the spawned birds location
-            // TODO: This GeoLocation assignment isn't right. Assuming the player's location for now
             if(!spawnedBirds.Contains(birdData))
             {
                 spawnedBirds.Add(birdData);
@@ -223,7 +257,6 @@ public class MapGameState : MonoBehaviour
 
     private void SpawnBird(BirdDataObject birdData, Vector2 playerLocation)
     {
-
         string pinName;
         switch (birdData.birdName)
         {
@@ -236,6 +269,7 @@ public class MapGameState : MonoBehaviour
             Debug.Log("Bird Already Exists");
             return; // Bird already exists
         }
+
 
         if (_mapCamera != null)
         {
@@ -253,10 +287,23 @@ public class MapGameState : MonoBehaviour
                 Debug.LogWarning("player location, rotation, or bird name should not be null");
             }
 
+
+            // Convert playerLocation (latitude, longitude) to a LatLng object
+            var latLng = new LatLng(playerLocation.x, playerLocation.y);
+
+            // Convert the LatLng to scene coordinates
+            var scenePosition = _lightshipMapView.LatLngToScene(latLng);
+
+            // Define the offset distance in Unity units (1 unit = 1 meter)
+            float offsetDistance = 5.0f; // Adjust this value as needed
+
+            // Calculate the spawn position by offsetting the scene position
+            var spawnPosition = scenePosition + forward * offsetDistance;
+
             // TODO: Verify this is right
-            switch(birdData.birdName)
+            switch (birdData.birdName)
             {
-                case "Common Myna": _mynaSpawner.PlaceInstance(playerLocation, rotation); return;
+                case "Common Myna": _mynaSpawner.PlaceInstance(spawnPosition, rotation); return;
                 // case "BarnOwl": _owlSpawner.PlaceInstance(playerLocation, rotation); return;
                 default: Debug.LogWarning($"Bird spawner does not exist for ${birdData.birdName}"); return;
             }
@@ -270,85 +317,4 @@ public class MapGameState : MonoBehaviour
         return _lightshipMapView.SceneToLatLng(pointOnMap);
     }
 
-    private void Update()
-    {
-        if (Input.location.status == LocationServiceStatus.Running)
-        {
-            Vector2 playerLocation = new Vector2(Input.location.lastData.latitude, Input.location.lastData.longitude);
-            if (_lightshipMapView != null)
-            {
-                var latlng = new LatLng(playerLocation.x, playerLocation.y);
-                _lightshipMapView.SetMapCenter(latlng);
-
-                // TODO: Implemnt to try to spawn birds constantly
-                //if (Vector3.Distance(playerLocation, lastPlayerPosition) >= movementThreshold)
-                //{
-                //    lastPlayerPosition = playerLocation;
-                //    // TODO: Implement
-                //    // CheckForNewBirds(currentPlayerPosition);
-                //}
-                MapGameState.Instance.TrySpawnBirdsAtLocation(playerLocation);
-            }
-        }
-
-        var touchPosition = Vector3.zero;
-        bool touchDetected = false;
-
-        if (Input.touchCount == 1)
-        {
-            if (Input.touches[0].phase == TouchPhase.Ended)
-            {
-                touchPosition = Input.touches[0].position;
-                touchDetected = true;
-            }
-        }
-
-        if (Input.GetMouseButtonDown(0))
-        {
-            touchPosition = Input.mousePosition;
-            touchDetected = true;
-        }
-
-        if (touchDetected)
-        {
-            CheckForInteractableTouch(touchPosition);
-        }
-
-    }
-
-    private void CheckForInteractableTouch(Vector3 touchPosition)
-    {
-        var touchRay = _mapCamera.ScreenPointToRay(touchPosition);
-
-        // raycast into scene and see if we hit a map feature
-        if (!Physics.Raycast(touchRay, out var hitInfo))
-        {
-            return;
-        }
-
-        // TODO: Implement to add touching the AR Object
-        // check if the collider we hit is a feature
-        // var hitResourceItem = hitInfo.collider.GetComponent<MapGameResourceFeature>();
-        //if (hitResourceItem == null)
-        //{
-        //    return;
-        //}
-
-        // check if this resource has any units available to consume
-        //if (!hitResourceItem.ResourcesAvailable)
-        //{
-        //    return;
-        //}
-
-        // award the player resources for finding this map resource
-        //int amount = hitResourceItem.GainResources();
-        //MapGameState.Instance.AddResource(hitResourceItem.ResourceType, amount);
-
-        // spawn an animated floating text to show resources being gained
-        //var floatingTextPosition = hitInfo.point + Vector3.up * 20.0f;
-        //var forward = floatingTextPosition - _mapCamera.transform.position;
-        //var rotation = Quaternion.LookRotation(forward, Vector3.up);
-        //var floatText = Instantiate(_floatingTextPrefab, floatingTextPosition, rotation);
-        //floatText.SetText($"+{amount} {hitResourceItem.ResourceType.ToString()}");
-    }
 }
