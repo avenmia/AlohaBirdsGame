@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -46,6 +47,8 @@ public class ARBirdCaptureManager : MonoBehaviour
         var captureData = new BirdCaptureData()
         {
             captureTime = DateTime.Now,
+            // TODO: Verify the bird spawn location is the actual location not scene location
+            // May need to convert scene to lat long
             location = new GeoLocation(birdSpawnData.location.x, birdSpawnData.location.y)
         };
 
@@ -53,6 +56,7 @@ public class ARBirdCaptureManager : MonoBehaviour
         if (existingUserBird == null)
         {
             var bird = PersistentDataManager.Instance.GetBirdData(birdSpawnData.birdName);
+
             var newUserAvidexBird = new UserAvidexBird(bird)
             {
                 captureData = new List<BirdCaptureData>() { captureData }
@@ -61,13 +65,13 @@ public class ARBirdCaptureManager : MonoBehaviour
         }
         else
         {
-            PersistentDataManager.Instance.UpdateUserAvidexBird(existingUserBird.birdData.name, captureData);
+            PersistentDataManager.Instance.UpdateUserAvidexBird(existingUserBird.birdData.birdName, captureData);
         }
 
         ShowPopup($"You captured a {birdSpawnData.birdName}");
         
         // TODO: Uncomment to save screenshot 
-        // StartCoroutine(SaveScreenshotToGallery());
+        StartCoroutine(SaveScreenshotToGallery(birdSpawnData.birdName));
         // Provide feedback to the user
     }
 
@@ -78,7 +82,7 @@ public class ARBirdCaptureManager : MonoBehaviour
             GameObject popup = Instantiate(popupPrefab, mainCanvas.transform);
             popup.GetComponentInChildren<TMP_Text>().text = message;
             // Optionally, add animations or auto-destroy after some time
-            Destroy(popup, 10f); // Destroys the popup after 2 seconds
+            Destroy(popup, 5f); // Destroys the popup after 2 seconds
 
         }
         else
@@ -87,9 +91,10 @@ public class ARBirdCaptureManager : MonoBehaviour
         }
     }
 
-    IEnumerator SaveScreenshotToGallery()
+    IEnumerator SaveScreenshotToGallery(string birdName)
     {
         yield return new WaitForEndOfFrame();
+        Debug.Log("Saving screenshot");
         Texture2D screenImage = new Texture2D(Screen.width, Screen.height);
         screenImage.ReadPixels(new Rect(0, 0, Screen.width, Screen.height), 0, 0);
         screenImage.Apply();
@@ -97,16 +102,19 @@ public class ARBirdCaptureManager : MonoBehaviour
         // Save to device gallery
         // NativeGallery.SaveImageToGallery(screenImage, "MyGameGallery", "CapturedBird_{0}.png");
 
-        // Update in-game gallery
-        // AddImageToGallery(screenImage);
+        var existingBird = PersistentDataManager.Instance.GetExisitingUserBirdByName(birdName);
+        if (existingBird != null)
+        {
+            // This should be the one added above
+            var lastCapture = existingBird.captureData.Last();
+            lastCapture.screenCaptureShot = screenImage;
+        }
+        else
+        {
+            Debug.LogError("Bird should exist before adding image to gallery");
+        }
 
         // Clean up
         // Don't destroy screenImage if you're using it in the gallery
-    }
-
-    void AddImageToGallery(Texture2D imageTexture)
-    {
-        GameObject newImage = Instantiate(imagePrefab, galleryContentParent);
-        newImage.GetComponent<Image>().sprite = Sprite.Create(imageTexture, new Rect(0, 0, imageTexture.width, imageTexture.height), Vector2.zero);
     }
 }

@@ -27,10 +27,8 @@ public class NavigationManager : MonoBehaviour
     public void LoadNewScene(string sceneName)
     {      
         // grabs the current scene and appends it to the list queue
-        Debug.LogWarning("Lawrence current scene being added to stack.");
         string currScene = SceneManager.GetActiveScene().name;
         sceneStack.Add(currScene);
-        Debug.LogWarning($"Lawrence current scene added to stack {currScene}");
         score += 1; 
         // goes to next scene
         SceneManager.LoadScene(sceneName);
@@ -38,7 +36,6 @@ public class NavigationManager : MonoBehaviour
 
     public void ReturnToPrevScene() 
     {
-        Debug.Log($"Lawrence scene stack: {sceneStack.Count}");
         if (sceneStack.Count > 0)
         {
             // retrieves and pops the last scene from the list
