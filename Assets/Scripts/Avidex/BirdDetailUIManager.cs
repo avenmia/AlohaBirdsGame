@@ -12,6 +12,9 @@ public class BirdDetailUIManager : MonoBehaviour
     public TMP_Text birdNameText;
     public TMP_Text birdDescriptionText;
     public UserAvidexBird currentBird;
+    public Transform galleryContentParent;
+    public GameObject galleryItemPrefab;
+    public GameObject maximizedViewPanel;
 
     public void ShowDetails(UserAvidexBird bird)
     {
@@ -30,20 +33,32 @@ public class BirdDetailUIManager : MonoBehaviour
 
     void LoadUserBirdImageGallery()
     {
-        foreach(var capture in currentBird.captureData)
+        // Clear any existing items
+        foreach (Transform child in galleryContentParent)
         {
-            Debug.Log($"Avendano capture time {capture.captureTime}");
-            Debug.Log($"Avendano capture location {capture.location.latitude} {capture.location.longitude}");
+            Destroy(child.gameObject);
         }
-        //GameObject newImage = Instantiate(imagePrefab, galleryContentParent);
-        //newImage.GetComponent<Image>().sprite = Sprite.Create(imageTexture, new Rect(0, 0, imageTexture.width, imageTexture.height), Vector2.zero);
 
-        //TMP_Text label = newImage.GetComponentInChildren<TMP_Text>();
-        //if (label != null)
-        //{
-        //    label.text = birdName;
-        //}
+        foreach (var capture in currentBird.captureData)
+        {
+            GameObject newItem = Instantiate(galleryItemPrefab, galleryContentParent);
+            GalleryItemController controller = newItem.GetComponent<GalleryItemController>();
+            if (controller != null)
+            {
+                controller.Initialize(capture);
+            }
+            else
+            {
+                Debug.LogWarning("GalleryItemController not found on the instantiated item.");
+            }
 
-        // TODO: Add image to data structure
+        }
+    }
+
+    public void ShowMaximizedImage(BirdCaptureData data)
+    {
+        maximizedViewPanel.SetActive(true);
+        MaximizedViewController controller = maximizedViewPanel.GetComponent<MaximizedViewController>();
+        controller.Display(data);
     }
 }

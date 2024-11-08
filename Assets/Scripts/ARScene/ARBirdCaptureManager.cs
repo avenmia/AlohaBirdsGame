@@ -56,6 +56,7 @@ public class ARBirdCaptureManager : MonoBehaviour
         if (existingUserBird == null)
         {
             var bird = PersistentDataManager.Instance.GetBirdData(birdSpawnData.birdName);
+
             var newUserAvidexBird = new UserAvidexBird(bird)
             {
                 captureData = new List<BirdCaptureData>() { captureData }
@@ -64,7 +65,7 @@ public class ARBirdCaptureManager : MonoBehaviour
         }
         else
         {
-            PersistentDataManager.Instance.UpdateUserAvidexBird(existingUserBird.birdData.name, captureData);
+            PersistentDataManager.Instance.UpdateUserAvidexBird(existingUserBird.birdData.birdName, captureData);
         }
 
         ShowPopup($"You captured a {birdSpawnData.birdName}");
@@ -81,7 +82,7 @@ public class ARBirdCaptureManager : MonoBehaviour
             GameObject popup = Instantiate(popupPrefab, mainCanvas.transform);
             popup.GetComponentInChildren<TMP_Text>().text = message;
             // Optionally, add animations or auto-destroy after some time
-            Destroy(popup, 10f); // Destroys the popup after 2 seconds
+            Destroy(popup, 5f); // Destroys the popup after 2 seconds
 
         }
         else
@@ -93,6 +94,7 @@ public class ARBirdCaptureManager : MonoBehaviour
     IEnumerator SaveScreenshotToGallery(string birdName)
     {
         yield return new WaitForEndOfFrame();
+        Debug.Log("Saving screenshot");
         Texture2D screenImage = new Texture2D(Screen.width, Screen.height);
         screenImage.ReadPixels(new Rect(0, 0, Screen.width, Screen.height), 0, 0);
         screenImage.Apply();

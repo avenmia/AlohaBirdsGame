@@ -36,11 +36,11 @@ public class PersistentDataManager : MonoBehaviour
 
     public UserAvidexBird GetExisitingUserBird(BirdDataObject bird)
     {
-        return userCapturedBirds.Find(b => b.birdData.name == bird.birdName);
+        return userCapturedBirds.Find(b => b.birdData.birdName == bird.birdName);
     }
     public UserAvidexBird GetExisitingUserBirdByName(string name)
     {
-        return userCapturedBirds.Find(b => b.birdData.name == name);
+        return userCapturedBirds.Find(b => b.birdData.birdName == name);
     }
 
     public GameBird GetBirdData(string name)
