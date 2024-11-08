@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class BirdCaptureData : MonoBehaviour
 {
-    public Image screenCaptureShot;
+    public Texture2D screenCaptureShot;
     public DateTime captureTime;
     public GeoLocation location;
 }
