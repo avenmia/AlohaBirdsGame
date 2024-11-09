@@ -264,7 +264,7 @@ MonoBehaviour:
   spawnableBirds: []
   spawnedBirds: []
   _mynaSpawner: {fileID: 9140178210910293012, guid: 78579b7f829eda240be7dde0d260ec9c, type: 3}
-  _owlSpawner: {fileID: 9140178210910293012, guid: 78579b7f829eda240be7dde0d260ec9c, type: 3}
+  _owlSpawner: {fileID: 3289635098547617022, guid: eddb6745f2290ae4d96484aee111a0d1, type: 3}
   _mapCamera: {fileID: 355520862}
   _lightshipMapView: {fileID: 7395098618855432449}
 --- !u!4 &299130263
@@ -1535,7 +1535,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 91936567887524612, guid: 0f989f1ab23be4b4095a2d3c14e456d2, type: 3}
       propertyPath: _mapLayers.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 91936567887524612, guid: 0f989f1ab23be4b4095a2d3c14e456d2, type: 3}
       propertyPath: _startAtDefaultLocation
@@ -1545,6 +1545,10 @@ PrefabInstance:
       propertyPath: _mapLayers.Array.data[0]
       value: 
       objectReference: {fileID: 7210214476910999418, guid: 78579b7f829eda240be7dde0d260ec9c, type: 3}
+    - target: {fileID: 91936567887524612, guid: 0f989f1ab23be4b4095a2d3c14e456d2, type: 3}
+      propertyPath: _mapLayers.Array.data[1]
+      value: 
+      objectReference: {fileID: 6060231584453395915, guid: eddb6745f2290ae4d96484aee111a0d1, type: 3}
     - target: {fileID: 91936567887524612, guid: 0f989f1ab23be4b4095a2d3c14e456d2, type: 3}
       propertyPath: _defaultLocation._latitude
       value: 21.31624

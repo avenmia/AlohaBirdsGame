@@ -18,7 +18,6 @@ public class ARBirdCaptureManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
     }
 
     void Update()
@@ -49,6 +48,7 @@ public class ARBirdCaptureManager : MonoBehaviour
 
     void CaptureBird(GameObject birdObject)
     {
+
         var controller = birdObject.GetComponent<ARBirdController>();
         var birdSpawnData = controller.birdData;
         var captureData = new BirdCaptureData()
@@ -74,7 +74,6 @@ public class ARBirdCaptureManager : MonoBehaviour
         {
             PersistentDataManager.Instance.UpdateUserAvidexBird(existingUserBird.birdData.birdName, captureData);
         }
-
         ShowPopup($"You captured a {birdSpawnData.birdName}");
         isScreenTransitioning = true;
         StartCoroutine(ReturnToMap(6f));

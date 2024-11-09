@@ -257,7 +257,7 @@ public class MapGameState : MonoBehaviour
         switch (birdData.birdName)
         {
             case "Common Myna": pinName = "MynaPin"; break;
-            case "Barn Own": pinName = "BarnOwlPin"; break;
+            case "Barn Owl": pinName = "BarnOwlPin"; break;
             default: pinName = null; break;
         }
         if (pinName == null || GameObject.FindGameObjectWithTag(pinName) != null)
@@ -300,8 +300,17 @@ public class MapGameState : MonoBehaviour
                 // Convert the LatLng to scene coordinates
                 var scenePosition = _lightshipMapView.LatLngToScene(latLng);
 
+                float offsetDistance;
+                if(birdData.birdName == "Barn Owl")
+                {
+                    offsetDistance = 10.0f;
+                }
+                else
+                {
+                    offsetDistance = 25.0f;
+                }
+
                 // Define the offset distance in Unity units (1 unit = 1 meter)
-                float offsetDistance = 25.0f; // Adjust this value as needed
 
                 // Calculate the spawn position by offsetting the scene position
                 spawnPosition = scenePosition + forward * offsetDistance;
@@ -309,12 +318,12 @@ public class MapGameState : MonoBehaviour
                 // Store the spawn position in the bird data
                 birdData.location = spawnPosition;
             }
-
+            
             // TODO: Verify this is right
             switch (birdData.birdName)
             {
                 case "Common Myna": _mynaSpawner.PlaceInstance(spawnPosition, rotation); return;
-                // case "BarnOwl": _owlSpawner.PlaceInstance(playerLocation, rotation); return;
+                case "Barn Owl": _owlSpawner.PlaceInstance(spawnPosition, rotation); return;
                 default: Debug.LogWarning($"Bird spawner does not exist for ${birdData.birdName}"); return;
             }
         }
