@@ -12,6 +12,22 @@ public class ARBirdSpawner : MonoBehaviour
 
     private void SpawnBird()
     {
+
+        // Uncomment for testing
+        //if(birdPrefab != null)
+        //{
+        //    // BirdDataObject birdData = birdPrefab.GetComponent<BirdDataObject>();
+        //    var spawnPosition = new Vector3(0, 0, 0);
+        //    Quaternion spawnRotation = Quaternion.Euler(0, 180, 0);
+        //    GameObject spawnedBird = Instantiate(birdPrefab, spawnPosition, spawnRotation);
+        //    spawnedBird.tag = "Bird";
+
+        //    //ARBirdController birdController = spawnedBird.GetComponent<ARBirdController>();
+        //    //if (birdController != null)
+        //    //{
+        //    //    birdController.Initialize(birdData);
+        //    //}
+        //}
         if (PersistentDataManager.Instance.selectedBirdData != null)
         {
             BirdDataObject birdData = PersistentDataManager.Instance.selectedBirdData;
@@ -19,7 +35,8 @@ public class ARBirdSpawner : MonoBehaviour
 
             // Instantiate the bird prefab at the specified position
             var spawnPosition = new Vector3(0, 0, 0);
-            GameObject spawnedBird = Instantiate(birdPrefab, spawnPosition, Quaternion.identity);
+            Quaternion spawnRotation = Quaternion.Euler(0, 180, 0);
+            GameObject spawnedBird = Instantiate(birdPrefab, spawnPosition, spawnRotation);
             spawnedBird.tag = "Bird";
 
             // Customize the spawned bird based on BirdData
