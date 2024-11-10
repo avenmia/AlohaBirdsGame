@@ -1,10 +1,14 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 
 public class PersistentDataManager : MonoBehaviour
 {
     public static PersistentDataManager Instance;
+
+    public UserProfileData userProfileData;
 
     public BirdDataObject selectedBirdData; // The bird data to pass to the next scene
 
@@ -19,13 +23,53 @@ public class PersistentDataManager : MonoBehaviour
         // Implement Singleton pattern
         if (Instance == null)
         {
+            PlayerPrefs.DeleteAll();
+            PlayerPrefs.Save();
             Instance = this;
             DontDestroyOnLoad(gameObject); // Keep this object alive across scenes
             LoadGameBirds();
+            LoadPlayerData();
         }
         else
         {
             Destroy(gameObject);
+        }
+    }
+
+    public void SavePlayerData()
+    {
+        BinaryFormatter formatter = new BinaryFormatter();
+        string path = Application.persistentDataPath + "/playerdata.dat";
+
+        FileStream stream = new FileStream(path, FileMode.Create);
+
+        formatter.Serialize(stream, userProfileData);
+        stream.Close();
+    }
+
+    public void LoadPlayerData()
+    {
+        string path = Application.persistentDataPath + "/playerdata.dat";
+
+        if (File.Exists(path))
+        {
+            BinaryFormatter formatter = new BinaryFormatter();
+            FileStream stream = new FileStream(path, FileMode.Open);
+
+            userProfileData = formatter.Deserialize(stream) as UserProfileData;
+            stream.Close();
+        }
+        else
+        {
+            // If no data exists, initialize with default values
+            var username = PlayerPrefs.GetString("Username");
+            Debug.Log($"Avendano getting username in PDM: {username}");
+            if (username == null)
+            {
+                username = "Guest";
+            }
+            userProfileData = new UserProfileData(username, 0, 0);
+            Debug.Log($"Avendano creating new user! {userProfileData.username}");
         }
     }
 
@@ -55,6 +99,20 @@ public class PersistentDataManager : MonoBehaviour
         return null;
     }
 
+    public void UpdateUserCaptures()
+    {
+        userProfileData.birdsCaptured = userCapturedBirds.Count;
+        int totalCount = 0;
+        foreach(var bird in userCapturedBirds)
+        {
+            foreach(var capture in bird.captureData)
+            {
+                totalCount++;
+            }
+        }
+        userProfileData.totalCaptures = totalCount;
+    }
+
     public void AddUserAvidexBird(UserAvidexBird bird)
     {
         userCapturedBirds.Add(bird);
@@ -62,6 +120,8 @@ public class PersistentDataManager : MonoBehaviour
         {
             Debug.LogWarning("Bird data or bird name should not be null here");
         }
+
+        userProfileData.points += bird.birdData.points;
         gameBirds[bird.birdData.birdName].userDiscovered = true;
     }
 
@@ -69,7 +129,9 @@ public class PersistentDataManager : MonoBehaviour
     public void UpdateUserAvidexBird(string name, BirdCaptureData captureData)
     {
         var existingBird = userCapturedBirds.Find(b => b.birdData.birdName == name);
+        Debug.Log($"Avendano, this should not be getting called for a first capture, but also checking if existing bird is null {existingBird.birdData.birdName}");
         existingBird.captureData.Add(captureData);
+        userProfileData.points += existingBird.birdData.points;
     }
 
     public void LoadGameBirds()
