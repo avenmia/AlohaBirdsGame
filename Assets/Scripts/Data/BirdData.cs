@@ -12,5 +12,6 @@ public class BirdData : ScriptableObject
     public string birdDescription;
     public string conservationStatus;
     public bool nativeHawaiianSpecies;
+    public string ebirdURL;
     // Add more fields as needed (e.g., habitat, sound clip)
 }
