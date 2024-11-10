@@ -23,11 +23,12 @@ public class PersistentDataManager : MonoBehaviour
         // Implement Singleton pattern
         if (Instance == null)
         {
-            PlayerPrefs.DeleteAll();
-            PlayerPrefs.Save();
+            // PlayerPrefs.DeleteAll();
+            // PlayerPrefs.Save();
             Instance = this;
             DontDestroyOnLoad(gameObject); // Keep this object alive across scenes
             LoadGameBirds();
+            // userProfileData = new UserProfileData("Guest", 0, 0);
             LoadPlayerData();
         }
         else
@@ -36,9 +37,15 @@ public class PersistentDataManager : MonoBehaviour
         }
     }
 
+    private void OnDestroy()
+    {
+        Debug.Log($"PersistentDataManager {this.GetInstanceID()} is being destroyed.");
+    }
+
     public void SavePlayerData()
     {
         BinaryFormatter formatter = new BinaryFormatter();
+        Debug.Log($"Application path{Application.persistentDataPath}");
         string path = Application.persistentDataPath + "/playerdata.dat";
 
         FileStream stream = new FileStream(path, FileMode.Create);
@@ -63,13 +70,11 @@ public class PersistentDataManager : MonoBehaviour
         {
             // If no data exists, initialize with default values
             var username = PlayerPrefs.GetString("Username");
-            Debug.Log($"Avendano getting username in PDM: {username}");
             if (username == null)
             {
                 username = "Guest";
             }
             userProfileData = new UserProfileData(username, 0, 0);
-            Debug.Log($"Avendano creating new user! {userProfileData.username}");
         }
     }
 
@@ -129,7 +134,6 @@ public class PersistentDataManager : MonoBehaviour
     public void UpdateUserAvidexBird(string name, BirdCaptureData captureData)
     {
         var existingBird = userCapturedBirds.Find(b => b.birdData.birdName == name);
-        Debug.Log($"Avendano, this should not be getting called for a first capture, but also checking if existing bird is null {existingBird.birdData.birdName}");
         existingBird.captureData.Add(captureData);
         userProfileData.points += existingBird.birdData.points;
     }

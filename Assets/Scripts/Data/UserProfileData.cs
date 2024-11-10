@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UserProfileData : MonoBehaviour
+public class UserProfileData
 {
     public string username;
     public int birdsCaptured;

@@ -9,7 +9,6 @@ public class UsernameHandler : MonoBehaviour
 
     void Start()
     {
-        Debug.Log("Avendano checking user prefs");
 
         // Check if username already exists
         if (PlayerPrefs.HasKey("Username"))
@@ -25,7 +24,6 @@ public class UsernameHandler : MonoBehaviour
 
         if (!string.IsNullOrEmpty(username))
         {
-            Debug.Log("Avendano saving user name!");
 
             // Save the username
             PlayerPrefs.SetString("Username", username);
@@ -44,7 +42,6 @@ public class UsernameHandler : MonoBehaviour
     void LoadMainScene()
     {
         // Replace "MainGameScene" with the actual name of your main scene
-        Debug.Log("Avendano loading map scene!");
         SceneManager.LoadScene("MapScene");
     }
 }

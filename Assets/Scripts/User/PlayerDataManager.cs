@@ -13,9 +13,8 @@ public class PlayerDataManager : MonoBehaviour
     void Start()
     {
         var player = PersistentDataManager.Instance.userProfileData;
-        Debug.Log($"Avendano Username is: {player.username}");
         userNameText.text = player.username;
-        birdCapturedCountText.text = $"Bird Captured Count: {player.birdsCaptured}";
+        birdCapturedCountText.text = $"Birds Captured Count: {player.birdsCaptured}";
         pointsText.text = $"Total Points: {player.points}";
         totalCapturesText.text = $"Total Captures: {player.totalCaptures}";
 

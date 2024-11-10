@@ -60,7 +60,6 @@ public class ARBirdCaptureManager : MonoBehaviour
         };
 
         var existingUserBird = PersistentDataManager.Instance.GetExisitingUserBird(birdSpawnData);
-        Debug.Log($"Avendano is existing bird null? {existingUserBird == null}");
         if (existingUserBird == null)
         {
             var bird = PersistentDataManager.Instance.GetBirdData(birdSpawnData.birdName);
@@ -73,8 +72,6 @@ public class ARBirdCaptureManager : MonoBehaviour
         }
         else
         {
-            Debug.Log($"Avendano existing bird name? {existingUserBird.birdData.birdName}");
-
             PersistentDataManager.Instance.UpdateUserAvidexBird(existingUserBird.birdData.birdName, captureData);
         }
         PersistentDataManager.Instance.UpdateUserCaptures();
