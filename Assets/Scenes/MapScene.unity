@@ -265,6 +265,7 @@ MonoBehaviour:
   spawnedBirds: []
   _mynaSpawner: {fileID: 9140178210910293012, guid: 78579b7f829eda240be7dde0d260ec9c, type: 3}
   _owlSpawner: {fileID: 3289635098547617022, guid: eddb6745f2290ae4d96484aee111a0d1, type: 3}
+  _pigeonSpawner: {fileID: 8163203839256181492, guid: c4490a02db4c46b49944e92e7802e6cf, type: 3}
   _mapCamera: {fileID: 355520862}
   _lightshipMapView: {fileID: 7395098618855432449}
 --- !u!4 &299130263

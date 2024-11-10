@@ -24,6 +24,9 @@ public class MapGameState : MonoBehaviour
     private LayerGameObjectPlacement _owlSpawner;
 
     [SerializeField]
+    private LayerGameObjectPlacement _pigeonSpawner;
+
+    [SerializeField]
     private Camera _mapCamera;
 
     [SerializeField]
@@ -67,6 +70,7 @@ public class MapGameState : MonoBehaviour
 
                 foreach (var birdData in spawnedBirds)
                 {
+                    Debug.Log($"Alexandra spawning bird data: {birdData.birdName}");
                     SpawnBird(birdData, playerLocation, true);
                 }
             }
@@ -243,8 +247,10 @@ public class MapGameState : MonoBehaviour
             //}
 
             // TODO: This will need to be fixed to account for the spawned birds location
-            if(!spawnedBirds.Contains(birdData))
+
+            if (!spawnedBirds.Contains(birdData))
             {
+
                 spawnedBirds.Add(birdData);
                 SpawnBird(birdData, playerLocation);
             }
@@ -258,11 +264,13 @@ public class MapGameState : MonoBehaviour
         {
             case "Common Myna": pinName = "MynaPin"; break;
             case "Barn Owl": pinName = "BarnOwlPin"; break;
+            case "Pigeon": pinName = "PigeonPin"; break;
+
+
             default: pinName = null; break;
         }
         if (pinName == null || GameObject.FindGameObjectWithTag(pinName) != null)
         {
-            Debug.Log("Bird Already Exists");
             return; // Bird already exists
         }
 
@@ -272,16 +280,6 @@ public class MapGameState : MonoBehaviour
             var cameraForward = _mapCamera.transform.forward;
             var forward = new Vector3(cameraForward.x, 0f, cameraForward.z).normalized;
             var rotation = Quaternion.LookRotation(forward);
-
-            if (_mynaSpawner == null)
-            {
-                Debug.LogWarning("Myna Spawner should not equal null");
-            }
-
-            if(playerLocation == null || rotation == null || birdData == null || birdData.birdName == null)
-            {
-                Debug.LogWarning("player location, rotation, or bird name should not be null");
-            }
 
             Vector3 spawnPosition;
 
@@ -301,9 +299,13 @@ public class MapGameState : MonoBehaviour
                 var scenePosition = _lightshipMapView.LatLngToScene(latLng);
 
                 float offsetDistance;
-                if(birdData.birdName == "Barn Owl")
+                if (birdData.birdName == "Barn Owl")
                 {
                     offsetDistance = 10.0f;
+                }
+                else if (birdData.birdName == "Pigeon")
+                {
+                    offsetDistance = 5.0f;
                 }
                 else
                 {
@@ -318,12 +320,13 @@ public class MapGameState : MonoBehaviour
                 // Store the spawn position in the bird data
                 birdData.location = spawnPosition;
             }
-            
+
             // TODO: Verify this is right
             switch (birdData.birdName)
             {
                 case "Common Myna": _mynaSpawner.PlaceInstance(spawnPosition, rotation); return;
                 case "Barn Owl": _owlSpawner.PlaceInstance(spawnPosition, rotation); return;
+                case "Pigeon": _pigeonSpawner.PlaceInstance(spawnPosition, rotation); return;
                 default: Debug.LogWarning($"Bird spawner does not exist for ${birdData.birdName}"); return;
             }
         }
