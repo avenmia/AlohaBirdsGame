@@ -74,6 +74,7 @@ public class ARBirdCaptureManager : MonoBehaviour
         {
             PersistentDataManager.Instance.UpdateUserAvidexBird(existingUserBird.birdData.birdName, captureData);
         }
+        PersistentDataManager.Instance.UpdateUserCaptures();
         ShowPopup($"You captured a {birdSpawnData.birdName}");
         isScreenTransitioning = true;
         StartCoroutine(ReturnToMap(6f));
