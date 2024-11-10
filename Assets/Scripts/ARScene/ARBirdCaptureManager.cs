@@ -87,6 +87,13 @@ public class ARBirdCaptureManager : MonoBehaviour
         // Provide feedback to the user
     }
 
+    public void onClickCapture()
+    {
+        // find bird gameobject 
+        var birdObject = GameObject.FindGameObjectWithTag("Bird");
+        CaptureBird(birdObject);
+    }
+
     private void ShowPopup(string message)
     {
         if (popupPrefab != null)
