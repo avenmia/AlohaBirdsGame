@@ -87,8 +87,8 @@ Given more time, we plan to add:
 1. Clone the repo and open the AlohaBirdsGame.apk file in the **Builds** folder and launch it on your android device, the app should run successfully
 
 ## Running the iOS Version in Developer Mode
-Connect your iPhone to the Mac computer.
-1. In Unity, enter your Lightship API key in Niantic Lightship SDK field located in Project Settings on Unity.
-2. Follow unity tutorial steps linked here for deploying and working with Xcode: [Unity Tutorial iOS Instructions](https://learn.unity.com/tutorial/deploy-your-project-to-ios-or-android?pathwayId=63e3a4c1edbc2a344bfe21d8&missionId=63f63a3bedbc2a663dc6ffde#633d41a7edbc2a4bb08558b8)
+1. Connect your iPhone to the Mac computer.
+2. In Unity, enter your Lightship API key in Niantic Lightship SDK field located in Project Settings on Unity.
+3. Follow unity tutorial steps linked here for deploying and working with Xcode: [Unity Tutorial iOS Instructions](https://learn.unity.com/tutorial/deploy-your-project-to-ios-or-android?pathwayId=63e3a4c1edbc2a344bfe21d8&missionId=63f63a3bedbc2a663dc6ffde#633d41a7edbc2a4bb08558b8)
 
 Thank you for reviewing our project!. :hibiscus:
