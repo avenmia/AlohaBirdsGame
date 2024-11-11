@@ -16,10 +16,6 @@ An augmented reality (AR) Unity game built on Niantic Lightship, aiming to educa
     - [5. Profile Screen](#5-profile-screen)
     - [6. AI Recognition Tool](#6-ai-recognition-tool)
   - [Future Features](#future-features)
-    - [**Multiplayer and Leaderboard**: Compare points and bird captures with others.](#multiplayer-and-leaderboard-compare-points-and-bird-captures-with-others)
-    - [**Shared AR**: Allowing multiple users to see the same virtual birds in real-time.](#shared-ar-allowing-multiple-users-to-see-the-same-virtual-birds-in-real-time)
-    - [**Enhanced Bird Spawning Logic**: Birds appear based on time of day, rarity, and region.](#enhanced-bird-spawning-logic-birds-appear-based-on-time-of-day-rarity-and-region)
-    - [**Profile Customization**: Personalized avatars and profile images.](#profile-customization-personalized-avatars-and-profile-images)
   - [Requirements](#requirements)
   - [Installation](#installation)
   - [Running the apk (Android)](#running-the-apk-android)
@@ -57,10 +53,10 @@ An augmented reality (AR) Unity game built on Niantic Lightship, aiming to educa
 
 ## Future Features
 Given more time, we plan to add:
-### **Multiplayer and Leaderboard**: Compare points and bird captures with others.
-### **Shared AR**: Allowing multiple users to see the same virtual birds in real-time.
-### **Enhanced Bird Spawning Logic**: Birds appear based on time of day, rarity, and region.
-### **Profile Customization**: Personalized avatars and profile images.
+* **Multiplayer and Leaderboard**: Compare points and bird captures with others.
+* **Shared AR**: Allowing multiple users to see the same virtual birds in real-time.
+* **Enhanced Bird Spawning Logic**: Birds appear based on time of day, rarity, and region.
+* **Profile Customization**: Personalized avatars and profile images.
 
 ## Requirements
 
