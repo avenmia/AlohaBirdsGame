@@ -1,6 +1,6 @@
 # Hui Manu o Ku – Aloha Birds Game
 
-An augmented reality (AR) Unity game built on Niantic Lightship, aiming to educate and engage users with Hawaii's native bird population.
+A mobile augmented reality (AR) Unity game built on Niantic Lightship, aiming to educate and engage users with Hawaii's native bird population.
 
 ## Table of Contents
 
@@ -81,7 +81,7 @@ Given more time, we plan to add:
 
 
 ## Running the apk (Android)
-1. Download the apk file from the GitHub repo and launch it on your android device, the app should run successfully
+1. Clone the repo and open the AlohaBirdsGame.apk file in the **Builds** folder and launch it on your android device, the app should run successfully
 
 
 Thank you for reviewing our project!. :hibiscus:
