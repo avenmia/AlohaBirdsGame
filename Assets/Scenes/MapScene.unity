@@ -1530,6 +1530,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 91936567887524612, guid: 0f989f1ab23be4b4095a2d3c14e456d2, type: 3}
+      propertyPath: _mapTheme
+      value: 
+      objectReference: {fileID: 6759436098564577269, guid: 72015237b403c4f05a710c7621c9ee81, type: 3}
+    - target: {fileID: 91936567887524612, guid: 0f989f1ab23be4b4095a2d3c14e456d2, type: 3}
       propertyPath: _centerMapAtOrigin
       value: 1
       objectReference: {fileID: 0}
