@@ -27,7 +27,7 @@
         "com.unity.cloud.draco": "5.1.4",
         "com.unity.burst": "1.8.17"
       },
-      "hash": "f8b80d1050cf439f92b4430127c44fc0ff738ca4"
+      "hash": "16f0520bbb055a9bb633b68b7a77ddc8bcb0c33e"
     },
     "com.nianticlabs.lightship.sharedar": {
       "version": "https://github.com/niantic-lightship/sharedar-upm.git",
