@@ -63,9 +63,11 @@ Given more time, we plan to add:
 
 - **Unity**: Version 2022.3.50f1
 - **Niantic Lightship ARDK**: Installed in Unity
+- **Xcode(iOS)**: For building and deploying to iOS devices
 - **Lightship API Key**: Required for ARDK functionalities
 - **OpenAI API Key**: Required for ChatGPT integration
 - **Mobile Device**: Android or iOS device for testing AR features
+- **Visual Studio**: For modifying Unity C# Scripts
 
 ## Installation
 
