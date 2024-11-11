@@ -63,7 +63,6 @@ public class ARBirdCaptureManager : MonoBehaviour
         if (existingUserBird == null)
         {
             var bird = PersistentDataManager.Instance.GetBirdData(birdSpawnData.birdName);
-
             var newUserAvidexBird = new UserAvidexBird(bird)
             {
                 captureData = new List<BirdCaptureData>() { captureData }
@@ -77,7 +76,7 @@ public class ARBirdCaptureManager : MonoBehaviour
         PersistentDataManager.Instance.UpdateUserCaptures();
         ShowPopup($"You captured a {birdSpawnData.birdName}");
         isScreenTransitioning = true;
-        StartCoroutine(ReturnToMap(6f));
+        StartCoroutine(ReturnToMap(4f));
         
         // TODO: Uncomment to save screenshot 
         StartCoroutine(SaveScreenshotToGallery(birdSpawnData.birdName));
