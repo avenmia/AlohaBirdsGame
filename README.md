@@ -76,7 +76,7 @@ Given more time, we plan to add:
 
    ```bash
    git clone https://github.com/your-username/hui-manu-o-ku-aloha-birds-game.git
-  ```  
+```  
 
 2. **Download and Install Unity Hub and Unity Editor**
 3. **Open one of the scenes in Unity Editor**
