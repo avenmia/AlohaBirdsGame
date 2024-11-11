@@ -22,3 +22,5 @@ MonoBehaviour:
     Widely introduced elsewhere in the world, including Australia, New Zealand, and
     Hawaii.'
   conservationStatus: Least Concern
+  nativeHawaiianSpecies: 0
+  points: 0

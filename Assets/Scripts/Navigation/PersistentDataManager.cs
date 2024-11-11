@@ -1,16 +1,22 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 
 public class PersistentDataManager : MonoBehaviour
 {
     public static PersistentDataManager Instance;
 
+    public UserProfileData userProfileData;
+
     public BirdDataObject selectedBirdData; // The bird data to pass to the next scene
 
     public Dictionary<string, GameBird> gameBirds = new Dictionary<string, GameBird>();
 
     public List<UserAvidexBird> userCapturedBirds = new List<UserAvidexBird>();
+
+    public List<UserBirdUploadData> userGalleryPics = new List<UserBirdUploadData>();
 
     // public event Action<BirdData> OnBirdDataSet;
 
@@ -19,14 +25,64 @@ public class PersistentDataManager : MonoBehaviour
         // Implement Singleton pattern
         if (Instance == null)
         {
+            // PlayerPrefs.DeleteAll();
+            // PlayerPrefs.Save();
             Instance = this;
             DontDestroyOnLoad(gameObject); // Keep this object alive across scenes
             LoadGameBirds();
+            // userProfileData = new UserProfileData("Guest", 0, 0);
+            LoadPlayerData();
         }
         else
         {
             Destroy(gameObject);
         }
+    }
+
+    private void OnDestroy()
+    {
+        Debug.Log($"PersistentDataManager {this.GetInstanceID()} is being destroyed.");
+    }
+
+    public void SavePlayerData()
+    {
+        BinaryFormatter formatter = new BinaryFormatter();
+        Debug.Log($"Application path{Application.persistentDataPath}");
+        string path = Application.persistentDataPath + "/playerdata.dat";
+
+        FileStream stream = new FileStream(path, FileMode.Create);
+
+        formatter.Serialize(stream, userProfileData);
+        stream.Close();
+    }
+
+    public void LoadPlayerData()
+    {
+        string path = Application.persistentDataPath + "/playerdata.dat";
+
+        if (File.Exists(path))
+        {
+            BinaryFormatter formatter = new BinaryFormatter();
+            FileStream stream = new FileStream(path, FileMode.Open);
+
+            userProfileData = formatter.Deserialize(stream) as UserProfileData;
+            stream.Close();
+        }
+        else
+        {
+            // If no data exists, initialize with default values
+            var username = PlayerPrefs.GetString("Username");
+            if (username == null)
+            {
+                username = "Guest";
+            }
+            userProfileData = new UserProfileData(username, 0, 0);
+        }
+    }
+
+    public void AddUserGalleryBird(UserBirdUploadData birdData)
+    {
+        userGalleryPics.Add(birdData);
     }
 
     public void SetBirdData(BirdDataObject newBirdData)
@@ -55,6 +111,20 @@ public class PersistentDataManager : MonoBehaviour
         return null;
     }
 
+    public void UpdateUserCaptures()
+    {
+        userProfileData.birdsCaptured = userCapturedBirds.Count;
+        int totalCount = 0;
+        foreach(var bird in userCapturedBirds)
+        {
+            foreach(var capture in bird.captureData)
+            {
+                totalCount++;
+            }
+        }
+        userProfileData.totalCaptures = totalCount;
+    }
+
     public void AddUserAvidexBird(UserAvidexBird bird)
     {
         userCapturedBirds.Add(bird);
@@ -62,6 +132,8 @@ public class PersistentDataManager : MonoBehaviour
         {
             Debug.LogWarning("Bird data or bird name should not be null here");
         }
+
+        userProfileData.points += bird.birdData.points;
         gameBirds[bird.birdData.birdName].userDiscovered = true;
     }
 
@@ -70,6 +142,7 @@ public class PersistentDataManager : MonoBehaviour
     {
         var existingBird = userCapturedBirds.Find(b => b.birdData.birdName == name);
         existingBird.captureData.Add(captureData);
+        userProfileData.points += existingBird.birdData.points;
     }
 
     public void LoadGameBirds()

@@ -21,7 +21,6 @@ public class BirdDetailUIManager : MonoBehaviour
         currentBird = bird;
         var userBird = bird.birdData;
         birdImage.sprite = userBird.birdImage;
-        Debug.Log($"Avendano Bird name is: {userBird.birdName}");
         birdNameText.text = userBird.birdName;
         birdDescriptionText.text = userBird.birdDescription;
         LoadUserBirdImageGallery();

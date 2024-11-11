@@ -458,6 +458,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0324f399548bd8e4281163242196ab67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  userProfileData: {fileID: 0}
   selectedBirdData:
     birdName: 
     spawnProbability: 0
@@ -466,7 +467,6 @@ MonoBehaviour:
     location: {x: 0, y: 0, z: 0}
   userCapturedBirds:
   - {fileID: 530476288773007285, guid: 29adc1f4e62403147979ea212c8f4b73, type: 3}
-  - {fileID: 5111982898910581401, guid: deef19314a3d9be4c92376beb142bd70, type: 3}
 --- !u!1001 &355520861
 PrefabInstance:
   m_ObjectHideFlags: 0
