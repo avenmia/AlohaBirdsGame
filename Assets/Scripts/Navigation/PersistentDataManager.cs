@@ -16,6 +16,8 @@ public class PersistentDataManager : MonoBehaviour
 
     public List<UserAvidexBird> userCapturedBirds = new List<UserAvidexBird>();
 
+    public List<UserBirdUploadData> userGalleryPics = new List<UserBirdUploadData>();
+
     // public event Action<BirdData> OnBirdDataSet;
 
     private void Awake()
@@ -23,8 +25,8 @@ public class PersistentDataManager : MonoBehaviour
         // Implement Singleton pattern
         if (Instance == null)
         {
-            // PlayerPrefs.DeleteAll();
-            // PlayerPrefs.Save();
+            PlayerPrefs.DeleteAll();
+            PlayerPrefs.Save();
             Instance = this;
             DontDestroyOnLoad(gameObject); // Keep this object alive across scenes
             LoadGameBirds();
@@ -76,6 +78,11 @@ public class PersistentDataManager : MonoBehaviour
             }
             userProfileData = new UserProfileData(username, 0, 0);
         }
+    }
+
+    public void AddUserGalleryBird(UserBirdUploadData birdData)
+    {
+        userGalleryPics.Add(birdData);
     }
 
     public void SetBirdData(BirdDataObject newBirdData)
