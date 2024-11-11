@@ -25,8 +25,8 @@ public class PersistentDataManager : MonoBehaviour
         // Implement Singleton pattern
         if (Instance == null)
         {
-            // PlayerPrefs.DeleteAll();
-            // PlayerPrefs.Save();
+            PlayerPrefs.DeleteAll();
+            PlayerPrefs.Save();
             Instance = this;
             DontDestroyOnLoad(gameObject); // Keep this object alive across scenes
             LoadGameBirds();
