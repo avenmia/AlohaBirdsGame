@@ -11,6 +11,11 @@ public class BirdDetailUIManager : MonoBehaviour
     public Image birdImage;
     public TMP_Text birdNameText;
     public TMP_Text birdDescriptionText;
+    public TMP_Text birdHawaiianBirdName;
+    public TMP_Text birdConservationStatus;
+    public TMP_Text birdNativeHawaiianSpecies;
+    public TMP_Text birdPoints;
+    public TMP_Text birdEBirdURL;
     public UserAvidexBird currentBird;
     public Transform galleryContentParent;
     public GameObject galleryItemPrefab;
@@ -23,6 +28,11 @@ public class BirdDetailUIManager : MonoBehaviour
         birdImage.sprite = userBird.birdImage;
         birdNameText.text = userBird.birdName;
         birdDescriptionText.text = userBird.birdDescription;
+        birdHawaiianBirdName.text = userBird.hawaiianBirdName;
+        birdConservationStatus.text = userBird.conservationStatus;
+        birdNativeHawaiianSpecies.text = userBird.nativeHawaiianSpecies == true ? "yes" : "no";
+        birdPoints.text = userBird.points.ToString();
+        birdEBirdURL.text = userBird.ebirdURL;
         LoadUserBirdImageGallery();
     }
 
