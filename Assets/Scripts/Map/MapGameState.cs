@@ -16,9 +16,6 @@ public class MapGameState : MonoBehaviour
     public List<BirdDataObject> spawnableBirds = new List<BirdDataObject>();
 
     public List<BirdDataObject> spawnedBirds = new List<BirdDataObject>();
-    
-    [SerializeField]
-    private LayerGameObjectPlacement _mynaSpawner;
 
     [SerializeField]
     private LayerGameObjectPlacement _owlSpawner;
@@ -267,7 +264,6 @@ public class MapGameState : MonoBehaviour
         string pinName;
         switch (birdData.birdName)
         {
-            case "Common Myna": pinName = "MynaPin"; break;
             case "Barn Owl": pinName = "BarnOwlPin"; break;
             default: pinName = null; break;
         }
@@ -284,11 +280,6 @@ public class MapGameState : MonoBehaviour
             var forward = new Vector3(cameraForward.x, 0f, cameraForward.z).normalized;
             var rotation = Quaternion.LookRotation(forward);
 
-            if (_mynaSpawner == null)
-            {
-                Debug.LogWarning("Myna Spawner should not equal null");
-            }
-
             if(playerLocation == null || rotation == null || birdData == null || birdData.birdName == null)
             {
                 Debug.LogWarning("player location, rotation, or bird name should not be null");
@@ -300,7 +291,6 @@ public class MapGameState : MonoBehaviour
             // TODO: Verify this is right
             switch (birdData.birdName)
             {
-                case "Common Myna": _mynaSpawner.PlaceInstance(spawnPosition, rotation); return;
                 case "Barn Owl": _owlSpawner.PlaceInstance(spawnPosition, rotation); return;
                 default: Debug.LogWarning($"Bird spawner does not exist for ${birdData.birdName}"); return;
             }
