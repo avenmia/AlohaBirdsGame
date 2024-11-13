@@ -142,8 +142,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: BirdName
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 9cdb320e10d474e10b3524897957e7b9, type: 2}
-  m_sharedMaterial: {fileID: -6830805112575726594, guid: 9cdb320e10d474e10b3524897957e7b9, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: f2e073d64e1b84875ae22ee4dd581fd0, type: 2}
+  m_sharedMaterial: {fileID: -8986985319619836286, guid: f2e073d64e1b84875ae22ee4dd581fd0, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
