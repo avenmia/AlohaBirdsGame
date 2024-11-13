@@ -74,13 +74,18 @@ public class ARBirdCaptureManager : MonoBehaviour
             PersistentDataManager.Instance.UpdateUserAvidexBird(existingUserBird.birdData.birdName, captureData);
         }
         PersistentDataManager.Instance.UpdateUserCaptures();
-        ShowPopup($"You captured a {birdSpawnData.birdName}");
+        StartCoroutine(CaptureScreenshotAndShowPopup(birdSpawnData.birdName));
+    }
+
+    IEnumerator CaptureScreenshotAndShowPopup(string birdName)
+    {
+        // Take screenshot before showing popup
+        yield return StartCoroutine(SaveScreenshotToGallery(birdName));
+
+        // Now show the popup
+        ShowPopup($"You captured a {birdName}");
         isScreenTransitioning = true;
         StartCoroutine(ReturnToMap(4f));
-        
-        // TODO: Uncomment to save screenshot 
-        StartCoroutine(SaveScreenshotToGallery(birdSpawnData.birdName));
-        // Provide feedback to the user
     }
 
     public void onClickCapture()
@@ -114,11 +119,15 @@ public class ARBirdCaptureManager : MonoBehaviour
 
     IEnumerator SaveScreenshotToGallery(string birdName)
     {
+        mainCanvas.enabled = false;
+
         yield return new WaitForEndOfFrame();
         Debug.Log("Saving screenshot");
         Texture2D screenImage = new Texture2D(Screen.width, Screen.height);
         screenImage.ReadPixels(new Rect(0, 0, Screen.width, Screen.height), 0, 0);
         screenImage.Apply();
+
+        mainCanvas.enabled = true;
 
         // Save to device gallery
         // NativeGallery.SaveImageToGallery(screenImage, "MyGameGallery", "CapturedBird_{0}.png");

@@ -7,11 +7,12 @@ TagManager:
   - Bird
   - MynaPin
   - BarnOwlPin
+  - PigeonPin
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - ARUI
   - Water
   - UI
   - 
