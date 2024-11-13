@@ -56,6 +56,12 @@ public class MapGameState : MonoBehaviour
             Debug.LogError("Map Camera not found after scene load.");
         }
 
+        if (_mapCamera.transform.forward == Vector3.zero)
+        {
+            _mapCamera.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
+            Debug.LogWarning("Camera forward vector was zero. Setting default rotation.");
+        }
+
         if (Input.location != null && Input.location.status == LocationServiceStatus.Running)
         {
            
@@ -115,6 +121,11 @@ public class MapGameState : MonoBehaviour
         if (_mapCamera != null)
         {
             Debug.Log("Map Camera assigned in Awake.");
+            if (_mapCamera.transform.forward == Vector3.zero)
+            {
+                _mapCamera.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
+                Debug.LogWarning("Camera forward vector was zero. Setting default rotation.");
+            }
         }
         else
         {
@@ -262,7 +273,7 @@ public class MapGameState : MonoBehaviour
         }
         if (pinName == null || GameObject.FindGameObjectWithTag(pinName) != null)
         {
-            Debug.Log("Bird Already Exists");
+            Debug.Log($"Bird Already Exists {birdData.birdName}");
             return; // Bird already exists
         }
 
@@ -283,42 +294,9 @@ public class MapGameState : MonoBehaviour
                 Debug.LogWarning("player location, rotation, or bird name should not be null");
             }
 
-            Vector3 spawnPosition;
+            Vector3 spawnPosition = CalculateSpawnPosition(playerLocation, birdData, forward);
+                birdData.location = playerLocation;
 
-            if (isRespawn && birdData.location != Vector3.zero)
-            {
-                // Use the stored scene position
-                spawnPosition = birdData.location;
-            }
-            else
-            {
-                // Calculate a new spawn position
-                // spawnPosition = CalculateSpawnPosition(playerLocation, rotation);
-                // Convert playerLocation (latitude, longitude) to a LatLng object
-                var latLng = new LatLng(playerLocation.x, playerLocation.y);
-
-                // Convert the LatLng to scene coordinates
-                var scenePosition = _lightshipMapView.LatLngToScene(latLng);
-
-                float offsetDistance;
-                if(birdData.birdName == "Barn Owl")
-                {
-                    offsetDistance = 10.0f;
-                }
-                else
-                {
-                    offsetDistance = 25.0f;
-                }
-
-                // Define the offset distance in Unity units (1 unit = 1 meter)
-
-                // Calculate the spawn position by offsetting the scene position
-                spawnPosition = scenePosition + forward * offsetDistance;
-
-                // Store the spawn position in the bird data
-                birdData.location = spawnPosition;
-            }
-            
             // TODO: Verify this is right
             switch (birdData.birdName)
             {
@@ -327,6 +305,30 @@ public class MapGameState : MonoBehaviour
                 default: Debug.LogWarning($"Bird spawner does not exist for ${birdData.birdName}"); return;
             }
         }
+    }
+
+    private Vector3 CalculateSpawnPosition(Vector2 playerLocation, BirdDataObject birdData, Vector3 forward)
+    {
+        var latLng = new LatLng(playerLocation.x, playerLocation.y);
+
+        // Convert the LatLng to scene coordinates
+        var scenePosition = _lightshipMapView.LatLngToScene(latLng);
+
+        float offsetDistance;
+        if (birdData.birdName == "Barn Owl")
+        {
+            offsetDistance = 10.0f;
+        }
+        else
+        {
+            offsetDistance = 25.0f;
+        }
+
+        // Define the offset distance in Unity units (1 unit = 1 meter)
+
+        // Calculate the spawn position by offsetting the scene position
+        var result = scenePosition + forward * offsetDistance;
+        return result;
     }
 
     private LatLng ScreenPointToLatLong(Vector3 screenPosition)
