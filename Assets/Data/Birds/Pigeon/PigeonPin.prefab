@@ -180,7 +180,7 @@ GameObject:
   - component: {fileID: 999543633898710067}
   m_Layer: 0
   m_Name: PigeonPin
-  m_TagString: MynaPin
+  m_TagString: PigeonPin
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -254,5 +254,5 @@ MonoBehaviour:
     spawnRadius: 0
     birdImage: {fileID: 0}
     location: {x: 0, y: 0, z: 0}
-  prefabName: MynaPin
-  NavPrefab: {fileID: 0}
+  prefabName: PigeonPin
+  NavPrefab: {fileID: 7087833928533607845}

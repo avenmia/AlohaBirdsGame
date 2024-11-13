@@ -16,9 +16,9 @@ public class MapGameState : MonoBehaviour
     public List<BirdDataObject> spawnableBirds = new List<BirdDataObject>();
 
     public List<BirdDataObject> spawnedBirds = new List<BirdDataObject>();
-    
+
     [SerializeField]
-    private LayerGameObjectPlacement _mynaSpawner;
+    private LayerGameObjectPlacement _pigeonSpawner;
 
     [SerializeField]
     private LayerGameObjectPlacement _owlSpawner;
@@ -267,7 +267,7 @@ public class MapGameState : MonoBehaviour
         string pinName;
         switch (birdData.birdName)
         {
-            case "Common Myna": pinName = "MynaPin"; break;
+            case "Pigeon": pinName = "PigeonPin"; break;
             case "Barn Owl": pinName = "BarnOwlPin"; break;
             default: pinName = null; break;
         }
@@ -284,11 +284,6 @@ public class MapGameState : MonoBehaviour
             var forward = new Vector3(cameraForward.x, 0f, cameraForward.z).normalized;
             var rotation = Quaternion.LookRotation(forward);
 
-            if (_mynaSpawner == null)
-            {
-                Debug.LogWarning("Myna Spawner should not equal null");
-            }
-
             if(playerLocation == null || rotation == null || birdData == null || birdData.birdName == null)
             {
                 Debug.LogWarning("player location, rotation, or bird name should not be null");
@@ -297,10 +292,11 @@ public class MapGameState : MonoBehaviour
             Vector3 spawnPosition = CalculateSpawnPosition(playerLocation, birdData, forward);
                 birdData.location = playerLocation;
 
+            Debug.Log($"Avendano spawning {birdData.birdName}");
             // TODO: Verify this is right
             switch (birdData.birdName)
             {
-                case "Common Myna": _mynaSpawner.PlaceInstance(spawnPosition, rotation); return;
+                case "Pigeon": _pigeonSpawner.PlaceInstance(spawnPosition, rotation); return;
                 case "Barn Owl": _owlSpawner.PlaceInstance(spawnPosition, rotation); return;
                 default: Debug.LogWarning($"Bird spawner does not exist for ${birdData.birdName}"); return;
             }
@@ -327,6 +323,10 @@ public class MapGameState : MonoBehaviour
         // Define the offset distance in Unity units (1 unit = 1 meter)
 
         // Calculate the spawn position by offsetting the scene position
+        if(forward == Vector3.zero)
+        {
+            forward = new Vector3(0, 0, 1);
+        }
         var result = scenePosition + forward * offsetDistance;
         return result;
     }
