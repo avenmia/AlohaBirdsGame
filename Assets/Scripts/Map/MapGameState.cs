@@ -294,42 +294,8 @@ public class MapGameState : MonoBehaviour
                 Debug.LogWarning("player location, rotation, or bird name should not be null");
             }
 
-            Vector3 spawnPosition;
-
-            if (isRespawn && birdData.location != Vector3.zero)
-            {
-                // Use the stored scene position
-                // spawnPosition = birdData.location;
-                spawnPosition = CalculateSpawnPosition(playerLocation, birdData, forward);
-            }
-            else
-            {
-                // Calculate a new spawn position
-                // spawnPosition = CalculateSpawnPosition(playerLocation, rotation);
-                // Convert playerLocation (latitude, longitude) to a LatLng object
-                var latLng = new LatLng(playerLocation.x, playerLocation.y);
-
-                // Convert the LatLng to scene coordinates
-                var scenePosition = _lightshipMapView.LatLngToScene(latLng);
-
-                float offsetDistance;
-                if(birdData.birdName == "Barn Owl")
-                {
-                    offsetDistance = 10.0f;
-                }
-                else
-                {
-                    offsetDistance = 25.0f;
-                }
-
-                // Define the offset distance in Unity units (1 unit = 1 meter)
-
-                // Calculate the spawn position by offsetting the scene position
-                spawnPosition = scenePosition + forward * offsetDistance;
-
-                // Store the spawn position in the bird data
+            Vector3 spawnPosition = CalculateSpawnPosition(playerLocation, birdData, forward);
                 birdData.location = playerLocation;
-            }
 
             // TODO: Verify this is right
             switch (birdData.birdName)
