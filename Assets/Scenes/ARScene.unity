@@ -555,7 +555,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36014aa643efb56449332e3be6512797, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  birdPrefab: {fileID: 1541010931981852, guid: 0303830adf3a6f44bac6bd606c3bd27d, type: 3}
+  barnOwlPrefab: {fileID: 1541010931981852, guid: 0303830adf3a6f44bac6bd606c3bd27d, type: 3}
+  pigeonPrefab: {fileID: 1541010931981852, guid: 0303830adf3a6f44bac6bd606c3bd27d, type: 3}
 --- !u!1 &460131523
 GameObject:
   m_ObjectHideFlags: 0

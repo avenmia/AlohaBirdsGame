@@ -18,6 +18,12 @@ public class ClickToNavigate : MonoBehaviour, IPointerClickHandler
             
             switch (prefabName)
             {
+                case "PigeonPin":
+                    {
+                        // TODO: This won't work once we incorporate location
+                        birdSpawnData = MapGameState.Instance.spawnedBirds.Find(b => b.birdName == "Pigeon");
+                        break;
+                    }
                 case "BarnOwlPin":
                     {
                         birdSpawnData = MapGameState.Instance.spawnedBirds.Find(b => b.birdName == "Barn Owl");

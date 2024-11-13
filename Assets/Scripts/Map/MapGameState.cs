@@ -18,6 +18,9 @@ public class MapGameState : MonoBehaviour
     public List<BirdDataObject> spawnedBirds = new List<BirdDataObject>();
 
     [SerializeField]
+    private LayerGameObjectPlacement _pigeonSpawner;
+
+    [SerializeField]
     private LayerGameObjectPlacement _owlSpawner;
 
     [SerializeField]
@@ -264,6 +267,7 @@ public class MapGameState : MonoBehaviour
         string pinName;
         switch (birdData.birdName)
         {
+            case "Pigeon": pinName = "PigeonPin"; break;
             case "Barn Owl": pinName = "BarnOwlPin"; break;
             default: pinName = null; break;
         }
@@ -288,9 +292,11 @@ public class MapGameState : MonoBehaviour
             Vector3 spawnPosition = CalculateSpawnPosition(playerLocation, birdData, forward);
                 birdData.location = playerLocation;
 
+            Debug.Log($"Avendano spawning {birdData.birdName}");
             // TODO: Verify this is right
             switch (birdData.birdName)
             {
+                case "Pigeon": _pigeonSpawner.PlaceInstance(spawnPosition, rotation); return;
                 case "Barn Owl": _owlSpawner.PlaceInstance(spawnPosition, rotation); return;
                 default: Debug.LogWarning($"Bird spawner does not exist for ${birdData.birdName}"); return;
             }
@@ -317,6 +323,10 @@ public class MapGameState : MonoBehaviour
         // Define the offset distance in Unity units (1 unit = 1 meter)
 
         // Calculate the spawn position by offsetting the scene position
+        if(forward == Vector3.zero)
+        {
+            forward = new Vector3(0, 0, 1);
+        }
         var result = scenePosition + forward * offsetDistance;
         return result;
     }

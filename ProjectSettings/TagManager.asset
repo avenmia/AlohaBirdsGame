@@ -7,6 +7,7 @@ TagManager:
   - Bird
   - MynaPin
   - BarnOwlPin
+  - PigeonPin
   layers:
   - Default
   - TransparentFX
