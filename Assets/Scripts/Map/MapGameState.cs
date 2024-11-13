@@ -262,7 +262,6 @@ public class MapGameState : MonoBehaviour
         }
         if (pinName == null || GameObject.FindGameObjectWithTag(pinName) != null)
         {
-            Debug.Log("Bird Already Exists");
             return; // Bird already exists
         }
 
@@ -289,6 +288,7 @@ public class MapGameState : MonoBehaviour
             {
                 // Use the stored scene position
                 spawnPosition = birdData.location;
+                // spawnPosition = CalculateSpawnPosition(playerLocation, birdData, forward);
             }
             else
             {
@@ -316,9 +316,9 @@ public class MapGameState : MonoBehaviour
                 spawnPosition = scenePosition + forward * offsetDistance;
 
                 // Store the spawn position in the bird data
-                birdData.location = spawnPosition;
+                birdData.location = playerLocation;
             }
-            
+
             // TODO: Verify this is right
             switch (birdData.birdName)
             {
