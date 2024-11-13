@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 3719257539244980163}
   - component: {fileID: 900332213301369586}
   - component: {fileID: 4216954222181385279}
+  - component: {fileID: -2748132898353570419}
   m_Layer: 5
   m_Name: GalleryItemButtonPrefab
   m_TagString: Untagged
@@ -149,6 +150,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   screenshotImage: {fileID: 6227029443010508647}
   birdNameText: {fileID: 7158649149864832810}
+--- !u!114 &-2748132898353570419
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5662578970776292352}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 306cc8c2b49d7114eaa3623786fc2126, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IgnoreLayout: 0
+  m_MinWidth: -1
+  m_MinHeight: -1
+  m_PreferredWidth: -1
+  m_PreferredHeight: -1
+  m_FlexibleWidth: 1
+  m_FlexibleHeight: -1
+  m_LayoutPriority: 1
 --- !u!1 &7045386305156584336
 GameObject:
   m_ObjectHideFlags: 0
@@ -216,8 +237,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Capture Data
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 9cdb320e10d474e10b3524897957e7b9, type: 2}
-  m_sharedMaterial: {fileID: -6830805112575726594, guid: 9cdb320e10d474e10b3524897957e7b9, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: f2e073d64e1b84875ae22ee4dd581fd0, type: 2}
+  m_sharedMaterial: {fileID: -8986985319619836286, guid: f2e073d64e1b84875ae22ee4dd581fd0, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
