@@ -318,7 +318,7 @@ public class MapGameState : MonoBehaviour
         }
         else
         {
-            offsetDistance = 25.0f;
+            offsetDistance = 45.0f;
         }
 
         // Define the offset distance in Unity units (1 unit = 1 meter)
@@ -326,7 +326,7 @@ public class MapGameState : MonoBehaviour
         // Calculate the spawn position by offsetting the scene position
         if(forward == Vector3.zero)
         {
-            forward = new Vector3(0, 0, 1);
+            forward = new Vector3(0, 2, 1);
         }
         var result = scenePosition + forward * offsetDistance;
         return result;
