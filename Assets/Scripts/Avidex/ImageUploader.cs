@@ -100,7 +100,7 @@ public class ImageUploader : MonoBehaviour
         request.uploadHandler = new UploadHandlerRaw(bodyRaw);
         request.downloadHandler = new DownloadHandlerBuffer();
         request.SetRequestHeader("Content-Type", "application/json");
-        request.SetRequestHeader("Authorization", "Bearer " + "YOURAPIKEYHERE"); // Handle API Key securely
+        request.SetRequestHeader("Authorization", "Bearer " + "YouAPIKey"); // Handle API Key securely
 
         //// Send the request
         yield return request.SendWebRequest();
