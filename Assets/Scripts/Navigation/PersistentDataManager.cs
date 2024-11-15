@@ -3,12 +3,16 @@ using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using TMPro;
 
 public class PersistentDataManager : MonoBehaviour
 {
     public static PersistentDataManager Instance;
 
     public UserProfileData userProfileData;
+
+    public TMP_InputField usernameInputField;
 
     public BirdDataObject selectedBirdData; // The bird data to pass to the next scene
 
@@ -78,6 +82,19 @@ public class PersistentDataManager : MonoBehaviour
             }
             userProfileData = new UserProfileData(username, 0, 0);
         }
+    }
+
+    public void SplashButtonPressed()
+    {
+        AddUsername();
+        SceneManager.LoadScene("MapScene");
+    }
+
+    public void AddUsername()
+    {
+        string username = usernameInputField.text.Trim();
+        userProfileData.username = username;
+        Debug.Log($"Username added: {username}");
     }
 
     public void AddUserGalleryBird(UserBirdUploadData birdData)

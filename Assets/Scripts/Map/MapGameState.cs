@@ -32,6 +32,7 @@ public class MapGameState : MonoBehaviour
     void Start()
     {
         StartCoroutine(StartLocationService());
+        Debug.Log("Lawrence" + PlayerPrefs.GetString("Username"));
     }
 
     void OnEnable()

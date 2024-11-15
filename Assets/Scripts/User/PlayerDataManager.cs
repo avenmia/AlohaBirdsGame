@@ -21,10 +21,10 @@ public class PlayerDataManager : MonoBehaviour
     void Start()
     {
         var player = PersistentDataManager.Instance.userProfileData;
-        userNameText.text = player.username;
-        birdCapturedCountText.text = $"Birds Captured Count: {player.birdsCaptured}";
-        pointsText.text = $"Total Points: {player.points}";
-        totalCapturesText.text = $"Total Captures: {player.totalCaptures}";
+        userNameText.text = player.username.ToString();
+        birdCapturedCountText.text = player.birdsCaptured.ToString();
+        pointsText.text = player.points.ToString();
+        totalCapturesText.text = player.totalCaptures.ToString();
         Debug.Log("PlayerDataManager: Player data initialized.");
     }
 

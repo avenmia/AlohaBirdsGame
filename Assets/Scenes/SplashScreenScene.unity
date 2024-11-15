@@ -405,7 +405,7 @@ MonoBehaviour:
   m_text: SIGN IN
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a64ca9024a39543a796987673818f66d, type: 2}
-  m_sharedMaterial: {fileID: 9075361653843867821, guid: a64ca9024a39543a796987673818f66d, type: 2}
+  m_sharedMaterial: {fileID: -7894647403372973870, guid: a64ca9024a39543a796987673818f66d, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -562,9 +562,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1419481155}
-        m_TargetAssemblyTypeName: UsernameHandler, Assembly-CSharp
-        m_MethodName: OnSubmitButtonClicked
+      - m_Target: {fileID: 956248232}
+        m_TargetAssemblyTypeName: PersistentDataManager, Assembly-CSharp
+        m_MethodName: SplashButtonPressed
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -672,7 +672,7 @@ MonoBehaviour:
   m_text: Hui Manu o Ku
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 068e7cb4e47bb48c792abbda45346bcd, type: 2}
-  m_sharedMaterial: {fileID: -5074102298136285818, guid: 068e7cb4e47bb48c792abbda45346bcd, type: 2}
+  m_sharedMaterial: {fileID: -5459983525663856400, guid: 068e7cb4e47bb48c792abbda45346bcd, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1040,7 +1040,7 @@ MonoBehaviour:
   m_text: ENTER USERNAME
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a64ca9024a39543a796987673818f66d, type: 2}
-  m_sharedMaterial: {fileID: 9075361653843867821, guid: a64ca9024a39543a796987673818f66d, type: 2}
+  m_sharedMaterial: {fileID: -7894647403372973870, guid: a64ca9024a39543a796987673818f66d, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1114,6 +1114,61 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 936896604}
   m_CullTransparentMesh: 1
+--- !u!1 &956248230
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 956248231}
+  - component: {fileID: 956248232}
+  m_Layer: 0
+  m_Name: PersistentDataManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &956248231
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 956248230}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 375, y: 676.11597, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &956248232
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 956248230}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0324f399548bd8e4281163242196ab67, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  usernameInputField: {fileID: 897245095}
+  selectedBirdData:
+    birdName: 
+    spawnProbability: 0
+    spawnRadius: 0
+    birdImage: {fileID: 0}
+    location: {x: 0, y: 0, z: 0}
+  userCapturedBirds:
+  - {fileID: 5111982898910581401, guid: 3c12fa5733036f249acbe233dc6b748c, type: 3}
+  - {fileID: 5111982898910581401, guid: deef19314a3d9be4c92376beb142bd70, type: 3}
+  userGalleryPics: []
 --- !u!1 &961739749
 GameObject:
   m_ObjectHideFlags: 0
@@ -1480,7 +1535,7 @@ MonoBehaviour:
   m_text: "\u200B"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a64ca9024a39543a796987673818f66d, type: 2}
-  m_sharedMaterial: {fileID: 9075361653843867821, guid: a64ca9024a39543a796987673818f66d, type: 2}
+  m_sharedMaterial: {fileID: -7894647403372973870, guid: a64ca9024a39543a796987673818f66d, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1554,51 +1609,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1264014581}
   m_CullTransparentMesh: 1
---- !u!1 &1419481154
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1419481156}
-  - component: {fileID: 1419481155}
-  m_Layer: 0
-  m_Name: UsernameManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1419481155
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1419481154}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f597425079cbacf40be02ffbd45ccc8b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  usernameInputField: {fileID: 897245095}
---- !u!4 &1419481156
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1419481154}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 115.31824, y: 344.56155, z: -10.926698}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1421321893
 GameObject:
   m_ObjectHideFlags: 0
@@ -1734,7 +1744,7 @@ MonoBehaviour:
   m_text: ALOHA BIRDS GAME
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a64ca9024a39543a796987673818f66d, type: 2}
-  m_sharedMaterial: {fileID: 9075361653843867821, guid: a64ca9024a39543a796987673818f66d, type: 2}
+  m_sharedMaterial: {fileID: -7894647403372973870, guid: a64ca9024a39543a796987673818f66d, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1892,4 +1902,4 @@ SceneRoots:
   - {fileID: 1160234427}
   - {fileID: 397173209}
   - {fileID: 1094117240}
-  - {fileID: 1419481156}
+  - {fileID: 956248231}
