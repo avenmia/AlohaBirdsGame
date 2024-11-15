@@ -83,7 +83,7 @@ public class ARBirdCaptureManager : MonoBehaviour
         yield return StartCoroutine(SaveScreenshotToGallery(birdName));
 
         // Now show the popup
-        ShowPopup($"You captured a {birdName}");
+        ShowPopup(birdName);
         isScreenTransitioning = true;
         StartCoroutine(ReturnToMap(4f));
     }
