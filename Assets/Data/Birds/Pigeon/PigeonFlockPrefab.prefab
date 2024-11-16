@@ -30,8 +30,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.92248046, y: -0.32255858, z: 0.49590707}
-  m_LocalScale: {x: 0.16619444, y: 0.16619447, z: 0.16619447}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: -0.04, y: -0.04, z: -0.04}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 5342183954976634802}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -547,9 +547,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pigeonPrefab: {fileID: 123642, guid: af4a73b89b97f407d95ed7bd83d16b2f, type: 3}
-  maxXNum: 2
-  maxYNum: 3
-  maxZNum: 2
+  maxXNum: 1
+  maxYNum: 1
+  maxZNum: 1
   pigeonFood: {fileID: 1833439653957655261}
 --- !u!1 &4458562501608440755
 GameObject:
