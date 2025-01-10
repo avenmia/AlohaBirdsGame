@@ -109,10 +109,10 @@ public class PersistentDataManager : MonoBehaviour
         //PlayerPrefs.SetString("totalAchievements", totalAchievements);
     }
 
-    private void OnApplicationPause(bool pause)
-    {
-        Save_Data();
-    }
+    //private void OnApplicationPause(bool pause)
+    //{
+    //    Save_Data();
+    //}
 
     private void OnApplicationQuit()
     {
