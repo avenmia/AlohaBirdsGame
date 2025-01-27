@@ -8,12 +8,14 @@ public class UserProfileData
     public int birdsCaptured;
     public int totalCaptures;
     public int points;
+    public List<string> uniqueBirds;
 
     // Constructor
-    public UserProfileData(string username, int birdsCaptured, int points)
+    public UserProfileData(string username, int birdsCaptured, int points, List<string> uniqueBirds)
     {
         this.username = username;
         this.birdsCaptured = birdsCaptured;
         this.points = points;
+        this.uniqueBirds = uniqueBirds;
     }
 }
