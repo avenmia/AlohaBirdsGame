@@ -19,7 +19,8 @@ A mobile augmented reality (AR) Unity game built on Niantic Lightship, aiming to
   - [Requirements](#requirements)
   - [Installation](#installation)
   - [Running the apk (Android)](#running-the-apk-android)
-  - [Running the iOS Developer Mode (iOS)](#running-the-ios-version-in-developer-mode)
+  - [Running the iOS Version in Developer Mode](#running-the-ios-version-in-developer-mode)
+  - [Debugging in Visual Studio](#debugging-in-visual-studio)
 
 ## About the Project
 
@@ -92,3 +93,18 @@ Given more time, we plan to add:
 3. Follow unity tutorial steps linked here for deploying and working with Xcode: [Unity Tutorial iOS Instructions](https://learn.unity.com/tutorial/deploy-your-project-to-ios-or-android?pathwayId=63e3a4c1edbc2a344bfe21d8&missionId=63f63a3bedbc2a663dc6ffde#633d41a7edbc2a4bb08558b8)
 
 Thank you for reviewing our project!. :hibiscus:
+
+
+## Debugging in Visual Studio
+1. Open Build Settings
+2. Ensure the following Settings are selected
+   1. Development Build
+   2. Script Debugging
+   3. Wait For Managed Debugger
+3. Build and run
+   1. My device specifies the port the app is being run on
+4. Open Visual Studio from Unity
+5. Under Debug, select Attach Unity Debugger
+6. Select the process on the App
+
+Note: Sometimes the app would crash or not load, I would stop debugging and reattach. Sometimes it just takes a while to get the debugger to attach properly. 
