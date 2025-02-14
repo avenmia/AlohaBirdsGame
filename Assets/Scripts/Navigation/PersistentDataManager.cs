@@ -52,18 +52,6 @@ public class PersistentDataManager : MonoBehaviour
         Debug.Log($"PersistentDataManager {this.GetInstanceID()} is being destroyed.");
     }
 
-    //public void SavePlayerData()
-    //{
-    //    BinaryFormatter formatter = new BinaryFormatter();
-    //    Debug.Log($"Application path{Application.persistentDataPath}");
-    //    string path = Application.persistentDataPath + "/playerdata.dat";
-
-    //    FileStream stream = new FileStream(path, FileMode.Create);
-
-    //    formatter.Serialize(stream, userProfileData);
-    //    stream.Close();
-    //}
-
     public async void Save_Data()
     {
         string uniqueBirds = string.Join(",", userProfileData.uniqueBirds);
@@ -119,41 +107,10 @@ public class PersistentDataManager : MonoBehaviour
         Save_Data();
     }
 
-    //public void LoadPlayerData()
-    //{
-    //    string path = Application.persistentDataPath + "/playerdata.dat";
-
-    //    if (File.Exists(path))
-    //    {
-    //        BinaryFormatter formatter = new BinaryFormatter();
-    //        FileStream stream = new FileStream(path, FileMode.Open);
-
-    //        userProfileData = formatter.Deserialize(stream) as UserProfileData;
-    //        stream.Close();
-    //    }
-    //    else
-    //    {
-    //        // If no data exists, initialize with default values
-    //        var username = PlayerPrefs.GetString("Username");
-    //        if (username == null)
-    //        {
-    //            username = "Guest";
-    //        }
-    //        userProfileData = new UserProfileData(username, 0, 0);
-    //    }
-    //}
-
     //public void SplashButtonPressed()
     //{
     //    AddUsername();
     //    SceneManager.LoadScene("MapScene");
-    //}
-
-    //public void AddUsername()
-    //{
-    //    string username = usernameInputField.text.Trim();
-    //    userProfileData.username = username;
-    //    Debug.Log($"Username added: {username}");
     //}
 
     public void AddUserGalleryBird(UserBirdUploadData birdData)
