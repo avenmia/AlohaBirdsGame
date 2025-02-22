@@ -15,7 +15,7 @@ public class GeoJsonLoader : MonoBehaviour
 
     public void LoadGeoJson()
     {
-        var data = Resources.Load<TextAsset>("BirdLocationData/bird_sightings");
+        var data = Resources.Load<TextAsset>("BirdLocationData/small_bird_sightings");
 
         if (data == null)
         {
