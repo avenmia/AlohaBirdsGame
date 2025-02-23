@@ -87,6 +87,11 @@ namespace DataBank
             return base.getAllData(TABLE_NAME);
         }
 
+        public IDataReader Close_Birds(float lat, float lng)
+        {
+            return base.getCloseBirds(TABLE_NAME, lat, lng);
+        }
+
         //public IDataReader getNearestLocation(LocationInfo loc)
         //{
         //    Debug.Log(CodistanTag + "Getting nearest centoid from: "

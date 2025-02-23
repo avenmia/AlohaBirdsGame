@@ -6,6 +6,7 @@ using Mono.Data.Sqlite;
 using UnityEngine;
 using System.Data;
 using UnityEditor;
+using Unity.VisualScripting;
 
 namespace DataBank
 {
@@ -87,6 +88,29 @@ namespace DataBank
             IDbCommand dbcmd = db_connection.CreateCommand();
             dbcmd.CommandText =
                 "SELECT * FROM " + table_name + " LIMIT 10";
+            IDataReader reader = dbcmd.ExecuteReader();
+            return reader;
+        }
+
+        public IDataReader getCloseBirds(string table_name, float lat, float lng)
+        {
+            IDbCommand dbcmd = db_connection.CreateCommand();
+            //1km = lat 0.01, 1km = 0.01 lng
+            //pos + 1 > lat > pos -1
+            //pos + 1 > lng > pos -1
+                //select* from parsed_birds
+                //where
+                //(Latitude <= 21.28514725 AND Latitude >= 21.28514725)
+                //AND
+                //(Longitude <= -158.0597058 AND Longitude >= -158.0597058)
+            var latUpper = lat + 0.01;
+            var latLower = lat - 0.01;
+            var lngUpper = lng + 0.01;
+            var lngLower = lng - 0.01;
+            dbcmd.CommandText =
+                "SELECT * FROM " + table_name + 
+                " WHERE (Latitude <= " + latUpper + " AND Latitude >= " + latLower + ") " +
+                "AND (Longitude <= " + lngUpper + " AND Longitude >= " + lngLower + ") LIMIT 1";
             IDataReader reader = dbcmd.ExecuteReader();
             return reader;
         }
