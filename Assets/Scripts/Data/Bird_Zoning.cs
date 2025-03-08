@@ -11,7 +11,7 @@ public class Bird_Zoning : MonoBehaviour
 {
     [SerializeField] private LightshipMapView LMV;
     //List<string> Bird_Entities = new List<string>();
-    [SerializeField] private TMP_Text Birds;
+    //[SerializeField] private TMP_Text Birds;
     [SerializeField] private List<string> Bird_Names;
     void Start()
     {
@@ -33,7 +33,7 @@ public class Bird_Zoning : MonoBehaviour
         {
             //lat, lng, species
             //Debug.Log(reader[0].ToString() + " " + reader[1].ToString() + " " + reader[1].ToString());
-            Birds.text += reader[2].ToString();
+            //Birds.text += reader[2].ToString();
             string[] words = reader[2].ToString().Split(", ", StringSplitOptions.RemoveEmptyEntries);
             foreach(var bird in words)
             {
