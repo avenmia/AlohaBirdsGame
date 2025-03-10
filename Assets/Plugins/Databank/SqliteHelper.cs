@@ -7,6 +7,8 @@ using UnityEngine;
 using System.Data;
 using UnityEditor;
 using Unity.VisualScripting;
+using System.IO;
+using Unity.Collections.LowLevel.Unsafe;
 
 namespace DataBank
 {
@@ -14,7 +16,7 @@ namespace DataBank
     {
         private const string CodistanTag = "Codistan: SqliteHelper:\t";
 
-        private const string database_name = "madhunt_db2";
+        private const string database_name = "madhunt_db2.bytes";
 
         public string db_connection_string;
         public IDbConnection db_connection;
@@ -22,8 +24,25 @@ namespace DataBank
         public SqliteHelper()
         {
             //URI=file:.../AlohaBirdsGame/Assets
-            //db_connection_string = "URI=file:" + Application.persistentDataPath + "/" + database_name;
-            db_connection_string = "URI=file:" + Application.dataPath + "/Resources/" + database_name;
+            TextAsset dbAsset = Resources.Load<TextAsset>("madhunt_db2");
+            if(dbAsset == null)
+            {
+                Debug.LogError("Database file not found in Resources!");
+                return;
+            }
+
+            try
+            {
+                string path = Path.Combine(Application.persistentDataPath, "madhunt_db2.bytes");
+                File.WriteAllBytes(path, dbAsset.bytes);
+            }
+            catch (System.Exception ex)
+            {
+                string ErrorMessages = "File Write Error\n" + ex.Message;
+            }
+            
+
+            db_connection_string = "URI=file:" + Application.persistentDataPath + "/" + database_name;
             Debug.Log("db_connection_string" + db_connection_string);
             db_connection = new SqliteConnection(db_connection_string);
             db_connection.Open();
@@ -32,6 +51,7 @@ namespace DataBank
         ~SqliteHelper()
         {
             db_connection.Close();
+            Debug.Log("database closed");
         }
 
         //vitual functions
@@ -133,6 +153,7 @@ namespace DataBank
 
 		public void close (){
 			db_connection.Close ();
+            Debug.Log("database closed");
 		}
     }
 }
