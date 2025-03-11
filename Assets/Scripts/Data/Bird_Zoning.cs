@@ -56,13 +56,15 @@ public class Bird_Zoning : MonoBehaviour
     {
         yield return new WaitForSeconds(seconds);
         
-        var randAmt = UnityEngine.Random.Range(0, 3);
+        var randAmt = UnityEngine.Random.Range(1, 3);
         Spawned.text = "Spawned: ";
         for(int i = 0; i < randAmt; i++)
         {
             var randomNum = UnityEngine.Random.Range(0, Bird_Names.Capacity);
             Spawned.text += Bird_Names[randomNum] + " ";
         }
+
+        Bird_Names.Clear();
 
         StartCoroutine(Fade_Text(Spawned));
     }
