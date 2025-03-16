@@ -13,20 +13,12 @@ using SaveOptions = Unity.Services.CloudSave.Models.Data.Player.SaveOptions;
 public class PersistentDataManager : MonoBehaviour
 {
     public static PersistentDataManager Instance;
-
     public UserProfileData userProfileData;
-
     public TMP_InputField usernameInputField;
-
     public BirdDataObject selectedBirdData; // The bird data to pass to the next scene
-
     public Dictionary<string, GameBird> gameBirds = new Dictionary<string, GameBird>();
-
     public List<UserAvidexBird> userCapturedBirds = new List<UserAvidexBird>();
-
     public List<UserBirdUploadData> userGalleryPics = new List<UserBirdUploadData>();
-
-    // public event Action<BirdData> OnBirdDataSet;
 
     private void Awake()
     {
