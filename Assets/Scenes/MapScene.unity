@@ -353,10 +353,10 @@ MonoBehaviour:
   birdSpawnDataList: []
   spawnableBirds: []
   spawnedBirds: []
-  _pigeonSpawner: {fileID: 6707879518518059146, guid: 457ada0fc83a9f2479b46abfcbee2765, type: 3}
-  _owlSpawner: {fileID: 3289635098547617022, guid: eddb6745f2290ae4d96484aee111a0d1, type: 3}
+  _birdSpawner: {fileID: 7067019542376699034, guid: 3b48cc82061099e4299d1ae76cfb9bac, type: 3}
   _mapCamera: {fileID: 355520862}
   _lightshipMapView: {fileID: 7395098618855432449}
+  _layerName: MapLayer
 --- !u!4 &299130263
 Transform:
   m_ObjectHideFlags: 0
@@ -2506,7 +2506,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 91936567887524612, guid: 0f989f1ab23be4b4095a2d3c14e456d2, type: 3}
       propertyPath: _mapLayers.Array.size
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 91936567887524612, guid: 0f989f1ab23be4b4095a2d3c14e456d2, type: 3}
       propertyPath: _startAtDefaultLocation
@@ -2515,11 +2515,15 @@ PrefabInstance:
     - target: {fileID: 91936567887524612, guid: 0f989f1ab23be4b4095a2d3c14e456d2, type: 3}
       propertyPath: _mapLayers.Array.data[0]
       value: 
-      objectReference: {fileID: 6060231584453395915, guid: eddb6745f2290ae4d96484aee111a0d1, type: 3}
+      objectReference: {fileID: 7373279264270522132, guid: 3b48cc82061099e4299d1ae76cfb9bac, type: 3}
     - target: {fileID: 91936567887524612, guid: 0f989f1ab23be4b4095a2d3c14e456d2, type: 3}
       propertyPath: _mapLayers.Array.data[1]
       value: 
       objectReference: {fileID: 1187522480860330197, guid: 457ada0fc83a9f2479b46abfcbee2765, type: 3}
+    - target: {fileID: 91936567887524612, guid: 0f989f1ab23be4b4095a2d3c14e456d2, type: 3}
+      propertyPath: _mapLayers.Array.data[2]
+      value: 
+      objectReference: {fileID: 5031065554086110696, guid: 3b48cc82061099e4299d1ae76cfb9bac, type: 3}
     - target: {fileID: 91936567887524612, guid: 0f989f1ab23be4b4095a2d3c14e456d2, type: 3}
       propertyPath: _defaultLocation._latitude
       value: 21.31624
