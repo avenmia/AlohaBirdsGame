@@ -17,10 +17,6 @@ public class MapGameState : MonoBehaviour
 
     private readonly List<MapLayerComponent> _components = new();
 
-    //[SerializeField]
-    //private LayerGameObjectPlacement _pigeonSpawner;
-    //[SerializeField]
-    //private LayerGameObjectPlacement _owlSpawner;
     [SerializeField]
     private BirdLayerGameObjectPlacement _birdSpawner;
     

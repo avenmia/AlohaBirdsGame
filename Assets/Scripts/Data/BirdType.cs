@@ -8,7 +8,7 @@ public enum BirdType
     AfricanSilverbill,
     HawaiianDuck,
     KalijPheasant,
-    OahuAmakihi,
+    HoneyCreeper,
     HouseSparrow,
     RedFowl
 }

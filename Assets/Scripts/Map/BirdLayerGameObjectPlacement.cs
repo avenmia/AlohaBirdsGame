@@ -12,6 +12,11 @@ public class BirdLayerGameObjectPlacement : LayerGameObjectPlacement
     [SerializeField] private GameObject _pigeonPrefab;
     [SerializeField] private GameObject _barnowlPrefab;
     [SerializeField] private GameObject _africansilverbillPrefab;
+    [SerializeField] private GameObject _hawaiianDuckPrefab;
+    [SerializeField] private GameObject _kalijPheasantPrefab;
+    [SerializeField] private GameObject _honeyCreeperPrefab;
+    [SerializeField] private GameObject _houseSparrowPrefab;
+    [SerializeField] private GameObject _redfowlPrefab;
 
     private readonly Dictionary<GameObject, (LatLng Position, Quaternion Rotation)> _instances = new();
 
@@ -25,7 +30,12 @@ public class BirdLayerGameObjectPlacement : LayerGameObjectPlacement
         {
             { BirdType.Pigeon, _pigeonPrefab },
             { BirdType.BarnOwl, _barnowlPrefab },
-            { BirdType.AfricanSilverbill, _africansilverbillPrefab}
+            { BirdType.AfricanSilverbill, _africansilverbillPrefab},
+            { BirdType.HawaiianDuck, _hawaiianDuckPrefab },
+            { BirdType.HoneyCreeper, _honeyCreeperPrefab },
+            { BirdType.KalijPheasant, _kalijPheasantPrefab },
+            { BirdType.HouseSparrow, _houseSparrowPrefab },
+            { BirdType.RedFowl, _redfowlPrefab }
         };
 
         SetupBirdPools();
@@ -51,6 +61,36 @@ public class BirdLayerGameObjectPlacement : LayerGameObjectPlacement
 
         _birdPools[BirdType.AfricanSilverbill] = new ObjectPool<GameObject>(
             _africansilverbillPrefab,
+            onAcquire: OnObjectPoolAcquire,
+            onRelease: OnObjectPoolRelease
+        );
+
+        _birdPools[BirdType.HawaiianDuck] = new ObjectPool<GameObject>(
+            _hawaiianDuckPrefab,
+            onAcquire: OnObjectPoolAcquire,
+            onRelease: OnObjectPoolRelease
+        );
+
+        _birdPools[BirdType.KalijPheasant] = new ObjectPool<GameObject>(
+            _kalijPheasantPrefab,
+            onAcquire: OnObjectPoolAcquire,
+            onRelease: OnObjectPoolRelease
+        );
+
+        _birdPools[BirdType.HoneyCreeper] = new ObjectPool<GameObject>(
+            _honeyCreeperPrefab,
+            onAcquire: OnObjectPoolAcquire,
+            onRelease: OnObjectPoolRelease
+        );
+
+        _birdPools[BirdType.HouseSparrow] = new ObjectPool<GameObject>(
+            _houseSparrowPrefab,
+            onAcquire: OnObjectPoolAcquire,
+            onRelease: OnObjectPoolRelease
+        );
+
+        _birdPools[BirdType.RedFowl] = new ObjectPool<GameObject>(
+            _redfowlPrefab,
             onAcquire: OnObjectPoolAcquire,
             onRelease: OnObjectPoolRelease
         );
