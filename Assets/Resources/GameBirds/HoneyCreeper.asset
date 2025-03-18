@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2c41827f9fd630043be6fcddecb5fdfa, type: 3}
-  m_Name: OahuAmakihi
+  m_Name: HoneyCreeper
   m_EditorClassIdentifier: 
-  birdName: Oahu Amakihi
+  birdName: Honey Creeper
   hawaiianBirdName: 
   birdImage: {fileID: 21300000, guid: fd3fab62ec9c2044784dcf1c7da11c9a, type: 3}
   birdDescription: " A small Hawaiian honeycreeper of forests on Oahu. Males are
