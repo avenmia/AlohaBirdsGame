@@ -12,17 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c41827f9fd630043be6fcddecb5fdfa, type: 3}
   m_Name: HoneyCreeper
   m_EditorClassIdentifier: 
-  birdName: Honey Creeper
-  hawaiianBirdName: 
-  birdImage: {fileID: 21300000, guid: fd3fab62ec9c2044784dcf1c7da11c9a, type: 3}
-  birdDescription: " A small Hawaiian honeycreeper of forests on Oahu. Males are
-    bright yellow and females are grayer with two whitish wingbars. The bill is thicker
-    and more curved than that of Warbling White-eye. Occurs in native and non-native
-    forests, parks, and some suburban areas near mountains. Moves quickly among leaves
-    and small branches in the understory and forest canopy in search of nectar, insects,
-    and fruit. Song is a trill that does not change in pitch or speed. Call is a
-    nasal \u201Cchee.\u201D"
+  birdName: Iiwi
+  hawaiianBirdName: '''Apapane'
+  birdImage: {fileID: 21300000, guid: d143a3ce1f4aebc41b21d48d3314aa07, type: 3}
+  birdDescription: A bright red Hawaiian honeycreeper of high elevation native forests
+    on Kauai, Maui, and Hawaii Island. Very rare on Oahu and Molokai. The brilliant
+    crimson color and long, curved salmon-colored bill are diagnostic. Juveniles
+    are mottled green, yellow, and orange. Very active and boisterous in the understory
+    and forest canopy. Aggressively chases other birds from flowering trees. Vocalizations
+    include a complex array of gurgles, chuckles, and reedy notes, more varied, lower
+    pitched, and louder than those of the Apapane.
   conservationStatus: Vulnerable
-  nativeHawaiianSpecies: 0
+  nativeHawaiianSpecies: 1
   points: 2
-  ebirdURL: https://ebird.org/species/oahama/US-HI
+  ebirdURL: https://ebird.org/species/iiwi

@@ -1,9 +1,13 @@
+using DataBank;
 using Niantic.Lightship.Maps;
 using Niantic.Lightship.Maps.Core.Coordinates;
 using Niantic.Lightship.Maps.MapLayers.Components;
 using Niantic.Lightship.Maps.MapLayers.Components.BaseTypes;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
+using Unity.Collections.LowLevel.Unsafe;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -200,6 +204,35 @@ public class MapGameState : MonoBehaviour
         return birdSpawnDataList;
     }
 
+    public string GetBirdSpawn(Vector2 playerLocation)
+    {
+        BirdDb birdDb = new BirdDb();
+        IDataReader reader = birdDb.Close_Birds(playerLocation.x, playerLocation.y);
+        var potentialBirds = new List<string>();
+        string birdNameResult = "";
+
+        while (reader.Read())
+        {
+            
+            string[] birdNamesNearUser = reader[2].ToString().Split(", ", StringSplitOptions.RemoveEmptyEntries);
+            foreach (var bird in birdNamesNearUser)
+            {
+                if (PersistentDataManager.GameBirdNames.Contains(bird))
+                {
+                    potentialBirds.Add(bird);
+                }
+            }
+        }
+        birdDb.close();
+        var randAmt = UnityEngine.Random.Range(1, 3);
+        for (int i = 0; i < randAmt; i++)
+        {
+            var randomNum = UnityEngine.Random.Range(0, potentialBirds.Count);
+            birdNameResult = potentialBirds[randomNum];
+        }
+        return birdNameResult;
+    }
+
 
     // Method to attempt spawning birds at the player's location
     public void TrySpawnBirdsAtLocation(Vector2 playerLocation)
@@ -213,23 +246,18 @@ public class MapGameState : MonoBehaviour
         }
 
         // TODO: Instead of getting all gameBirds, get the birds that are within a distance of the player
-        var birdsInPlayersArea = PersistentDataManager.Instance.gameBirds;
-        foreach(var birdKeyValue in birdsInPlayersArea)
+
+        var bird = GetBirdSpawn(playerLocation);
+        // var birdsInPlayersArea = PersistentDataManager.Instance.gameBirds;
+        var spawnBird = new BirdDataObject()
         {
-            var birdDataValue = birdKeyValue.Value.birdData;
-            
-            if (birdDataValue.birdName != null && spawnableBirds.Find(b => b.birdName == birdDataValue.birdName) == null)
-            {
-                spawnableBirds.Add(new BirdDataObject()
-                {
-                    birdName = birdDataValue.birdName,
-                    birdType = BirdTypeUtil.GetBirdType(birdDataValue.birdName),
-                    spawnProbability = 1,
-                    spawnRadius = 5,
-                    location = new Vector3(playerLocation.x, playerLocation.y)
-                });
-            }
-        }
+            birdName = bird,
+            birdType = BirdTypeUtil.GetBirdType(bird),
+            spawnProbability = 1,
+            spawnRadius = 5,
+            location = new Vector3(playerLocation.x, playerLocation.y)
+        };
+        spawnableBirds.Add(spawnBird);
         foreach (BirdDataObject birdData in spawnableBirds)
         {
             // TODO: Uncomment when we add probability in
@@ -252,18 +280,14 @@ public class MapGameState : MonoBehaviour
 
     private void SpawnBird(BirdDataObject birdData, Vector2 playerLocation, bool isRespawn = false)
     {
-        string pinName;
-        switch (birdData.birdName)
-        {
-            case "Pigeon": pinName = "PigeonPin"; break;
-            case "Barn Owl": pinName = "BarnOwlPin"; break;
-            default: pinName = birdData.birdName; break;
-        }
-        if (pinName == null || GameObject.FindGameObjectWithTag(pinName) != null)
-        {
-            Debug.Log($"Bird Already Exists {birdData.birdName}");
-            return; // Bird already exists
-        }
+        string pinName = BirdTypeUtil.GetBirdPinName(birdData.birdName);
+        
+        // TODO: Change to only spawning one bird at a time
+        //if (pinName == null || GameObject.FindGameObjectWithTag(pinName) != null)
+        //{
+        //    Debug.Log($"Bird Already Exists {birdData.birdName}");
+        //    return; // Bird already exists
+        //}
 
 
         if (_mapCamera != null)
@@ -281,15 +305,6 @@ public class MapGameState : MonoBehaviour
                 birdData.location = playerLocation;
 
             _birdSpawner.PlaceBirdInstance(spawnPosition, rotation, birdData.birdType);
-
-            // Debug.Log($"Avendano spawning {birdData.birdName}");
-            // TODO: Verify this is right
-            //switch (birdData.birdName)
-            //{
-            //    case "Pigeon": _pigeonSpawner.PlaceInstance(spawnPosition, rotation); return;
-            //    case "Barn Owl": _owlSpawner.PlaceInstance(spawnPosition, rotation); return;
-            //    default: Debug.LogWarning($"Bird spawner does not exist for ${birdData.birdName}"); return;
-            //}
         }
     }
 
@@ -300,15 +315,15 @@ public class MapGameState : MonoBehaviour
         // Convert the LatLng to scene coordinates
         var scenePosition = _lightshipMapView.LatLngToScene(latLng);
 
-        float offsetDistance;
-        if (birdData.birdName == "Barn Owl")
-        {
-            offsetDistance = 10.0f;
-        }
-        else
-        {
-            offsetDistance = 45.0f;
-        }
+        float offsetDistance = 45.0f;
+        //if (birdData.birdName == "Barn Owl")
+        //{
+        //    offsetDistance = 10.0f;
+        //}
+        //else
+        //{
+        //    offsetDistance = 45.0f;
+        //}
 
         // Define the offset distance in Unity units (1 unit = 1 meter)
 
