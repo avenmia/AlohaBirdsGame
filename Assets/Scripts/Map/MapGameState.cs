@@ -184,31 +184,6 @@ public class MapGameState : MonoBehaviour
         }
     }
 
-    // Method to get birds that can spawn at a given location
-    public List<BirdDataObject> GetSpawnableBirdsAtLocation(Vector2 playerLocation)
-    {
-        // TODO: Uncomment when we're getting birds based on the user's location 
-
-        //List<BirdSpawnData> spawnableBirds = new List<BirdSpawnData>();
-
-        //foreach (BirdSpawnData birdData in birdSpawnDataList)
-        //{
-        //    foreach (GeoLocation location in birdData.possibleLocations)
-        //    {
-        //        float distance = GetDistance(playerLocation, location.ToVector2());
-
-        //        if (distance <= birdData.spawnRadius)
-        //        {
-        //            spawnableBirds.Add(birdData);
-        //            break; // No need to check other locations for this bird
-        //        }
-        //    }
-        //}
-
-        //return spawnableBirds;
-        return birdSpawnDataList;
-    }
-
     public string GetBirdSpawn(Vector2 playerLocation)
     {
         BirdDb birdDb = new BirdDb();
@@ -242,8 +217,6 @@ public class MapGameState : MonoBehaviour
     // Method to attempt spawning birds at the player's location
     public void TrySpawnBirdsAtLocation(Vector2 playerLocation)
     {
-        // TODO: Add when we incorporate player location
-        // List<BirdSpawnData> spawnableBirds = GetSpawnableBirdsAtLocation(playerLocation);
 
         if (PersistentDataManager.Instance == null || PersistentDataManager.Instance.gameBirds == null)
         {
@@ -253,7 +226,6 @@ public class MapGameState : MonoBehaviour
         // TODO: Instead of getting all gameBirds, get the birds that are within a distance of the player
 
         var bird = GetBirdSpawn(playerLocation);
-        // var birdsInPlayersArea = PersistentDataManager.Instance.gameBirds;
         var spawnBird = new BirdDataObject()
         {
             birdName = bird,
@@ -286,14 +258,6 @@ public class MapGameState : MonoBehaviour
     private void SpawnBird(BirdDataObject birdData, Vector2 playerLocation, bool isRespawn = false)
     {
         string pinName = BirdTypeUtil.GetBirdPinName(birdData.birdName);
-        
-        // TODO: Change to only spawning one bird at a time
-        //if (pinName == null || GameObject.FindGameObjectWithTag(pinName) != null)
-        //{
-        //    Debug.Log($"Bird Already Exists {birdData.birdName}");
-        //    return; // Bird already exists
-        //}
-
 
         if (_mapCamera != null)
         {
@@ -321,14 +285,6 @@ public class MapGameState : MonoBehaviour
         var scenePosition = _lightshipMapView.LatLngToScene(latLng);
 
         float offsetDistance = 45.0f;
-        //if (birdData.birdName == "Barn Owl")
-        //{
-        //    offsetDistance = 10.0f;
-        //}
-        //else
-        //{
-        //    offsetDistance = 45.0f;
-        //}
 
         // Define the offset distance in Unity units (1 unit = 1 meter)
 
@@ -341,11 +297,11 @@ public class MapGameState : MonoBehaviour
         return result;
     }
 
-    private LatLng ScreenPointToLatLong(Vector3 screenPosition)
-    {
-        var clickRay = _mapCamera.ScreenPointToRay(screenPosition);
-        var pointOnMap = clickRay.origin + clickRay.direction * (-clickRay.origin.y / clickRay.direction.y);
-        return _lightshipMapView.SceneToLatLng(pointOnMap);
-    }
+    //private LatLng ScreenPointToLatLong(Vector3 screenPosition)
+    //{
+    //    var clickRay = _mapCamera.ScreenPointToRay(screenPosition);
+    //    var pointOnMap = clickRay.origin + clickRay.direction * (-clickRay.origin.y / clickRay.direction.y);
+    //    return _lightshipMapView.SceneToLatLng(pointOnMap);
+    //}
 
 }

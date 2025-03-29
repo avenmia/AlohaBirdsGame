@@ -59,5 +59,34 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 5e7276290104db144b8821f7fe98af69, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7739762933933174476}
   m_SourcePrefab: {fileID: 100100000, guid: 5e7276290104db144b8821f7fe98af69, type: 3}
+--- !u!1 &7663226205146137119 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 5e7276290104db144b8821f7fe98af69, type: 3}
+  m_PrefabInstance: {fileID: 7392753828090511182}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &7739762933933174476
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7663226205146137119}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09c106cbc15e41846abbaf1c9b2bf843, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  birdSpawnData:
+    birdName: 
+    birdType: 0
+    spawnProbability: 0
+    spawnRadius: 0
+    birdImage: {fileID: 0}
+    location: {x: 0, y: 0, z: 0}
+  prefabName: Kalij Pheasant
+  NavPrefab: {fileID: 7663226205146137119}

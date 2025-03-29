@@ -10,6 +10,7 @@ public static class BirdTypeUtil
             case "Barn Owl": return "BarnOwlPin";
             case "African Silverbill": return "African Silverbill";
             case "House Sparrow": return "housesparrow";
+            case "Hawaiian Duck": return "Hawaiian Duck";
             case "Red Junglefowl": return "redfowl";
             case "Iiwi": return "honeycreeper"; 
             default: return null;
