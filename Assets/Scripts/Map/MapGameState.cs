@@ -173,8 +173,13 @@ public class MapGameState : MonoBehaviour
             {
                 var latlng = new LatLng(playerLocation.x, playerLocation.y);
                 _lightshipMapView.SetMapCenter(latlng);
-
-                MapGameState.Instance.TrySpawnBirdsAtLocation(playerLocation);
+                GameObject[] birds = GameObject.FindGameObjectsWithTag("Bird");
+                
+                // If no birds exist spawn a bird
+                if (birds.Length == 0 )
+                {
+                    MapGameState.Instance.TrySpawnBirdsAtLocation(playerLocation);
+                }
             }
         }
     }

@@ -67,9 +67,9 @@ MonoBehaviour:
   _maximumScale: Infinity
   _pigeonPrefab: {fileID: 7087833928533607845, guid: bb3522c58f8bd1c42a9e625b5abb2c1a, type: 3}
   _barnowlPrefab: {fileID: 7087833928533607845, guid: 8d3a086f4dae52b4d85c1a18f477ef20, type: 3}
-  _africansilverbillPrefab: {fileID: 919132149155446097, guid: 8f5d3689d2217144c8d4a3c364b20dba, type: 3}
-  _hawaiianDuckPrefab: {fileID: 919132149155446097, guid: 36e6688c6f4d09b4fbc589a9d89d5700, type: 3}
-  _kalijPheasantPrefab: {fileID: 919132149155446097, guid: 5e7276290104db144b8821f7fe98af69, type: 3}
-  _honeyCreeperPrefab: {fileID: 919132149155446097, guid: cbe402785e7298e4b8716bd66e5a4aa4, type: 3}
-  _houseSparrowPrefab: {fileID: 919132149155446097, guid: 3d188a9f49407f847a0152714a207aba, type: 3}
-  _redfowlPrefab: {fileID: 919132149155446097, guid: 450c8f055268ec246ad7a44114e87c07, type: 3}
+  _africansilverbillPrefab: {fileID: 3272135469425168573, guid: 508bd9aeff9967f4ba8c66f53c2434a2, type: 3}
+  _hawaiianDuckPrefab: {fileID: 3134304419462725599, guid: d8fc1de742e83134f9e7076c22c3f673, type: 3}
+  _kalijPheasantPrefab: {fileID: 7663226205146137119, guid: d19a50b7e0854da44ac101c21da40b62, type: 3}
+  _honeyCreeperPrefab: {fileID: 8470264114015777854, guid: a038d0ffa84d0cf448a1f4820d2ef6ef, type: 3}
+  _houseSparrowPrefab: {fileID: 7872753416851425120, guid: e2952c4093919384fa7d22c9ed03f4c2, type: 3}
+  _redfowlPrefab: {fileID: 5006084156633242814, guid: 997d6bdcbd8a102408df6060d74ce7bd, type: 3}
