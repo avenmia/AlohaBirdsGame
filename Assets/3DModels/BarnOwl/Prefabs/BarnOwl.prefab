@@ -1470,6 +1470,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   birdData:
     birdName: Barn Owl
+    birdType: 2
     spawnProbability: 1
     spawnRadius: 0
     birdImage: {fileID: 0}

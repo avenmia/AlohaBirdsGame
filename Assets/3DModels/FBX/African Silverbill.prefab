@@ -66,6 +66,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 8f5d3689d2217144c8d4a3c364b20dba, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8709510906561519033}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 8f5d3689d2217144c8d4a3c364b20dba, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5250593942547154989}
   m_SourcePrefab: {fileID: 100100000, guid: 8f5d3689d2217144c8d4a3c364b20dba, type: 3}
 --- !u!1 &3272135469425168573 stripped
 GameObject:
@@ -114,3 +117,22 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &5250593942547154989
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3272135469425168573}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adda6736f7715564197b985fd770033a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  birdData:
+    birdName: African Silverbill
+    birdType: 3
+    spawnProbability: 1
+    spawnRadius: 0
+    birdImage: {fileID: 0}
+    location: {x: 0, y: 0, z: 0}

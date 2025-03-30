@@ -96,6 +96,11 @@ public class BirdLayerGameObjectPlacement : LayerGameObjectPlacement
         );
     }
 
+    public GameObject GetBirdPrefab(BirdType birdType)
+    {
+        return _birdPrefabs[birdType];
+    }
+
     /// <summary>
     /// Places an instance of this component's prefab
     /// at a given <see cref="LatLng"/> coordinate.
