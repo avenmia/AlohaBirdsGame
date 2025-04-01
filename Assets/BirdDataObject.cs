@@ -7,6 +7,7 @@ using UnityEngine;
 public class BirdDataObject
 {
     public string birdName;
+    public BirdType birdType;
     public float spawnProbability;
     public float spawnRadius;
     public Sprite birdImage;

@@ -44,7 +44,10 @@ public class Bird_Zoning : MonoBehaviour
             string[] words = reader[2].ToString().Split(", ", StringSplitOptions.RemoveEmptyEntries);
             foreach(var bird in words)
             {
-                Bird_Names.Add(bird);
+                if (PersistentDataManager.GameBirdNames.Contains(bird))
+                {
+                    Bird_Names.Add(bird);
+                }
             }
         }
         mBirdDb.close();
@@ -60,7 +63,7 @@ public class Bird_Zoning : MonoBehaviour
         Spawned.text = "Spawned: ";
         for(int i = 0; i < randAmt; i++)
         {
-            var randomNum = UnityEngine.Random.Range(0, Bird_Names.Capacity);
+            var randomNum = UnityEngine.Random.Range(0, Bird_Names.Count);
             Spawned.text += Bird_Names[randomNum] + " ";
         }
 

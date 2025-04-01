@@ -9,24 +9,18 @@ using Unity.Services.Authentication;
 using Unity.Services.CloudSave.Models.Data.Player;
 using Unity.Services.CloudSave;
 using SaveOptions = Unity.Services.CloudSave.Models.Data.Player.SaveOptions;
+using System.Linq;
 
 public class PersistentDataManager : MonoBehaviour
 {
     public static PersistentDataManager Instance;
-
     public UserProfileData userProfileData;
-
     public TMP_InputField usernameInputField;
-
     public BirdDataObject selectedBirdData; // The bird data to pass to the next scene
-
     public Dictionary<string, GameBird> gameBirds = new Dictionary<string, GameBird>();
-
     public List<UserAvidexBird> userCapturedBirds = new List<UserAvidexBird>();
-
     public List<UserBirdUploadData> userGalleryPics = new List<UserBirdUploadData>();
-
-    // public event Action<BirdData> OnBirdDataSet;
+    public static IList<string> GameBirdNames = new List<string>();
 
     private void Awake()
     {
@@ -247,7 +241,7 @@ public class PersistentDataManager : MonoBehaviour
                 Debug.LogWarning("BirdManager: Encountered a BirdData asset with null or empty birdName.");
             }
         }
-
+        GameBirdNames = gameBirds.Select(b => b.Key).ToArray();
         Debug.Log($"BirdManager: Loaded {gameBirds.Count} birds into the gameBirds dictionary.");
     }
 }
