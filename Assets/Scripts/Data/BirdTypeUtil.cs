@@ -12,7 +12,8 @@ public static class BirdTypeUtil
             case "House Sparrow": return "housesparrow";
             case "Hawaiian Duck": return "Hawaiian Duck";
             case "Red Junglefowl": return "redfowl";
-            case "Iiwi": return "honeycreeper"; 
+            case "Iiwi": return "honeycreeper";
+            case "White Tern": return "White Tern";
             default: return null;
         }
     }
@@ -28,6 +29,7 @@ public static class BirdTypeUtil
             case "Kalij Pheasant": return BirdType.KalijPheasant;
             case "Red Junglefowl": return BirdType.RedFowl;
             case "Iiwi": return BirdType.HoneyCreeper;
+            case "White Tern": return BirdType.WhiteTern;
             default: return BirdType.None;
         }
     }

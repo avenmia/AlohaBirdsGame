@@ -15,12 +15,12 @@ public class ClickToNavigate : MonoBehaviour, IPointerClickHandler
     {
         if (PersistentDataManager.Instance != null)
         {
-            birdSpawnData = MapGameState.Instance.spawnedBirds.Find(b => BirdTypeUtil.GetBirdPinName(b.birdName) == prefabName);
-            if (birdSpawnData == null)
-            {
-                Debug.LogError("This prefab does not exist");
-                return;
-            }
+            //birdSpawnData = MapGameState.Instance.spawnedBirds.Find(b => BirdTypeUtil.GetBirdPinName(b.birdName) == prefabName);
+            //if (birdSpawnData == null)
+            //{
+            //    Debug.LogError("This prefab does not exist");
+            //    return;
+            //}
 
             // Store the bird data in the PersistentDataManager
             PersistentDataManager.Instance.SetBirdData(birdSpawnData);

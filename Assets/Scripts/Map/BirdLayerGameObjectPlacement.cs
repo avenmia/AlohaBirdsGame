@@ -17,6 +17,7 @@ public class BirdLayerGameObjectPlacement : LayerGameObjectPlacement
     [SerializeField] private GameObject _honeyCreeperPrefab;
     [SerializeField] private GameObject _houseSparrowPrefab;
     [SerializeField] private GameObject _redfowlPrefab;
+    [SerializeField] private GameObject _whiteTernPrefab;
 
     private readonly Dictionary<GameObject, (LatLng Position, Quaternion Rotation)> _instances = new();
 
@@ -35,7 +36,8 @@ public class BirdLayerGameObjectPlacement : LayerGameObjectPlacement
             { BirdType.HoneyCreeper, _honeyCreeperPrefab },
             { BirdType.KalijPheasant, _kalijPheasantPrefab },
             { BirdType.HouseSparrow, _houseSparrowPrefab },
-            { BirdType.RedFowl, _redfowlPrefab }
+            { BirdType.RedFowl, _redfowlPrefab },
+            { BirdType.WhiteTern, _whiteTernPrefab }
         };
 
         SetupBirdPools();
@@ -94,6 +96,12 @@ public class BirdLayerGameObjectPlacement : LayerGameObjectPlacement
             onAcquire: OnObjectPoolAcquire,
             onRelease: OnObjectPoolRelease
         );
+
+        _birdPools[BirdType.WhiteTern] = new ObjectPool<GameObject>(
+            _whiteTernPrefab,
+            onAcquire: OnObjectPoolAcquire,
+            onRelease: OnObjectPoolRelease
+        );
     }
 
     public GameObject GetBirdPrefab(BirdType birdType)
@@ -126,6 +134,8 @@ public class BirdLayerGameObjectPlacement : LayerGameObjectPlacement
         _instances.Add(instance, (position, rotation));
 
         PositionInstance(instance, position, rotation);
+        instance.transform.localScale = _birdPrefabs[birdType].transform.localScale;
+        instance.transform.localPosition += new Vector3(0, 10, 0);
 
         return pooledObject;
     }
@@ -141,7 +151,7 @@ public class BirdLayerGameObjectPlacement : LayerGameObjectPlacement
         // Hook this up to the parent and set its transform
         var instanceTransform = GetTransform(instance);
         instanceTransform.SetParent(ParentMapLayer.transform, false);
-        instanceTransform.localScale = GetObjectScale(LightshipMapView.MapRadius);
+        //instanceTransform.localScale = GetObjectScale(LightshipMapView.MapRadius);
         instanceTransform.localRotation = GetObjectRotation(rotation);
         instanceTransform.position = GetObjectPosition(location);
     }
