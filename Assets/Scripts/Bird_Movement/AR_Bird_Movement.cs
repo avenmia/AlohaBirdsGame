@@ -12,8 +12,14 @@ public class AR_Bird_Movement : MonoBehaviour
     private void Start()
     {
         DOTween.Init();
+        Camera = Camera.main;
+    }
+
+    public void Init_Fly_To_Points()
+    {
         StartCoroutine(Fly_To_Points());
     }
+
     IEnumerator Fly_To_Points()
     {
         foreach(var path in Bird_Path)

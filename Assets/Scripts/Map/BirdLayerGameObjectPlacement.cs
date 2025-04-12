@@ -4,6 +4,7 @@ using Niantic.Lightship.Maps.MapLayers.Components;
 using Niantic.Lightship.Maps.ObjectPools;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 
 public class BirdLayerGameObjectPlacement : LayerGameObjectPlacement
@@ -42,6 +43,7 @@ public class BirdLayerGameObjectPlacement : LayerGameObjectPlacement
 
         SetupBirdPools();
         base.Initialize(lightshipMapView, parent);
+        DOTween.Init();
     }
 
     public void SetupBirdPools()
@@ -135,7 +137,8 @@ public class BirdLayerGameObjectPlacement : LayerGameObjectPlacement
 
         PositionInstance(instance, position, rotation);
         instance.transform.localScale = _birdPrefabs[birdType].transform.localScale;
-        instance.transform.localPosition += new Vector3(0, 10, 0);
+        instance.transform.localPosition += new Vector3(0, 100, 0);
+        instance.transform.DOMoveY(10, 5f);
 
         return pooledObject;
     }

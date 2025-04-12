@@ -18002,6 +18002,7 @@ GameObject:
   - component: {fileID: 1969617130267659300}
   - component: {fileID: 1929170940343532228}
   - component: {fileID: 8226292446789569256}
+  - component: {fileID: 3205002556815312268}
   m_Layer: 0
   m_Name: whiteternconnected_flying
   m_TagString: Untagged
@@ -18037,7 +18038,7 @@ Animator:
   m_GameObject: {fileID: 8009837703209384125}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: a747ec06582ca2643b6a6423d575a619, type: 2}
+  m_Controller: {fileID: 9100000, guid: 7ba94b4db003bac40a34e3712351dd78, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -18109,6 +18110,24 @@ MonoBehaviour:
     spawnRadius: 0
     birdImage: {fileID: 21300000, guid: 54c837e3710ad6843b277fd2ee0f8f9b, type: 3}
     location: {x: 0, y: 0, z: 0}
+--- !u!114 &3205002556815312268
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8009837703209384125}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb90ee3d7dcdbe84b85678d3d82a47a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Bird_Path:
+  - {x: 0, y: 10, z: 0}
+  - {x: 10, y: 0, z: 0}
+  - {x: 0, y: 0, z: 10}
+  Camera: {fileID: 0}
+  Loop: 1
 --- !u!1 &8015075315553413547
 GameObject:
   m_ObjectHideFlags: 0
