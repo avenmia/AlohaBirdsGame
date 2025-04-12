@@ -842,7 +842,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 282698985}
   m_HandleRect: {fileID: 282698984}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -3856,10 +3856,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 554752169}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 7.277, y: 252.713}
-  m_SizeDelta: {x: 622.014, y: 605.426}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 7.277008, y: 252.71301}
+  m_SizeDelta: {x: -177.98602, y: -816.574}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1524023665
 MonoBehaviour:
@@ -4990,7 +4990,6 @@ MonoBehaviour:
   birdNativeHawaiianSpecies: {fileID: 612461893}
   birdPoints: {fileID: 1910728674}
   birdEBirdURL: {fileID: 633739706}
-  currentBird: {fileID: 0}
   galleryContentParent: {fileID: 238164516}
   galleryItemPrefab: {fileID: 5662578970776292352, guid: 92ba9e5d001d80d41b0d4e8a13031756, type: 3}
   maximizedViewPanel: {fileID: 554752168}
