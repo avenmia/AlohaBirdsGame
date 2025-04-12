@@ -130,6 +130,13 @@ public class BirdLayerGameObjectPlacement : LayerGameObjectPlacement
         return pooledObject;
     }
 
+    public void RemoveBirdInstance(PooledObject<GameObject> birdToRemove)
+    {
+        // TODO: Check this is right
+        _instances.Remove(birdToRemove.Value);
+        birdToRemove.Dispose();
+    }    
+
     /// <summary>
     /// Positions and orients a placed object instance
     /// </summary>

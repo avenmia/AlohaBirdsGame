@@ -15,6 +15,7 @@ public class ClickToNavigate : MonoBehaviour, IPointerClickHandler
     {
         if (PersistentDataManager.Instance != null)
         {
+            // TODO: Fix this so it's by ID
             birdSpawnData = MapGameState.Instance.spawnedBirds.Find(b => BirdTypeUtil.GetBirdPinName(b.birdName) == prefabName);
             if (birdSpawnData == null)
             {

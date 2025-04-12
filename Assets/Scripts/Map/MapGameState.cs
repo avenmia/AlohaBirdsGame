@@ -3,6 +3,7 @@ using Niantic.Lightship.Maps;
 using Niantic.Lightship.Maps.Core.Coordinates;
 using Niantic.Lightship.Maps.MapLayers.Components;
 using Niantic.Lightship.Maps.MapLayers.Components.BaseTypes;
+using Niantic.Lightship.Maps.ObjectPools;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -20,6 +21,10 @@ public class MapGameState : MonoBehaviour
     // TODO: Remove when we're calculating birds based on location
     public List<BirdDataObject> spawnableBirds = new List<BirdDataObject>();
     public List<BirdDataObject> spawnedBirds = new List<BirdDataObject>();
+
+    // Birds on the player's map
+    public Dictionary<Guid, PooledObject<GameObject>> birdsOnMap = new Dictionary<Guid, PooledObject<GameObject>>();
+
 
     private readonly List<MapLayerComponent> _components = new();
 
@@ -96,6 +101,12 @@ public class MapGameState : MonoBehaviour
 
                 foreach (var birdData in spawnedBirds)
                 {
+                    var userCapturedSelectedBird = PersistentDataManager.Instance.userCapturedBirds.Where(b => b.birdData.id == PersistentDataManager.Instance.selectedBirdData.id).FirstOrDefault();
+                    if (userCapturedSelectedBird != null)
+                    {
+                        RemoveBird(userCapturedSelectedBird.birdData.id);
+                    }
+
                     SpawnBird(birdData, playerLocation, true);
                 }
             }
@@ -266,6 +277,7 @@ public class MapGameState : MonoBehaviour
         var bird = GetBirdSpawn(playerLocation);
         var spawnBird = new BirdDataObject()
         {
+            id = Guid.NewGuid(),
             birdName = bird,
             birdType = BirdTypeUtil.GetBirdType(bird),
             spawnProbability = 1,
@@ -275,14 +287,6 @@ public class MapGameState : MonoBehaviour
         spawnableBirds.Add(spawnBird);
         foreach (BirdDataObject birdData in spawnableBirds)
         {
-            // TODO: Uncomment when we add probability in
-
-            //float randomValue = Random.Range(0f, 1f);
-            //if (randomValue <= birdData.spawnProbability)
-            //{
-            //    // Spawn the bird
-            //    SpawnBird(birdData, playerLocation);
-            //}
 
             // TODO: This will need to be fixed to account for the spawned birds location
             if(!spawnedBirds.Contains(birdData))
@@ -311,8 +315,16 @@ public class MapGameState : MonoBehaviour
             Vector3 spawnPosition = CalculateSpawnPosition(playerLocation, birdData, forward);
                 birdData.location = playerLocation;
 
-            _birdSpawner.PlaceBirdInstance(spawnPosition, rotation, birdData.birdType);
+            var spawnedBird = _birdSpawner.PlaceBirdInstance(spawnPosition, rotation, birdData.birdType);
+            birdsOnMap.Add(birdData.id, spawnedBird);
         }
+    }
+
+    private void RemoveBird(Guid birdIdToRemove)
+    {
+        var birdToRemove = birdsOnMap[birdIdToRemove];
+        _birdSpawner.RemoveBirdInstance(birdToRemove);
+        birdsOnMap.Remove(birdIdToRemove);
     }
 
     private Vector3 CalculateSpawnPosition(Vector2 playerLocation, BirdDataObject birdData, Vector3 forward)

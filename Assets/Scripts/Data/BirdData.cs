@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,6 +7,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "NewBirdData", menuName = "Avidex/Bird Data")]
 public class BirdData : ScriptableObject
 {
+    public Guid id;
     public string birdName;
     public string hawaiianBirdName;
     public Sprite birdImage;
