@@ -7,7 +7,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using Unity.Collections.LowLevel.Unsafe;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -188,29 +190,65 @@ public class MapGameState : MonoBehaviour
     {
         BirdDb birdDb = new BirdDb();
         IDataReader reader = birdDb.Close_Birds(playerLocation.x, playerLocation.y);
-        var potentialBirds = new List<string>();
+        var potentialBirds = new Dictionary<string, int>();
         string birdNameResult = "";
 
         while (reader.Read())
         {
             
-            string[] birdNamesNearUser = reader[2].ToString().Split(", ", StringSplitOptions.RemoveEmptyEntries);
-            foreach (var bird in birdNamesNearUser)
+            // reader [0] = Species Name
+            // reader [1] = Number of observations in range
+            if (reader.FieldCount == 2)
             {
-                if (PersistentDataManager.GameBirdNames.Contains(bird))
+                var birdSpeciesName = reader[0].ToString();
+                if (PersistentDataManager.GameBirdNames.Contains(birdSpeciesName))
                 {
-                    potentialBirds.Add(bird);
+                    int numSightings = Int32.Parse(reader[1].ToString());
+                    if(potentialBirds.ContainsKey(birdSpeciesName))
+                    {
+                        potentialBirds[birdSpeciesName] += numSightings;
+                    }
+                    else
+                    {
+                        potentialBirds.Add(birdSpeciesName, numSightings );
+                    }
                 }
+
             }
         }
         birdDb.close();
-        var randAmt = UnityEngine.Random.Range(1, 3);
-        for (int i = 0; i < randAmt; i++)
+
+        int totalSightings = potentialBirds.Values.Sum();
+        var birdProbabilities = new Dictionary<string, double>();
+
+        foreach (var kvp in potentialBirds)
         {
-            var randomNum = UnityEngine.Random.Range(0, potentialBirds.Count);
-            birdNameResult = potentialBirds[randomNum];
+            double probability = (double)kvp.Value / totalSightings;
+            birdProbabilities[kvp.Key] = probability;
+            Debug.Log($"Bird Species Name: {kvp.Key}, Number of sightings: {kvp.Value}, Probability: {probability}");
+
         }
+
+        birdNameResult = GetRandomBird(birdProbabilities);
         return birdNameResult;
+    }
+
+    string GetRandomBird(Dictionary<string, double> birdProbabilities)
+    {
+        System.Random random = new System.Random();
+        double randomValue = random.NextDouble(); // Value between 0.0 and 1.0
+        double cumulative = 0.0;
+
+        foreach (var kvp in birdProbabilities)
+        {
+            cumulative += kvp.Value;
+            if (randomValue < cumulative)
+            {
+                return kvp.Key;
+            }
+        }
+
+        return null; // fallback, in case of rounding errors
     }
 
 

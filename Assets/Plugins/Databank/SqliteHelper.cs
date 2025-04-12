@@ -16,7 +16,9 @@ namespace DataBank
     {
         private const string CodistanTag = "Codistan: SqliteHelper:\t";
 
-        private const string database_name = "madhunt_db2.bytes";
+        // private const string database_name = "madhunt_db2.bytes";
+        private const string dbName = "BirdSightings";
+        private const string fullDatabaseName = dbName +".bytes";
 
         public string db_connection_string;
         public IDbConnection db_connection;
@@ -24,7 +26,7 @@ namespace DataBank
         public SqliteHelper()
         {
             //URI=file:.../AlohaBirdsGame/Assets
-            TextAsset dbAsset = Resources.Load<TextAsset>("madhunt_db2");
+            TextAsset dbAsset = Resources.Load<TextAsset>(dbName);
             if(dbAsset == null)
             {
                 Debug.LogError("Database file not found in Resources!");
@@ -33,7 +35,7 @@ namespace DataBank
 
             try
             {
-                string path = Path.Combine(Application.persistentDataPath, "madhunt_db2.bytes");
+                string path = Path.Combine(Application.persistentDataPath, $"{dbName}.bytes");
                 File.WriteAllBytes(path, dbAsset.bytes);
             }
             catch (System.Exception ex)
@@ -42,7 +44,7 @@ namespace DataBank
             }
             
 
-            db_connection_string = "URI=file:" + Application.persistentDataPath + "/" + database_name;
+            db_connection_string = "URI=file:" + Application.persistentDataPath + "/" + fullDatabaseName;
             Debug.Log("db_connection_string" + db_connection_string);
             db_connection = new SqliteConnection(db_connection_string);
             db_connection.Open();
@@ -128,9 +130,9 @@ namespace DataBank
             var lngUpper = lng + 0.01;
             var lngLower = lng - 0.01;
             dbcmd.CommandText =
-                "SELECT * FROM " + table_name + 
+                "SELECT Species, SUM(Count) as TotalCount FROM " + table_name + 
                 " WHERE (Latitude <= " + latUpper + " AND Latitude >= " + latLower + ") " +
-                "AND (Longitude <= " + lngUpper + " AND Longitude >= " + lngLower + ") LIMIT 1";
+                "AND (Longitude <= " + lngUpper + " AND Longitude >= " + lngLower + ") GROUP BY Species";
             IDataReader reader = dbcmd.ExecuteReader();
             return reader;
         }
