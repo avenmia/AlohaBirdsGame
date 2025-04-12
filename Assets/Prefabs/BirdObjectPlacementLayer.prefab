@@ -73,3 +73,4 @@ MonoBehaviour:
   _honeyCreeperPrefab: {fileID: 8470264114015777854, guid: a038d0ffa84d0cf448a1f4820d2ef6ef, type: 3}
   _houseSparrowPrefab: {fileID: 7872753416851425120, guid: e2952c4093919384fa7d22c9ed03f4c2, type: 3}
   _redfowlPrefab: {fileID: 5006084156633242814, guid: 997d6bdcbd8a102408df6060d74ce7bd, type: 3}
+  _whiteTernPrefab: {fileID: 8009837703209384125, guid: 5e5d0806f1647bb4ba2b57bcd656db68, type: 3}

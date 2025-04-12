@@ -104,7 +104,7 @@ public class Authenthication : MonoBehaviour
         {
             await AuthenticationService.Instance.UpdatePlayerNameAsync(Screen_Name.text);
             Debug.Log("Name set");
-            Player_Information.Online_Initalize();
+            Player_Information.Load_Data();
             SceneManager.LoadScene("MapScene", LoadSceneMode.Single);
         }
         catch (AuthenticationException ex)
@@ -129,8 +129,8 @@ public class Authenthication : MonoBehaviour
         {
             await AuthenticationService.Instance.SignInWithUsernamePasswordAsync(Username.text, Password.text);
             Debug.Log("SignIn is successful.");
-            Player_Information.Online_Initalize();
-            SceneManager.LoadScene("MapScene", LoadSceneMode.Single);
+            Debug.Log(AuthenticationService.Instance.PlayerName);
+            Player_Information.Load_Data();
         }
         catch (AuthenticationException ex)
         {
