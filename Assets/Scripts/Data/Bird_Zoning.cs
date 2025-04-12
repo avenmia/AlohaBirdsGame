@@ -35,24 +35,24 @@ public class Bird_Zoning : MonoBehaviour
         #endif
 
         //int fieldCount = reader.FieldCount;
-        while (reader.Read())
-        {
-            //lat, lng, species
-            //Debug.Log(reader[0].ToString() + " " + reader[1].ToString() + " " + reader[1].ToString());
-            Birds.text = "Lat: " + reader[0].ToString() + " Lng: " + reader[1].ToString() + " \nBirds: " + reader[2].ToString();
-            Debug.Log("Lat: " + reader[0].ToString() + " Lng: " + reader[1].ToString() + " Birds: " + reader[2].ToString());
-            string[] words = reader[2].ToString().Split(", ", StringSplitOptions.RemoveEmptyEntries);
-            foreach(var bird in words)
-            {
-                if (PersistentDataManager.GameBirdNames.Contains(bird))
-                {
-                    Bird_Names.Add(bird);
-                }
-            }
-        }
+        //while (reader.Read())
+        //{
+        //    //lat, lng, species
+        //    //Debug.Log(reader[0].ToString() + " " + reader[1].ToString() + " " + reader[1].ToString());
+        //    Birds.text = "Lat: " + reader[0].ToString() + " Lng: " + reader[1].ToString() + " \nBirds: " + reader[2].ToString();
+        //    Debug.Log("Lat: " + reader[0].ToString() + " Lng: " + reader[1].ToString() + " Birds: " + reader[2].ToString());
+        //    string[] words = reader[2].ToString().Split(", ", StringSplitOptions.RemoveEmptyEntries);
+        //    foreach(var bird in words)
+        //    {
+        //        if (PersistentDataManager.GameBirdNames.Contains(bird))
+        //        {
+        //            Bird_Names.Add(bird);
+        //        }
+        //    }
+        //}
         mBirdDb.close();
 
-        StartCoroutine(Spawn_Viable_Bird(0));
+        // StartCoroutine(Spawn_Viable_Bird(0));
     }
 
     IEnumerator Spawn_Viable_Bird(int seconds)

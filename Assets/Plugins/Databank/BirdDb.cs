@@ -11,7 +11,7 @@ namespace DataBank
     {
         private const String CodistanTag = "Codistan: BirdDb:\t";
 
-        private const String TABLE_NAME = "parsed_birds";
+        private const String TABLE_NAME = "BirdObservations";
         private const String KEY_LAT = "Latitude";
         private const String KEY_LNG = "Longitude";
         private const String KEY_SPC = "Species";
