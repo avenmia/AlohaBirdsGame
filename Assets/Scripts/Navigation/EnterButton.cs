@@ -4,8 +4,13 @@ using UnityEngine;
 
 public class EnterButton : MonoBehaviour
 {
-    public void OnEnterButtonClicked(string sceneName)
+    //public void OnEnterButtonClicked(string sceneName)
+    //{
+    //    NavigationManager.Instance.LoadNewScene(sceneName);
+    //}
+
+    public void Create_Prefab(GameObject UI_Prefab)
     {
-        NavigationManager.Instance.LoadNewScene(sceneName);
+        Instantiate(UI_Prefab);
     }
 }
