@@ -27,13 +27,9 @@ public class PersistentDataManager : MonoBehaviour
         // Implement Singleton pattern
         if (Instance == null)
         {
-            //PlayerPrefs.DeleteAll();
-            //PlayerPrefs.Save();
             Instance = this;
             DontDestroyOnLoad(gameObject); // Keep this object alive across scenes
             LoadGameBirds();
-            // userProfileData = new UserProfileData("Guest", 0, 0);
-            //LoadPlayerData();
         }
         else
         {
@@ -46,22 +42,10 @@ public class PersistentDataManager : MonoBehaviour
         Debug.Log($"PersistentDataManager {this.GetInstanceID()} is being destroyed.");
     }
 
-    //public void SavePlayerData()
-    //{
-    //    BinaryFormatter formatter = new BinaryFormatter();
-    //    Debug.Log($"Application path{Application.persistentDataPath}");
-    //    string path = Application.persistentDataPath + "/playerdata.dat";
-
-    //    FileStream stream = new FileStream(path, FileMode.Create);
-
-    //    formatter.Serialize(stream, userProfileData);
-    //    stream.Close();
-    //}
-
     public async void Save_Data()
     {
+        if (userProfileData == null) { return; }
         string uniqueBirds = string.Join(",", userProfileData.uniqueBirds);
-        //string totalAchievements = string.Join(",", Achievements);
 
         var timeNow = System.DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss,fff");
 
@@ -69,13 +53,9 @@ public class PersistentDataManager : MonoBehaviour
         {
             {"time", timeNow },
             {"playerName", AuthenticationService.Instance.PlayerName},
-            //{"level",  Level},
-            //{"currentEXP", Current_EXP},
-            //{"maxEXP", Max_EXP},
             {"uniqueBirds", uniqueBirds},
             {"birdsCaptured", userProfileData.birdsCaptured},
             {"points", userProfileData.points }
-            //{"totalAchievements", totalAchievements},
         };
 
         //await CloudSaveService.Instance.Data.Player.SaveAsync(playerData);
@@ -94,60 +74,20 @@ public class PersistentDataManager : MonoBehaviour
         //Offline save
         PlayerPrefs.SetString("time", timeNow);
         PlayerPrefs.SetString("playerName", userProfileData.username);
-        //PlayerPrefs.SetInt("level", Level);
-        //PlayerPrefs.SetFloat("currentEXP", Current_EXP);
-        //PlayerPrefs.SetFloat("maxEXP", Max_EXP);
         PlayerPrefs.SetString("uniqueBirds", uniqueBirds);
         PlayerPrefs.SetInt("birdsCaptured", userProfileData.birdsCaptured);
         PlayerPrefs.SetInt("points", userProfileData.points);
-        //PlayerPrefs.SetString("totalAchievements", totalAchievements);
     }
-
-    //private void OnApplicationPause(bool pause)
-    //{
-    //    Save_Data();
-    //}
 
     private void OnApplicationQuit()
     {
+        if (userProfileData == null) { return; }
         Save_Data();
     }
 
-    //public void LoadPlayerData()
+    //private void OnApplicationPause()
     //{
-    //    string path = Application.persistentDataPath + "/playerdata.dat";
-
-    //    if (File.Exists(path))
-    //    {
-    //        BinaryFormatter formatter = new BinaryFormatter();
-    //        FileStream stream = new FileStream(path, FileMode.Open);
-
-    //        userProfileData = formatter.Deserialize(stream) as UserProfileData;
-    //        stream.Close();
-    //    }
-    //    else
-    //    {
-    //        // If no data exists, initialize with default values
-    //        var username = PlayerPrefs.GetString("Username");
-    //        if (username == null)
-    //        {
-    //            username = "Guest";
-    //        }
-    //        userProfileData = new UserProfileData(username, 0, 0);
-    //    }
-    //}
-
-    //public void SplashButtonPressed()
-    //{
-    //    AddUsername();
-    //    SceneManager.LoadScene("MapScene");
-    //}
-
-    //public void AddUsername()
-    //{
-    //    string username = usernameInputField.text.Trim();
-    //    userProfileData.username = username;
-    //    Debug.Log($"Username added: {username}");
+    //    Save_Data();
     //}
 
     public void AddUserGalleryBird(UserBirdUploadData birdData)

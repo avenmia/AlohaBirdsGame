@@ -10,5 +10,6 @@ public enum BirdType
     KalijPheasant,
     HoneyCreeper,
     HouseSparrow,
-    RedFowl
+    RedFowl,
+    WhiteTern
 }

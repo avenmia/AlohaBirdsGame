@@ -3,13 +3,8 @@ using UnityEngine.UI;
 
 public class ExitButton : MonoBehaviour
 {
-    // private void Start()
-    // {
-    //     GetComponent<Button>().onClick.AddListener(OnExitButtonClicked);
-    // }
-
-    public void OnExitButtonClicked()
+    public void Destroy_UI_Object(GameObject UIPrefab)
     {
-        NavigationManager.Instance.ReturnToPrevScene();
+        Destroy(UIPrefab);
     }
 }
