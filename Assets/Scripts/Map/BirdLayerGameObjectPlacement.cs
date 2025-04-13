@@ -161,7 +161,7 @@ public class BirdLayerGameObjectPlacement : LayerGameObjectPlacement
         // Hook this up to the parent and set its transform
         var instanceTransform = GetTransform(instance);
         instanceTransform.SetParent(ParentMapLayer.transform, false);
-        //instanceTransform.localScale = GetObjectScale(LightshipMapView.MapRadius);
+        // instanceTransform.localScale = GetObjectScale(LightshipMapView.MapRadius);
         instanceTransform.localRotation = GetObjectRotation(rotation);
         instanceTransform.position = GetObjectPosition(location);
     }

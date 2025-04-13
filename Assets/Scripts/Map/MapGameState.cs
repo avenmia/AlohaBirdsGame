@@ -346,7 +346,8 @@ public class MapGameState : MonoBehaviour
             var forward = new Vector3(cameraForward.x, 0f, cameraForward.z).normalized;
             var rotation = Quaternion.LookRotation(forward);
 
-            Vector2 playerLocation = new Vector2(21.31624f, -157.858102f);
+            // Vector2 playerLocation = new Vector2(21.31624f, -157.858102f);
+            Vector2 playerLocation = new Vector2(Input.location.lastData.latitude, Input.location.lastData.longitude);
             Vector3 spawnPosition = CalculateSpawnPosition(playerLocation, birdData, forward);
             birdData.location = playerLocation;
 
@@ -370,7 +371,7 @@ public class MapGameState : MonoBehaviour
         {
             forward = new Vector3(0, 2, 1);
         }
-        forward += new Vector3(0, 7, 0);
+        // forward += new Vector3(0, 7, 0);
         var result = scenePosition + forward * offsetDistance;
         return result;
     }
