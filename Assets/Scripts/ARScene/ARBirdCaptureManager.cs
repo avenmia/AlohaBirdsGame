@@ -48,9 +48,7 @@ public class ARBirdCaptureManager : MonoBehaviour
 
     void CaptureBird(GameObject birdObject)
     {
-
-        var controller = birdObject.GetComponent<ARBirdController>();
-        var birdSpawnData = controller.birdData;
+        var birdSpawnData = PersistentDataManager.Instance.selectedBirdData;
         var captureData = new BirdCaptureData()
         {
             captureTime = DateTime.Now,
@@ -62,7 +60,9 @@ public class ARBirdCaptureManager : MonoBehaviour
         var existingUserBird = PersistentDataManager.Instance.GetExisitingUserBird(birdSpawnData);
         if (existingUserBird == null)
         {
+            Debug.Log($"[DEBUG]: existing user bird is null for birdSpawnData: {birdSpawnData.id}");
             var bird = PersistentDataManager.Instance.GetBirdData(birdSpawnData.birdName);
+            bird.birdData.id = birdSpawnData.id;
             var newUserAvidexBird = new UserAvidexBird(bird)
             {
                 captureData = new List<BirdCaptureData>() { captureData }
@@ -71,7 +71,8 @@ public class ARBirdCaptureManager : MonoBehaviour
         }
         else
         {
-            PersistentDataManager.Instance.UpdateUserAvidexBird(existingUserBird.birdData.birdName, captureData);
+            Debug.Log($"[DEBUG]: existing user bird is not null null for birdSpawnData: {birdSpawnData.id}");
+            PersistentDataManager.Instance.UpdateUserAvidexBird(existingUserBird.birdData.birdName, birdSpawnData.id, captureData);
         }
         PersistentDataManager.Instance.UpdateUserCaptures();
         StartCoroutine(CaptureScreenshotAndShowPopup(birdSpawnData.birdName));

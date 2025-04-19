@@ -133,6 +133,7 @@ public class BirdLayerGameObjectPlacement : LayerGameObjectPlacement
         var instance = pooledObject.Value;
         instance.name = instanceName ?? birdType.ToString();
 
+        Debug.Log($"[DEBUG]: Adding Pooled object value: {instance}");
         _instances.Add(instance, (position, rotation));
 
         PositionInstance(instance, position, rotation);
@@ -145,10 +146,20 @@ public class BirdLayerGameObjectPlacement : LayerGameObjectPlacement
 
     public void RemoveBirdInstance(PooledObject<GameObject> birdToRemove)
     {
-        // TODO: Check this is right
-        _instances.Remove(birdToRemove.Value);
-        birdToRemove.Dispose();
-    }    
+        if (_instances.TryGetValue(birdToRemove.Value, out var instanceData))
+        {
+            Debug.Log($"[DEBUG] Remove Bird Instance GameObject: {birdToRemove}");
+
+            _instances.Remove(birdToRemove.Value);
+        }
+        else
+        {
+            Debug.LogWarning("[DEBUG]: Tried to remove bird instance, but not found in dictionary.");
+        }
+
+        Debug.Log("[DEBUG] calling dispose on pooled object");
+        // birdToRemove.Dispose();
+    }
 
     /// <summary>
     /// Positions and orients a placed object instance

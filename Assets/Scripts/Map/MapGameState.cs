@@ -46,7 +46,6 @@ public class MapGameState : MonoBehaviour
     void Start()
     {
         StartCoroutine(StartLocationService());
-        Debug.Log("Lawrence" + PlayerPrefs.GetString("Username"));
     }
 
     void OnEnable()
@@ -99,16 +98,14 @@ public class MapGameState : MonoBehaviour
                 var latlng = new LatLng(playerLocation.x, playerLocation.y);
                 _lightshipMapView.SetMapCenter(latlng);
 
-                foreach (var birdData in spawnedBirds)
-                {
-                    var userCapturedSelectedBird = PersistentDataManager.Instance.userCapturedBirds.Where(b => b.birdData.id == PersistentDataManager.Instance.selectedBirdData.id).FirstOrDefault();
-                    if (userCapturedSelectedBird != null)
-                    {
-                        RemoveBird(userCapturedSelectedBird.birdData.id);
-                    }
+                RemoveSelectedBirdIfCaptured();
 
-                    SpawnBird(birdData, playerLocation, true);
-                }
+                //foreach (var birdData in spawnedBirds)
+                //{
+                   
+
+                //    SpawnBird(birdData, playerLocation, true);
+                //}
             }
         }
 
@@ -186,13 +183,59 @@ public class MapGameState : MonoBehaviour
             {
                 var latlng = new LatLng(playerLocation.x, playerLocation.y);
                 _lightshipMapView.SetMapCenter(latlng);
-                GameObject[] birds = GameObject.FindGameObjectsWithTag("Bird");
+                // GameObject[] birds = GameObject.FindGameObjectsWithTag("Bird");
                 
+                if (birdsOnMap.Count > 0 )
+                {
+                    foreach(var bird in birdsOnMap)
+                    {
+                        Debug.Log($"Bird On Map: {bird.Key}");
+                        // Check if user captured bird and if so, delete
+                        var userCapturedSelectedBird = PersistentDataManager.Instance.userCapturedBirds.Where(b => b.birdData.id == bird.Key).FirstOrDefault();
+                        if (userCapturedSelectedBird != null)
+                        {
+                            Debug.Log("[DEBUG] problem spot A");
+                            Debug.Log($"[DEBUG] userCapturedSelectedBird {userCapturedSelectedBird.birdData.id}");
+                            RemoveBird(userCapturedSelectedBird.birdData.id);
+                        }
+                    }
+
+                }
+
                 // If no birds exist spawn a bird
-                if (birds.Length == 0 )
+                if (birdsOnMap.Count == 0 )
                 {
                     MapGameState.Instance.TrySpawnBirdsAtLocation(playerLocation);
                 }
+            }
+        }
+    }
+
+    public void RemoveSelectedBirdIfCaptured()
+    {
+        var selectedBird = PersistentDataManager.Instance.selectedBirdData;
+        // Debug.Log($"[DEBUG]: onscene loaded birdData: {birdData.id}");
+        if (selectedBird != null)
+        {
+            Debug.Log($"[DEBUG]: PDM Selected bird: {selectedBird.id}");
+
+            // Assuming the selected bird is the same type 
+            var filteredUserBirds = PersistentDataManager.Instance.userCapturedBirds.Where(b => b.birdData.birdName == selectedBird.birdName);
+            // TODO: Probably inefficient to go through all bird types and all bird IDs
+            var userCapturedSelectedBird = filteredUserBirds.Where(b => b.caughtBirds.Contains(selectedBird.id)).FirstOrDefault();
+
+            if (userCapturedSelectedBird != null)
+            {
+                Debug.Log($"[DEBUG]: user captured Selected bird: {userCapturedSelectedBird}");
+                Debug.Log("[DEBUG] problem spot B");
+                RemoveBird(selectedBird.id);
+                if(spawnedBirds.Contains(selectedBird))
+                {
+                    Debug.Log("[DEBUG] removing selected bird from spawned birds");
+                    spawnedBirds.Remove(selectedBird);
+                }
+                Debug.Log($"[DEBUG] Removing bird from spawned birds:{selectedBird.id}");
+                // spawnedBirds.Remove(birdData);
             }
         }
     }
@@ -322,9 +365,25 @@ public class MapGameState : MonoBehaviour
 
     private void RemoveBird(Guid birdIdToRemove)
     {
+        Debug.Log($"[DEBUG] Removing bird: {birdIdToRemove}");
+        Debug.Log($"[DEBUG] birds on map before remove: {birdsOnMap.Count}");
+        foreach(var b in birdsOnMap)
+        {
+            Debug.Log($"[DEBUG] About to remove but checking keys: {b.Key}");
+        }
+        if( birdsOnMap.ContainsKey(birdIdToRemove))
+        {
+            Debug.Log($"[DEBUG] The key does exist");
+
+        }
         var birdToRemove = birdsOnMap[birdIdToRemove];
-        _birdSpawner.RemoveBirdInstance(birdToRemove);
         birdsOnMap.Remove(birdIdToRemove);
+        Debug.Log($"[DEBUG] birds on map after remove: {birdsOnMap.Count}");
+        _birdSpawner.RemoveBirdInstance(birdToRemove);
+        Debug.Log($"[DEBUG] removing selected bird");
+        PersistentDataManager.Instance.RemoveSelectedBird();
+        Debug.Log($"[DEBUG] After selected bird removal: {PersistentDataManager.Instance.selectedBirdData} this should be null");
+        Debug.Log($"[DEBUG] after bird pool removal");
     }
     
     public void Spawn_Bird_Button()
