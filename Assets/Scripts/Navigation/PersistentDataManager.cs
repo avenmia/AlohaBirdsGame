@@ -97,13 +97,19 @@ public class PersistentDataManager : MonoBehaviour
 
     public void SetBirdData(BirdDataObject newBirdData)
     {
+        Debug.Log($"[DEBUG]: Setting PDM selected bird: {newBirdData.id}");
         selectedBirdData = newBirdData;
     }
 
     public void RemoveSelectedBird()
     {
-        Debug.Log($"[DEBUG]: removing bird from selected bird: {selectedBirdData.id}");
-        selectedBirdData = null;
+        if (selectedBirdData != null)
+        {
+            Debug.Log($"[DEBUG]: removing bird from selected bird: {selectedBirdData.id}");
+            selectedBirdData = null;
+            return;
+        }
+        Debug.Log("[DEBUG]: Selected bird was already set to null");
     }
 
     public UserAvidexBird GetExisitingUserBird(BirdDataObject bird)
@@ -157,6 +163,7 @@ public class PersistentDataManager : MonoBehaviour
     // TODO: Confirm this is right
     public void UpdateUserAvidexBird(string name, Guid id, BirdCaptureData captureData)
     {
+        Debug.Log($"[DEBUG] Updating existing user avidex bird {id}");
         var existingBird = userCapturedBirds.Find(b => b.birdData.birdName == name);
         existingBird.captureData.Add(captureData);
         existingBird.caughtBirds.Add(id);

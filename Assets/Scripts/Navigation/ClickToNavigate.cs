@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,6 +9,7 @@ public class ClickToNavigate : MonoBehaviour, IPointerClickHandler
 {
     [SerializeField] private BirdDataObject birdSpawnData;
     public string prefabName;
+    public Guid birdId;
 
     public GameObject NavPrefab;
 
@@ -16,7 +18,7 @@ public class ClickToNavigate : MonoBehaviour, IPointerClickHandler
         if (PersistentDataManager.Instance != null)
         {
             // TODO: Fix this so it's by ID
-            birdSpawnData = MapGameState.Instance.spawnedBirds.Find(b => BirdTypeUtil.GetBirdPinName(b.birdName) == prefabName);
+            birdSpawnData = MapGameState.Instance.spawnedBirds.Find(b => b.id == birdId);
             if (birdSpawnData == null)
             {
                 Debug.LogError("This prefab does not exist");
