@@ -210,8 +210,6 @@ public class MapGameState : MonoBehaviour
                     Debug.Log("[DEBUG] Removing selected bird from spawned birds");
                     spawnedBirds.Remove(selectedBird);
                 }
-                // Debug.Log($"[DEBUG] Removing bird from spawned birds:{selectedBird.id}");
-                // spawnedBirds.Remove(birdData);
             }
         }
     }
