@@ -5,6 +5,7 @@ using Niantic.Lightship.Maps.ObjectPools;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using System;
 
 
 public class BirdLayerGameObjectPlacement : LayerGameObjectPlacement
@@ -123,24 +124,71 @@ public class BirdLayerGameObjectPlacement : LayerGameObjectPlacement
         in Vector3 vecPosition,
         in Quaternion rotation,
         BirdType birdType,
+        Guid birdId,
         string instanceName = null)
     {
-        var position = LightshipMapView.SceneToLatLng(vecPosition);
-        // Get or create a prefab instance from the object pool
-        var pool = _birdPools[birdType];
-        var pooledObject = pool.GetOrCreate();
+        try
+        {
 
-        var instance = pooledObject.Value;
-        instance.name = instanceName ?? birdType.ToString();
+            var position = LightshipMapView.SceneToLatLng(vecPosition);
+            // Get or create a prefab instance from the object pool
+            var pool = _birdPools[birdType];
+            var pooledObject = pool.GetOrCreate();
 
-        _instances.Add(instance, (position, rotation));
+            var instance = pooledObject.Value;
+            instance.name = instanceName ?? birdType.ToString();
 
         PositionInstance(instance, position, rotation);
         instance.transform.localScale = _birdPrefabs[birdType].transform.localScale;
         instance.transform.localPosition += new Vector3(0, 100, 0);
         instance.transform.DOMoveY(10, 5f);
+            Debug.Log($"[DEBUG]: Adding Pooled object value: {instance}");
+            _instances.Add(instance, (position, rotation));
 
-        return pooledObject;
+            Debug.Log("[DEBUG]: Getting click to Navigate and assigning ID");
+            var birdClickHandler = instance.GetComponent<ClickToNavigate>();
+            if(birdClickHandler != null )
+            {
+                Debug.Log("[DEBUG]: Setting ID");
+                birdClickHandler.birdId = birdId;
+            }
+
+
+            PositionInstance(instance, position, rotation);
+            instance.transform.localScale = _birdPrefabs[birdType].transform.localScale;
+            instance.transform.localPosition += new Vector3(0, 100, 0);
+            instance.transform.DOMoveY(10, 5f);
+
+            return pooledObject;
+        } catch(Exception e)
+        {
+            Debug.LogError($"[ERROR]: Unable to place instance for bird ID: {birdId} and {birdType.ToString()}. Exception: {e} \n Stack Trace: {e.StackTrace}");
+            return default;
+        }
+    }
+
+    public void RemoveBirdInstance(PooledObject<GameObject> birdToRemove)
+    {
+        if (_instances.TryGetValue(birdToRemove.Value, out var instanceData))
+        {
+            Debug.Log($"[DEBUG] Remove Bird Instance GameObject: {birdToRemove}");
+
+            _instances.Remove(birdToRemove.Value);
+        }
+        else
+        {
+            Debug.LogWarning("[DEBUG]: Tried to remove bird instance, but not found in dictionary.");
+        }
+
+        if(birdToRemove.Value != null)
+        {
+            Debug.Log("[DEBUG] calling dispose on pooled object");
+            birdToRemove.Dispose();
+        }
+        else
+        {
+            Debug.Log("[DEBUG] Object pool value was null and did not dispose");
+        }
     }
 
     /// <summary>
@@ -154,7 +202,7 @@ public class BirdLayerGameObjectPlacement : LayerGameObjectPlacement
         // Hook this up to the parent and set its transform
         var instanceTransform = GetTransform(instance);
         instanceTransform.SetParent(ParentMapLayer.transform, false);
-        //instanceTransform.localScale = GetObjectScale(LightshipMapView.MapRadius);
+        // instanceTransform.localScale = GetObjectScale(LightshipMapView.MapRadius);
         instanceTransform.localRotation = GetObjectRotation(rotation);
         instanceTransform.position = GetObjectPosition(location);
     }

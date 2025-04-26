@@ -3,6 +3,7 @@ using Niantic.Lightship.Maps;
 using Niantic.Lightship.Maps.Core.Coordinates;
 using Niantic.Lightship.Maps.MapLayers.Components;
 using Niantic.Lightship.Maps.MapLayers.Components.BaseTypes;
+using Niantic.Lightship.Maps.ObjectPools;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -17,9 +18,11 @@ public class MapGameState : MonoBehaviour
 {
     public static MapGameState Instance;
     public List<BirdDataObject> birdSpawnDataList; // List of all bird spawn data
-    // TODO: Remove when we're calculating birds based on location
-    public List<BirdDataObject> spawnableBirds = new List<BirdDataObject>();
     public List<BirdDataObject> spawnedBirds = new List<BirdDataObject>();
+
+    // Birds on the player's map
+    public Dictionary<Guid, PooledObject<GameObject>> birdsOnMap = new Dictionary<Guid, PooledObject<GameObject>>();
+
 
     private readonly List<MapLayerComponent> _components = new();
 
@@ -41,7 +44,6 @@ public class MapGameState : MonoBehaviour
     void Start()
     {
         StartCoroutine(StartLocationService());
-        Debug.Log("Lawrence" + PlayerPrefs.GetString("Username"));
     }
 
     void OnEnable()
@@ -94,10 +96,8 @@ public class MapGameState : MonoBehaviour
                 var latlng = new LatLng(playerLocation.x, playerLocation.y);
                 _lightshipMapView.SetMapCenter(latlng);
 
-                foreach (var birdData in spawnedBirds)
-                {
-                    SpawnBird(birdData, playerLocation, true);
-                }
+                Debug.Log("[DEBUG] Removing selected bird if captured");
+                RemoveSelectedBirdIfCaptured();
             }
         }
         Spawn_Bird_Button();
@@ -175,12 +175,40 @@ public class MapGameState : MonoBehaviour
             {
                 var latlng = new LatLng(playerLocation.x, playerLocation.y);
                 _lightshipMapView.SetMapCenter(latlng);
-                GameObject[] birds = GameObject.FindGameObjectsWithTag("Bird");
-                
+
                 // If no birds exist spawn a bird
-                if (birds.Length == 0 )
+                if (birdsOnMap.Count == 0 )
                 {
+                    Debug.Log($"[DEBUG] 0 birds on map. Spawning bird at user's location");
                     MapGameState.Instance.TrySpawnBirdsAtLocation(playerLocation);
+                }
+            }
+        }
+    }
+
+    public void RemoveSelectedBirdIfCaptured()
+    {
+        Debug.Log($"[DEBUG]: Removing PDM selected bird if captured");
+
+        var selectedBird = PersistentDataManager.Instance.selectedBirdData;
+        // Debug.Log($"[DEBUG]: onscene loaded birdData: {birdData.id}");
+        if (selectedBird != null)
+        {
+            Debug.Log($"[DEBUG]: PDM Selected bird: {selectedBird.id}");
+
+            // Assuming the selected bird is the same type 
+            var filteredUserBirds = PersistentDataManager.Instance.userCapturedBirds.Where(b => b.birdData.birdName == selectedBird.birdName);
+            var userCapturedSelectedBird = filteredUserBirds.Where(b => b.caughtBirds.Contains(selectedBird.id)).FirstOrDefault();
+
+            if (userCapturedSelectedBird != null)
+            {
+                Debug.Log($"[DEBUG]: User captured Selected bird: {userCapturedSelectedBird}");
+                Debug.Log("[DEBUG] Removing selected bird from map and PDM");
+                RemoveBird(selectedBird.id);
+                if(spawnedBirds.Contains(selectedBird))
+                {
+                    Debug.Log("[DEBUG] Removing selected bird from spawned birds");
+                    spawnedBirds.Remove(selectedBird);
                 }
             }
         }
@@ -261,36 +289,22 @@ public class MapGameState : MonoBehaviour
             Debug.LogWarning("GameBirds should not be null here");
         }
 
-        // TODO: Instead of getting all gameBirds, get the birds that are within a distance of the player
-
         var bird = GetBirdSpawn(playerLocation);
         var spawnBird = new BirdDataObject()
         {
+            id = Guid.NewGuid(),
             birdName = bird,
             birdType = BirdTypeUtil.GetBirdType(bird),
             spawnProbability = 1,
             spawnRadius = 5,
             location = new Vector3(playerLocation.x, playerLocation.y)
         };
-        spawnableBirds.Add(spawnBird);
-        foreach (BirdDataObject birdData in spawnableBirds)
+        if (!spawnedBirds.Contains(spawnBird))
         {
-            // TODO: Uncomment when we add probability in
-
-            //float randomValue = Random.Range(0f, 1f);
-            //if (randomValue <= birdData.spawnProbability)
-            //{
-            //    // Spawn the bird
-            //    SpawnBird(birdData, playerLocation);
-            //}
-
-            // TODO: This will need to be fixed to account for the spawned birds location
-            if(!spawnedBirds.Contains(birdData))
-            {
-                spawnedBirds.Add(birdData);
-                SpawnBird(birdData, playerLocation);
-            }
+            spawnedBirds.Add(spawnBird);
+            SpawnBird(spawnBird, playerLocation);
         }
+
     }
 
     private void SpawnBird(BirdDataObject birdData, Vector2 playerLocation, bool isRespawn = false)
@@ -311,7 +325,62 @@ public class MapGameState : MonoBehaviour
             Vector3 spawnPosition = CalculateSpawnPosition(playerLocation, birdData, forward);
                 birdData.location = playerLocation;
 
-            _birdSpawner.PlaceBirdInstance(spawnPosition, rotation, birdData.birdType);
+            var spawnedBird = _birdSpawner.PlaceBirdInstance(spawnPosition, rotation, birdData.birdType, birdData.id);
+            birdsOnMap.Add(birdData.id, spawnedBird);
+        }
+    }
+
+    private void RemoveBird(Guid birdIdToRemove)
+    {
+        try
+        {
+            if (birdsOnMap.ContainsKey(birdIdToRemove))
+            {
+                Debug.Log($"[DEBUG] Removing {birdIdToRemove} from map");
+                var birdToRemove = birdsOnMap[birdIdToRemove];
+                birdsOnMap.Remove(birdIdToRemove);
+                Debug.Log($"[DEBUG] Removing {birdIdToRemove} pooled object");
+                _birdSpawner.RemoveBirdInstance(birdToRemove);
+                Debug.Log($"[DEBUG] removing {birdIdToRemove} as PDM selected bird");
+                PersistentDataManager.Instance.RemoveSelectedBird();
+                Debug.Log($"[DEBUG] After selected bird removal: {PersistentDataManager.Instance.selectedBirdData} this should be null");
+                Debug.Log($"[DEBUG] Bird Removal complete");
+                return;
+            }
+            Debug.LogError($"[Error:MapGameState]: Removing a bird that is not on the map. {birdIdToRemove}");
+        }
+        catch(Exception e)
+        {
+            Debug.LogError($"[Error:MapGameState]: Removing bird with ID: {birdIdToRemove} failed. {e.Message}\n {e.StackTrace}");
+        }
+
+    }
+    
+    public void Spawn_Bird_Button()
+    {
+        string pinName = BirdTypeUtil.GetBirdPinName("WhiteTern");
+
+        BirdDataObject birdData = new BirdDataObject();
+        birdData.birdName = pinName;
+        birdData.birdType = BirdType.WhiteTern;
+        birdData.spawnProbability = 1;
+        birdData.spawnRadius = 0;
+        birdData.location = Vector3.zero;
+        spawnedBirds.Add(birdData);
+
+
+        if (_mapCamera != null)
+        {
+            var cameraForward = _mapCamera.transform.forward;
+            var forward = new Vector3(cameraForward.x, 0f, cameraForward.z).normalized;
+            var rotation = Quaternion.LookRotation(forward);
+
+            // Vector2 playerLocation = new Vector2(21.31624f, -157.858102f);
+            Vector2 playerLocation = new Vector2(Input.location.lastData.latitude, Input.location.lastData.longitude);
+            Vector3 spawnPosition = CalculateSpawnPosition(playerLocation, birdData, forward);
+            birdData.location = playerLocation;
+
+            _birdSpawner.PlaceBirdInstance(spawnPosition, rotation, birdData.birdType, birdData.id);
         }
     }
 
@@ -362,7 +431,7 @@ public class MapGameState : MonoBehaviour
         {
             forward = new Vector3(0, 2, 1);
         }
-        forward += new Vector3(0, 7, 0);
+        // forward += new Vector3(0, 7, 0);
         var result = scenePosition + forward * offsetDistance;
         return result;
     }
