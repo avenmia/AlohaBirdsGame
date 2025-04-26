@@ -97,7 +97,19 @@ public class PersistentDataManager : MonoBehaviour
 
     public void SetBirdData(BirdDataObject newBirdData)
     {
+        Debug.Log($"[DEBUG]: Setting PDM selected bird: {newBirdData.id}");
         selectedBirdData = newBirdData;
+    }
+
+    public void RemoveSelectedBird()
+    {
+        if (selectedBirdData != null)
+        {
+            Debug.Log($"[DEBUG]: removing bird from selected bird: {selectedBirdData.id}");
+            selectedBirdData = null;
+            return;
+        }
+        Debug.Log("[DEBUG]: Selected bird was already set to null");
     }
 
     public UserAvidexBird GetExisitingUserBird(BirdDataObject bird)
@@ -137,6 +149,7 @@ public class PersistentDataManager : MonoBehaviour
 
     public void AddUserAvidexBird(UserAvidexBird bird)
     {
+        Debug.Log($"[DEBUG] adding user avidex bird and bird userCapturedbirds: {bird.birdData.id}");
         userCapturedBirds.Add(bird);
         if(bird.birdData == null || bird.birdData.birdName == null || gameBirds[bird.birdData.birdName] == null)
         {
@@ -147,11 +160,12 @@ public class PersistentDataManager : MonoBehaviour
         gameBirds[bird.birdData.birdName].userDiscovered = true;
     }
 
-    // TODO: Confirm this is right
-    public void UpdateUserAvidexBird(string name, BirdCaptureData captureData)
+    public void UpdateUserAvidexBird(string name, Guid id, BirdCaptureData captureData)
     {
+        Debug.Log($"[DEBUG] Updating existing user avidex bird {id}");
         var existingBird = userCapturedBirds.Find(b => b.birdData.birdName == name);
         existingBird.captureData.Add(captureData);
+        existingBird.caughtBirds.Add(id);
         userProfileData.points += existingBird.birdData.points;
     }
 
