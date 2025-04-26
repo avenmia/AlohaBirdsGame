@@ -98,13 +98,6 @@ public class MapGameState : MonoBehaviour
 
                 Debug.Log("[DEBUG] Removing selected bird if captured");
                 RemoveSelectedBirdIfCaptured();
-
-                //foreach (var birdData in spawnedBirds)
-                //{
-                   
-
-                //    SpawnBird(birdData, playerLocation, true);
-                //}
             }
         }
 
@@ -183,7 +176,6 @@ public class MapGameState : MonoBehaviour
                 var latlng = new LatLng(playerLocation.x, playerLocation.y);
                 _lightshipMapView.SetMapCenter(latlng);
 
-                // TODO: Update this if player's location changes
                 // If no birds exist spawn a bird
                 if (birdsOnMap.Count == 0 )
                 {
@@ -206,7 +198,6 @@ public class MapGameState : MonoBehaviour
 
             // Assuming the selected bird is the same type 
             var filteredUserBirds = PersistentDataManager.Instance.userCapturedBirds.Where(b => b.birdData.birdName == selectedBird.birdName);
-            // TODO: Probably inefficient to go through all bird types and all bird IDs
             var userCapturedSelectedBird = filteredUserBirds.Where(b => b.caughtBirds.Contains(selectedBird.id)).FirstOrDefault();
 
             if (userCapturedSelectedBird != null)

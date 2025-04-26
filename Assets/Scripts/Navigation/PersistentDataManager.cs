@@ -160,7 +160,6 @@ public class PersistentDataManager : MonoBehaviour
         gameBirds[bird.birdData.birdName].userDiscovered = true;
     }
 
-    // TODO: Confirm this is right
     public void UpdateUserAvidexBird(string name, Guid id, BirdCaptureData captureData)
     {
         Debug.Log($"[DEBUG] Updating existing user avidex bird {id}");
