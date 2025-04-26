@@ -100,7 +100,7 @@ public class MapGameState : MonoBehaviour
                 RemoveSelectedBirdIfCaptured();
             }
         }
-        Spawn_Bird_Button();
+        //Spawn_Bird_Button();
     }
 
     private IEnumerator StartLocationService()
@@ -381,37 +381,6 @@ public class MapGameState : MonoBehaviour
             birdData.location = playerLocation;
 
             _birdSpawner.PlaceBirdInstance(spawnPosition, rotation, birdData.birdType, birdData.id);
-        }
-    }
-
-    public void Spawn_Bird_Button()
-    {
-        string pinName = BirdTypeUtil.GetBirdPinName("WhiteTern");
-
-        BirdDataObject birdData = new BirdDataObject();
-        birdData.birdName = pinName;
-        birdData.birdType = BirdType.WhiteTern;
-        birdData.spawnProbability = 1;
-        birdData.spawnRadius = 0;
-        birdData.location = Vector3.zero;
-        spawnedBirds.Add(birdData);
-
-
-        if (_mapCamera != null)
-        {
-            var cameraForward = _mapCamera.transform.forward;
-            var forward = new Vector3(cameraForward.x, 0f, cameraForward.z).normalized;
-            var rotation = Quaternion.LookRotation(forward);
-
-//#if UNITY_EDITOR
-            //Vector2 playerLocation = new Vector2(21.31624f, -157.858102f);
-//#else
-            Vector2 playerLocation = new Vector2(Input.location.lastData.latitude, Input.location.lastData.longitude);
-//#endif
-            Vector3 spawnPosition = CalculateSpawnPosition(playerLocation, birdData, forward);
-            birdData.location = playerLocation;
-
-            _birdSpawner.PlaceBirdInstance(spawnPosition, rotation, birdData.birdType);
         }
     }
 

@@ -162,10 +162,11 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7872753416851425120}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fb90ee3d7dcdbe84b85678d3d82a47a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Bird_Path: []
   Camera: {fileID: 0}
+  Hide_Aura: {fileID: 0}

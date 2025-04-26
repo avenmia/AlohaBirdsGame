@@ -70,7 +70,7 @@ MonoBehaviour:
   _africansilverbillPrefab: {fileID: 3272135469425168573, guid: 508bd9aeff9967f4ba8c66f53c2434a2, type: 3}
   _hawaiianDuckPrefab: {fileID: 3134304419462725599, guid: d8fc1de742e83134f9e7076c22c3f673, type: 3}
   _kalijPheasantPrefab: {fileID: 7663226205146137119, guid: d19a50b7e0854da44ac101c21da40b62, type: 3}
-  _honeyCreeperPrefab: {fileID: 8470264114015777854, guid: a038d0ffa84d0cf448a1f4820d2ef6ef, type: 3}
+  _honeyCreeperPrefab: {fileID: 714295281542376467, guid: a038d0ffa84d0cf448a1f4820d2ef6ef, type: 3}
   _houseSparrowPrefab: {fileID: 7872753416851425120, guid: e2952c4093919384fa7d22c9ed03f4c2, type: 3}
   _redfowlPrefab: {fileID: 5006084156633242814, guid: 997d6bdcbd8a102408df6060d74ce7bd, type: 3}
   _whiteTernPrefab: {fileID: 8009837703209384125, guid: 5e5d0806f1647bb4ba2b57bcd656db68, type: 3}
