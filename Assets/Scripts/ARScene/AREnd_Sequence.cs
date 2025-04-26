@@ -1,0 +1,128 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using TMPro;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class AREnd_Sequence : MonoBehaviour
+{
+    public List<GameObject> Sequence;
+    private int Sequence_Index = 0;
+    public List<RawImage> Polaroids;
+    [SerializeField] private int Polaroid_Index = 1; //Start with index in middle
+    [SerializeField] private GameObject Left_Arrow;
+    [SerializeField] private GameObject Right_Arrow;
+
+    [SerializeField] private TMP_Text Score;
+    [SerializeField] private TMP_Text Bird_Name;
+    private void OnEnable()
+    {
+        Bird_Name.text = Polaroids[0].GetComponent<Polaroid_Data>().Name;
+        Sequence[0].SetActive(true); // Capture Popup
+    }
+
+    public void Next_Sequence()
+    {
+        Sequence_Index++;
+        Sequence[Sequence_Index].SetActive(true);
+    }
+
+    public void Left_Next()
+    {
+        Polaroids[Polaroid_Index].gameObject.transform.parent.gameObject.SetActive(false);
+        Polaroid_Index--;
+        if(Polaroid_Index <= 0)
+        {
+            Left_Arrow.SetActive(false);
+        }
+        
+        if(Polaroid_Index < 2 && !Right_Arrow.activeInHierarchy)
+        {
+            Right_Arrow.SetActive(true);
+        }
+
+        Polaroids[Polaroid_Index].gameObject.transform.parent.gameObject.SetActive(true);
+    }
+
+    public void Right_Next()
+    {
+        Polaroids[Polaroid_Index].gameObject.transform.parent.gameObject.SetActive(false);
+        Polaroid_Index++;
+        if(Polaroid_Index >= Polaroids.Count - 1)
+        {
+            Right_Arrow.SetActive(false);
+        }
+
+        if (Polaroid_Index > 0 && !Left_Arrow.activeInHierarchy)
+        {
+            Left_Arrow.SetActive(true);
+        }
+
+        Polaroids[Polaroid_Index].gameObject.transform.parent.gameObject.SetActive(true);
+    }
+    
+    public void Choose_Polaroid()
+    {
+        //Score.text = Polaroids[Polaroid_Index].GetComponent<Polaroid_Data>().Score.ToString();
+        StartCoroutine(SaveScreenshotToGallery(Polaroids[Polaroid_Index].gameObject.GetComponent<Polaroid_Data>().Name, Polaroid_Index));
+    }
+
+    IEnumerator SaveScreenshotToGallery(string birdName, int index)
+    {
+        yield return new WaitForEndOfFrame();
+        var existingBird = PersistentDataManager.Instance.GetExisitingUserBirdByName(birdName);
+        if (existingBird != null)
+        {
+            // This should be the one added above
+            var lastCapture = existingBird.captureData.Last();
+            lastCapture.screenCaptureShot = Polaroids[index].texture as Texture2D;
+        }
+        else
+        {
+            Debug.LogError("Bird should exist before adding image to gallery");
+        }
+
+        var birdObject = GameObject.FindGameObjectWithTag("Bird");
+        CaptureBird(birdObject);
+
+        StartCoroutine(ReturnToMap(2.0f));
+    }
+
+    private IEnumerator ReturnToMap(float waitTime)
+    {
+        yield return new WaitForSeconds(waitTime);
+        NavigationManager.Instance.ReturnToPrevScene();
+    }
+
+    void CaptureBird(GameObject birdObject)
+    {
+
+        var controller = birdObject.GetComponent<ARBirdController>();
+        var birdSpawnData = controller.birdData;
+        var captureData = new BirdCaptureData()
+        {
+            captureTime = DateTime.Now,
+            // TODO: Verify the bird spawn location is the actual location not scene location
+            // May need to convert scene to lat long
+            location = new GeoLocation(birdSpawnData.location.x, birdSpawnData.location.y)
+        };
+
+        var existingUserBird = PersistentDataManager.Instance.GetExisitingUserBird(birdSpawnData);
+        if (existingUserBird == null)
+        {
+            var bird = PersistentDataManager.Instance.GetBirdData(birdSpawnData.birdName);
+            var newUserAvidexBird = new UserAvidexBird(bird)
+            {
+                captureData = new List<BirdCaptureData>() { captureData }
+            };
+            PersistentDataManager.Instance.AddUserAvidexBird(newUserAvidexBird);
+        }
+        else
+        {
+            PersistentDataManager.Instance.UpdateUserAvidexBird(existingUserBird.birdData.birdName, captureData);
+        }
+        PersistentDataManager.Instance.UpdateUserCaptures();
+    }
+}

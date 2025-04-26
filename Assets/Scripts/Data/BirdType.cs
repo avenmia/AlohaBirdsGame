@@ -11,5 +11,6 @@ public enum BirdType
     HoneyCreeper,
     HouseSparrow,
     RedFowl,
-    WhiteTern
+    WhiteTern,
+    WhiterumpedShama
 }
