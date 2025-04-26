@@ -326,6 +326,7 @@ public class MapGameState : MonoBehaviour
                 birdData.location = playerLocation;
 
             var spawnedBird = _birdSpawner.PlaceBirdInstance(spawnPosition, rotation, birdData.birdType, birdData.id);
+            Debug.Log($"[DEBUG]: Adding {birdData.birdType}: {birdData.id} to birds on map");
             birdsOnMap.Add(birdData.id, spawnedBird);
         }
     }

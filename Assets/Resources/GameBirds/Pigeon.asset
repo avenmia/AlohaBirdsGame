@@ -12,13 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c41827f9fd630043be6fcddecb5fdfa, type: 3}
   m_Name: Pigeon
   m_EditorClassIdentifier: 
-  birdName: Pigeon
-  hawaiianBirdName: "manu k\u016B"
+  birdName: Rock Pigeon
+  hawaiianBirdName: Nunu
   birdImage: {fileID: 21300000, guid: 397cef50a31174e429bbabd9f067a66f, type: 3}
-  birdDescription: ' The pigeon is a sturdy, adaptable bird with iridescent feathers,
-    known for its gentle cooing and strong homing instincts, thriving in both urban
-    and rural areas worldwide.'
+  birdDescription: 'Fairly large pigeon with wild and feral populations throughout
+    the world. True wild birds nest on cliffs and in caves from western Europe to
+    central Asia. Pale gray overall with two bold black wingbars and iridescent purple
+    and green on neck. Feral varieties are common in cities and farmland, often in
+    large flocks. Variable plumage: some identical to wild-type birds, but can be
+    completely black, white, or orangey-brown and any combination in between. '
   conservationStatus: Least Concern
   nativeHawaiianSpecies: 0
   points: 2
-  ebirdURL: 
+  ebirdURL: https://ebird.org/species/rocpig/US-HI.

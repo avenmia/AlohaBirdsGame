@@ -1,12 +1,14 @@
 using System.Collections.Generic;
+using UnityEngine;
 
 public static class BirdTypeUtil
 {
     public static string GetBirdPinName(string birdName)
     {
+        Debug.Log($"[DEBUG]: Getting pin name for bird: {birdName}");
         switch (birdName)
         {
-            case "Pigeon": return "PigeonPin";
+            case "Rock Pigeon": return "PigeonPin";
             case "Barn Owl": return "BarnOwlPin";
             case "African Silverbill": return "African Silverbill";
             case "House Sparrow": return "housesparrow";
@@ -21,7 +23,7 @@ public static class BirdTypeUtil
     {
         switch (birdName)
         {
-            case "Pigeon": return BirdType.Pigeon;
+            case "Rock Pigeon": return BirdType.Pigeon;
             case "Barn Owl": return BirdType.BarnOwl;
             case "African Silverbill": return BirdType.AfricanSilverbill;
             case "House Sparrow": return BirdType.HouseSparrow;
