@@ -72,6 +72,7 @@ public class Player_Information : MonoBehaviour
         try
         {
             await AuthenticationService.Instance.SignInAnonymouslyAsync();
+            Debug.Log(AuthenticationService.Instance.PlayerName);
             Debug.Log("Cached user sign in succeeded!");
 
             // Shows how to get the playerID

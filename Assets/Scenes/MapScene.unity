@@ -2331,7 +2331,6 @@ MonoBehaviour:
   m_DeselectOnBackgroundClick: 1
   m_PointerBehavior: 0
   m_CursorLockBehavior: 0
-  m_ScrollDeltaPerTick: 6
 --- !u!1 &1963904816
 GameObject:
   m_ObjectHideFlags: 0
@@ -2461,7 +2460,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 91936567887524612, guid: 0f989f1ab23be4b4095a2d3c14e456d2, type: 3}
       propertyPath: _startAtDefaultLocation
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 91936567887524612, guid: 0f989f1ab23be4b4095a2d3c14e456d2, type: 3}
       propertyPath: _mapLayers.Array.data[0]
