@@ -65,8 +65,12 @@ public class AREnd_Sequence : MonoBehaviour
     
     public void Choose_Polaroid()
     {
-        //Score.text = Polaroids[Polaroid_Index].GetComponent<Polaroid_Data>().Score.ToString();
-        StartCoroutine(SaveScreenshotToGallery(Polaroids[Polaroid_Index].gameObject.GetComponent<Polaroid_Data>().Name, Polaroid_Index));
+        //Score.text = Polaroids[Polaroid_Index].GetComponent<Polaroid_Data>().Score.ToString();]
+        CaptureBird();
+
+        Debug.Log($"Polaroid bird name: {Polaroids[Polaroid_Index].gameObject.GetComponent<Polaroid_Data>().Name}");
+        Debug.Log($"PersistentDataManager Name: {PersistentDataManager.Instance.selectedBirdData.birdName}");
+        StartCoroutine(SaveScreenshotToGallery(PersistentDataManager.Instance.selectedBirdData.birdName, Polaroid_Index));
     }
 
     IEnumerator SaveScreenshotToGallery(string birdName, int index)
@@ -84,8 +88,7 @@ public class AREnd_Sequence : MonoBehaviour
             Debug.LogError("Bird should exist before adding image to gallery");
         }
 
-        var birdObject = GameObject.FindGameObjectWithTag("Bird");
-        CaptureBird(birdObject);
+
 
         StartCoroutine(ReturnToMap(2.0f));
     }
@@ -96,7 +99,7 @@ public class AREnd_Sequence : MonoBehaviour
         NavigationManager.Instance.ReturnToPrevScene();
     }
 
-    void CaptureBird(GameObject birdObject)
+    void CaptureBird()
     {
         var birdSpawnData = PersistentDataManager.Instance.selectedBirdData;
         var captureData = new BirdCaptureData()

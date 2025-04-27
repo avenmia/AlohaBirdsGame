@@ -13,7 +13,7 @@ public class GalleryItemController : MonoBehaviour
     public void Initialize(BirdCaptureData data)
     {
         captureData = data;
-
+        Debug.Log($"[DEBUG]: Capture Data: {captureData}");
         // Create a Sprite from the Texture2D
         Sprite newSprite = Sprite.Create(
             data.screenCaptureShot,
@@ -22,14 +22,17 @@ public class GalleryItemController : MonoBehaviour
         );
         screenshotImage.sprite = newSprite;
         birdNameText.text = $"Capture Time: {data.captureTime} \n Capture Location: {data.location.latitude} {data.location.longitude}";
-        
+        Debug.Log("[DEBUG]: " + birdNameText.text);
+
 
         // Add click listener
+        Debug.Log("[DEBUG] Adding on click listener to the click button");
         GetComponent<Button>().onClick.AddListener(OnClick);
     }
 
     private void OnClick()
     {
+        Debug.Log($"[DEBUG] Click activated for Show maximized image of {captureData}");
         BirdDetailUIManager.Instance.ShowMaximizedImage(captureData);
     }
 }

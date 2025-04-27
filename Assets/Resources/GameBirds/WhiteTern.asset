@@ -14,16 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   birdName: White Tern
   hawaiianBirdName: 
-  birdImage: {fileID: 21300000, guid: 9820ebae4fd55f449bc4c882e6aa6270, type: 3}
-  birdDescription: " This \u201Coriginal chicken\u201D is smaller than its domestic
-    descendants, and is widespread throughout South and Southeast Asia; can also
-    be found as an introduced species in many regions around the world (especially
-    prevalent on many Pacific Islands, including Hawaii). In its introduced range
-    and some areas of its native range it has interbred widely with feral and domestic
-    chickens, producing intermediate hybrids. Many of these birds cannot be distinguished
-    from genuine wild-type birds. Within native range calls are useful for ID: the
-    wild male\u2019s crowing is hoarse and choked off towards the end, unlike the
-    loud, vibrant calls of the domestic rooster."
+  birdImage: {fileID: 21300000, guid: 54c837e3710ad6843b277fd2ee0f8f9b, type: 3}
+  birdDescription: White tern
   conservationStatus: Least Concern
   nativeHawaiianSpecies: 0
   points: 1
