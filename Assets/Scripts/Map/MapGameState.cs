@@ -377,8 +377,11 @@ public class MapGameState : MonoBehaviour
             var forward = new Vector3(cameraForward.x, 0f, cameraForward.z).normalized;
             var rotation = Quaternion.LookRotation(forward);
 
+#if UNITY_EDITOR
             Vector2 playerLocation = new Vector2(21.31624f, -157.858102f);
-            //Vector2 playerLocation = new Vector2(Input.location.lastData.latitude, Input.location.lastData.longitude);
+#elif UNITY_ANDROID
+            Vector2 playerLocation = new Vector2(Input.location.lastData.latitude, Input.location.lastData.longitude);
+#endif
             Vector3 spawnPosition = CalculateSpawnPosition(playerLocation, birdData, forward);
             birdData.location = playerLocation;
 
