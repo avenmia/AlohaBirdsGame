@@ -138,6 +138,10 @@ public class BirdLayerGameObjectPlacement : LayerGameObjectPlacement
             var instance = pooledObject.Value;
             instance.name = instanceName ?? birdType.ToString();
 
+        PositionInstance(instance, position, rotation);
+        instance.transform.localScale = _birdPrefabs[birdType].transform.localScale;
+        instance.transform.localPosition += new Vector3(0, 100, 0);
+        instance.transform.DOMoveY(10, 5f);
             Debug.Log($"[DEBUG]: Adding Pooled object value: {instance}");
             _instances.Add(instance, (position, rotation));
 

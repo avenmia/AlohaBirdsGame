@@ -24,6 +24,7 @@ public class BirdDetailUIManager : MonoBehaviour
     public void ShowDetails(UserAvidexBird bird)
     {
         currentBird = bird;
+        Debug.Log($"[DEBUG]: Showing capture details of current bird: {currentBird.captureData}");
         var userBird = bird.birdData;
         birdImage.sprite = userBird.birdImage;
         birdNameText.text = userBird.birdName;
@@ -33,6 +34,7 @@ public class BirdDetailUIManager : MonoBehaviour
         birdNativeHawaiianSpecies.text = userBird.nativeHawaiianSpecies == true ? "yes" : "no";
         birdPoints.text = userBird.points.ToString();
         birdEBirdURL.text = userBird.ebirdURL;
+        Debug.Log($"[DEBUG]: Loading user's bird image gallery");
         LoadUserBirdImageGallery();
     }
 
@@ -44,13 +46,16 @@ public class BirdDetailUIManager : MonoBehaviour
     void LoadUserBirdImageGallery()
     {
         // Clear any existing items
+        Debug.Log("[DEBUG] Removing any existing item from bird image gallery");
         foreach (Transform child in galleryContentParent)
         {
             Destroy(child.gameObject);
         }
 
+        Debug.Log("[DEBUG] Instantiating LoaduserBirdImage per capture");
         foreach (var capture in currentBird.captureData)
         {
+            Debug.Log($"[DEBUG]: Adding bird with Capture time: {capture.captureTime}");
             GameObject newItem = Instantiate(galleryItemPrefab, galleryContentParent);
             GalleryItemController controller = newItem.GetComponent<GalleryItemController>();
             if (controller != null)

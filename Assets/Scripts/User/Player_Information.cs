@@ -72,6 +72,7 @@ public class Player_Information : MonoBehaviour
         try
         {
             await AuthenticationService.Instance.SignInAnonymouslyAsync();
+            Debug.Log(AuthenticationService.Instance.PlayerName);
             Debug.Log("Cached user sign in succeeded!");
 
             // Shows how to get the playerID
@@ -95,15 +96,8 @@ public class Player_Information : MonoBehaviour
         }
     }
 
-    public async void Online_Initalize()
-    {
-        Player_Name = AuthenticationService.Instance.PlayerName;
-        Load_Data();
-    }
-
     public async void Load_Data()
     {
-        Player_Name = AuthenticationService.Instance.PlayerName;
         Debug.Log("Load Player: " + Player_Name);
         var playerData = await CloudSaveService.Instance.Data.Player.LoadAsync(new HashSet<string> {
             "time", 
@@ -112,6 +106,7 @@ public class Player_Information : MonoBehaviour
             "birdsCaptured",
             "points",
         }, new LoadOptions(new PublicReadAccessClassOptions()));
+        Player_Name = AuthenticationService.Instance.PlayerName;
 
         if(playerData.TryGetValue("time", out var tim) && PlayerPrefs.HasKey("time"))
         {

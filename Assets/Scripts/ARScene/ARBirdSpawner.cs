@@ -22,14 +22,15 @@ public class ARBirdSpawner : MonoBehaviour
 
             // Instantiate the bird prefab at the specified position
 
-            var spawnPosition = new Vector3(0, 10, 0);
+            var spawnPosition = new Vector3(0, 0, 70);
             Quaternion spawnRotation = Quaternion.Euler(0, 180, 0);
 
             var birdPrefab = _birdSpawner.GetBirdPrefab(birdData.birdType);
             var spawnedBird = Instantiate(birdPrefab, spawnPosition, spawnRotation);
-            //var birdMovement = spawnedBird.GetComponent<AR_Bird_Movement>();
-            //birdMovement.enabled = true;
-            //birdMovement.Init_Fly_To_Points();
+            spawnedBird.name = PersistentDataManager.Instance.selectedBirdData.birdName;
+            var birdMovement = spawnedBird.GetComponent<AR_Bird_Movement>();
+            birdMovement.enabled = true;
+            birdMovement.Init_Fly_To_Points();
 
             // Assuming the birdPrefab has a script to handle its data
             ARBirdController birdController = spawnedBird.GetComponent<ARBirdController>();
