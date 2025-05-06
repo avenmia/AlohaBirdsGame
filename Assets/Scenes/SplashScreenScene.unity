@@ -3368,7 +3368,7 @@ MonoBehaviour:
   BirdsCaptured: 0
   No_Token_Path: {fileID: 1776931932}
   Attempting_Log_In: {fileID: 402179138}
-  Clear_Token: 0
+  Clear_Token: 1
   PersistentDataManager: {fileID: 956248232}
 --- !u!1 &961739749
 GameObject:

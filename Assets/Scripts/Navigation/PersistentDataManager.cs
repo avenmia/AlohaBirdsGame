@@ -10,6 +10,7 @@ using Unity.Services.CloudSave.Models.Data.Player;
 using Unity.Services.CloudSave;
 using SaveOptions = Unity.Services.CloudSave.Models.Data.Player.SaveOptions;
 using System.Linq;
+using System.Collections;
 
 public class PersistentDataManager : MonoBehaviour
 {
@@ -28,13 +29,22 @@ public class PersistentDataManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject); // Keep this object alive across scenes
+            DontDestroyOnLoad(transform.root.gameObject); // Keep this object alive across scenes
             LoadGameBirds();
         }
         else
         {
             Destroy(gameObject);
         }
+
+        StartCoroutine(Test());
+    }
+
+    IEnumerator Test()
+    {
+        if(userProfileData != null) { Debug.Log($"Persistent Data Manger Information: {userProfileData.username}, {userProfileData.totalCaptures}"); }
+        yield return new WaitForSeconds(1);
+        StartCoroutine(Test());
     }
 
     private void OnDestroy()

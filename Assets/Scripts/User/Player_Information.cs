@@ -28,9 +28,9 @@ public class Player_Information : MonoBehaviour
 
     [SerializeField] private PersistentDataManager PersistentDataManager;
 
-    async private void Awake()
+    private async void Awake()
     {
-        DontDestroyOnLoad(this.gameObject);
+        //DontDestroyOnLoad(transform.root.gameObject);
         try
         {
             await UnityServices.InitializeAsync();
@@ -41,7 +41,7 @@ public class Player_Information : MonoBehaviour
         }
     }
 
-    async private void Start()
+    private void Start()
     {
         if (Clear_Token) 
         {
@@ -58,9 +58,18 @@ public class Player_Information : MonoBehaviour
         {
             No_Token_Path.SetActive(true);
             Attempting_Log_In.SetActive(false);
-            Offline_Load();
+            //Offline_Load();
             //Load SignIn/LogIn
         }
+
+        StartCoroutine(Test_Ping());
+    }
+
+    IEnumerator Test_Ping()
+    {
+        yield return new WaitForSeconds(1f);
+        Debug.Log("Player_Information Exists");
+        StartCoroutine(Test_Ping());
     }
 
     async private void Sign_In_Cached_Player()
@@ -72,14 +81,13 @@ public class Player_Information : MonoBehaviour
         try
         {
             await AuthenticationService.Instance.SignInAnonymouslyAsync();
-            Debug.Log(AuthenticationService.Instance.PlayerName);
+            Debug.Log("Player Name: " + AuthenticationService.Instance.PlayerName);
             Debug.Log("Cached user sign in succeeded!");
 
             // Shows how to get the playerID
             Debug.Log($"PlayerID: {AuthenticationService.Instance.PlayerId}");
 
             Load_Data();
-            SceneManager.LoadScene("MapScene", LoadSceneMode.Single);
             return;
         }
         catch (AuthenticationException ex)
@@ -98,30 +106,33 @@ public class Player_Information : MonoBehaviour
 
     public async void Load_Data()
     {
-        Debug.Log("Load Player: " + Player_Name);
         var playerData = await CloudSaveService.Instance.Data.Player.LoadAsync(new HashSet<string> {
             "time", 
-            "playerName", 
             "uniqueBirds", 
             "birdsCaptured",
             "points",
         }, new LoadOptions(new PublicReadAccessClassOptions()));
-        Player_Name = AuthenticationService.Instance.PlayerName;
+        Player_Name = await AuthenticationService.Instance.GetPlayerNameAsync();
+        Debug.Log("Load Player: " + Player_Name);
 
         if(playerData.TryGetValue("time", out var tim) && PlayerPrefs.HasKey("time"))
         {
             DateTime prefTime = DateTime.ParseExact(PlayerPrefs.GetString("time"), "yyyy-MM-dd HH:mm:ss,fff",
                 System.Globalization.CultureInfo.InvariantCulture);
+            Debug.Log("Pref Time: " + prefTime);
             DateTime cloudTime = DateTime.ParseExact(tim.Value.GetAs<string>(), "yyyy-MM-dd HH:mm:ss,fff",
                 System.Globalization.CultureInfo.InvariantCulture);
+            Debug.Log("Cloud Time: " + cloudTime);
             int result = DateTime.Compare(cloudTime, prefTime);
-            if(result < 0) // cloudtime is earlier than preftime
-            {
-                Offline_Load();
-                return;
-            }
+            //if(result < 0) // cloudtime is earlier than preftime
+            //{
+            //    Debug.Log("Offline Load Path");
+            //    Offline_Load();
+            //    return;
+            //}
         }
 
+        Debug.Log("Online Load");
         if (playerData.TryGetValue("birdsCaptured", out var bC))
         {
             BirdsCaptured = bC.Value.GetAs<int>();
@@ -142,7 +153,7 @@ public class Player_Information : MonoBehaviour
             }
         }
 
-        PersistentDataManager.userProfileData = new UserProfileData(Player_Name, BirdsCaptured, Points, Unique_Birds_Caught);
+        PersistentDataManager.Instance.userProfileData = new UserProfileData(Player_Name, BirdsCaptured, Points, Unique_Birds_Caught);
         SceneManager.LoadScene("MapScene", LoadSceneMode.Single);
     }
 
@@ -161,5 +172,7 @@ public class Player_Information : MonoBehaviour
         Unique_Birds_Caught = new List<string>(tempBirds);
 
         PersistentDataManager.userProfileData = new UserProfileData(Player_Name, BirdsCaptured, Points, Unique_Birds_Caught);
+
+        SceneManager.LoadScene("MapScene", LoadSceneMode.Single);
     }
 }
