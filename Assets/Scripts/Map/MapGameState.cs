@@ -13,9 +13,18 @@ using Unity.Collections.LowLevel.Unsafe;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+#if UNITY_ANDROID
+using UnityEngine.Android;
+#endif
 
 public class MapGameState : MonoBehaviour
 {
+    readonly string[] wanted = {
+#if UNITY_ANDROID
+        Permission.Camera,
+        Permission.FineLocation   
+#endif
+    };
     public static MapGameState Instance;
     public List<BirdDataObject> birdSpawnDataList; // List of all bird spawn data
     public List<BirdDataObject> spawnedBirds = new List<BirdDataObject>();
@@ -43,8 +52,62 @@ public class MapGameState : MonoBehaviour
 
     void Start()
     {
+        #if UNITY_ANDROID
+        StartCoroutine(CheckAndRequest());
+        #else
         StartCoroutine(StartLocationService());
+        #endif
+        
     }
+
+    #if UNITY_ANDROID
+    IEnumerator CheckAndRequest()
+    {
+        // 1 ─ Gather the ones we still need
+        List<string> toAsk = new List<string>();
+        foreach (var p in wanted)
+            if (!Permission.HasUserAuthorizedPermission(p))
+            {
+                toAsk.Add(p);
+            }
+
+        // 2 ─ If something’s missing, fire one combined dialog
+        if (toAsk.Count > 0)
+        {
+            bool finished = false;
+
+            var cb = new PermissionCallbacks();
+            cb.PermissionGranted += _ => { if (AllGranted()) finished = true; };
+            cb.PermissionDenied  += _ => finished = true;
+            cb.PermissionDeniedAndDontAskAgain += _ => finished = true;
+
+            Permission.RequestUserPermissions(toAsk.ToArray(), cb);
+
+            while (!finished)           // 3 ─ wait until the user responds
+                yield return null;
+        }
+
+        // 4 ─ Proceed only if every permission is granted
+        if (AllGranted())
+        {
+            yield return StartLocationService();
+        }
+        else
+        {
+            // Show your own “permission required” UI or open Settings panel
+            Debug.LogWarning("Required permission missing; cannot start AR.");
+            // optional: SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
+    }
+
+    bool AllGranted()
+    {
+        foreach (var p in wanted)
+            if (!Permission.HasUserAuthorizedPermission(p))
+                return false;
+        return true;
+    }
+#endif  // UNITY_ANDROID
 
     void OnEnable()
     {
@@ -107,20 +170,25 @@ public class MapGameState : MonoBehaviour
 
     private IEnumerator StartLocationService()
     {
-        if (!Input.location.isEnabledByUser)
-        {
-            Debug.LogError("Location service is not enabled by the user.");
-            yield break;
-        }
-
         Input.location.Start();
-
         int maxWait = 20;
-        while (Input.location.status == LocationServiceStatus.Initializing && maxWait > 0)
-        {
+        while (Input.location.status == LocationServiceStatus.Initializing && maxWait-- > 0)
             yield return new WaitForSeconds(1);
-            maxWait--;
-        }
+
+        // if (!Input.location.isEnabledByUser)
+        // {
+        //     Debug.LogError("Location service is not enabled by the user.");
+        //     yield break;
+        // }
+
+        // Input.location.Start();
+
+        // int maxWait = 20;
+        // while (Input.location.status == LocationServiceStatus.Initializing && maxWait > 0)
+        // {
+        //     yield return new WaitForSeconds(1);
+        //     maxWait--;
+        // }
 
         if (maxWait <= 0)
         {
