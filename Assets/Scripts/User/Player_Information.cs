@@ -28,9 +28,9 @@ public class Player_Information : MonoBehaviour
 
     [SerializeField] private PersistentDataManager PersistentDataManager;
 
-    async private void Awake()
+    private async void Awake()
     {
-        DontDestroyOnLoad(this.gameObject);
+        // DontDestroyOnLoad(this.gameObject);
         try
         {
             await UnityServices.InitializeAsync();
@@ -41,21 +41,24 @@ public class Player_Information : MonoBehaviour
         }
     }
 
-    async private void Start()
+    private void Start()
     {
         if (Clear_Token) 
         {
+	    Debug.Log("[DEBUG]: Signing user out and removing session token");
             AuthenticationService.Instance.SignOut();
             AuthenticationService.Instance.ClearSessionToken(); 
         }
 
         if (AuthenticationService.Instance.SessionTokenExists)
         {
+	    Debug.Log("[DEBUG]: Signing in cached player from session token");
             Sign_In_Cached_Player();
             //Load GPS scene
         }
         else
         {
+	    Debug.Log("[DEBUG]: Attempting offline load");
             No_Token_Path.SetActive(true);
             Attempting_Log_In.SetActive(false);
             Offline_Load();
@@ -71,6 +74,7 @@ public class Player_Information : MonoBehaviour
         // This call will sign in the cached player.
         try
         {
+	    Debug.Log("[DEBUG]: Signing in Cached user");
             await AuthenticationService.Instance.SignInAnonymouslyAsync();
             Debug.Log(AuthenticationService.Instance.PlayerName);
             Debug.Log("Cached user sign in succeeded!");
@@ -79,7 +83,7 @@ public class Player_Information : MonoBehaviour
             Debug.Log($"PlayerID: {AuthenticationService.Instance.PlayerId}");
 
             Load_Data();
-            SceneManager.LoadScene("MapScene", LoadSceneMode.Single);
+            // SceneManager.LoadScene("MapScene", LoadSceneMode.Single);
             return;
         }
         catch (AuthenticationException ex)
@@ -101,12 +105,11 @@ public class Player_Information : MonoBehaviour
         Debug.Log("Load Player: " + Player_Name);
         var playerData = await CloudSaveService.Instance.Data.Player.LoadAsync(new HashSet<string> {
             "time", 
-            "playerName", 
             "uniqueBirds", 
             "birdsCaptured",
             "points",
         }, new LoadOptions(new PublicReadAccessClassOptions()));
-        Player_Name = AuthenticationService.Instance.PlayerName;
+        Player_Name = await AuthenticationService.Instance.GetPlayerNameAsync();
 
         if(playerData.TryGetValue("time", out var tim) && PlayerPrefs.HasKey("time"))
         {
@@ -115,11 +118,11 @@ public class Player_Information : MonoBehaviour
             DateTime cloudTime = DateTime.ParseExact(tim.Value.GetAs<string>(), "yyyy-MM-dd HH:mm:ss,fff",
                 System.Globalization.CultureInfo.InvariantCulture);
             int result = DateTime.Compare(cloudTime, prefTime);
-            if(result < 0) // cloudtime is earlier than preftime
-            {
-                Offline_Load();
-                return;
-            }
+            // if(result < 0) // cloudtime is earlier than preftime
+            // {
+            //    Offline_Load();
+            //    return;
+            // }
         }
 
         if (playerData.TryGetValue("birdsCaptured", out var bC))
@@ -160,6 +163,7 @@ public class Player_Information : MonoBehaviour
         }
         Unique_Birds_Caught = new List<string>(tempBirds);
 
-        PersistentDataManager.userProfileData = new UserProfileData(Player_Name, BirdsCaptured, Points, Unique_Birds_Caught);
+        PersistentDataManager.Instance.userProfileData = new UserProfileData(Player_Name, BirdsCaptured, Points, Unique_Birds_Caught);
+	// SceneManager.LoadScene("MapScene", LoadSceneMode.Single);
     }
 }

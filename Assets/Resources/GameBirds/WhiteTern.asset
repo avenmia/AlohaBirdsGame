@@ -13,10 +13,15 @@ MonoBehaviour:
   m_Name: WhiteTern
   m_EditorClassIdentifier: 
   birdName: White Tern
-  hawaiianBirdName: 
+  hawaiianBirdName: manu-o-Ku
   birdImage: {fileID: 21300000, guid: 54c837e3710ad6843b277fd2ee0f8f9b, type: 3}
-  birdDescription: White tern
+  birdDescription: A medium-sized tern with entirely white plumage, a slightly forked
+    tail, and glittering inky pools for eyes. The bill is black with a blue base.
+    Graceful and buoyant in flight. Breeds in trees and both natural and artificial
+    ledges on coral islands. Sometimes flies very high in pairs or trios. Often seen
+    offshore from boats, though most frequently encountered foraging over inshore
+    waters.
   conservationStatus: Least Concern
-  nativeHawaiianSpecies: 0
-  points: 1
-  ebirdURL: https://ebird.org/species/redjun/US-HI
+  nativeHawaiianSpecies: 1
+  points: 8
+  ebirdURL: https://ebird.org/species/whiter/US-HI
