@@ -105,7 +105,6 @@ public class Authenthication : MonoBehaviour
             await AuthenticationService.Instance.UpdatePlayerNameAsync(Screen_Name.text);
             Debug.Log("Name set");
             Player_Information.Load_Data();
-            SceneManager.LoadScene("MapScene", LoadSceneMode.Single);
         }
         catch (AuthenticationException ex)
         {
