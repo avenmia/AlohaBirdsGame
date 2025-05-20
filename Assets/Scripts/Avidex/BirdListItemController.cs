@@ -6,7 +6,7 @@ public class BirdListItemController : MonoBehaviour
 {
     public Image birdThumbnail;
     public TMP_Text birdNameText;
-    private UserAvidexBird birdData;
+    public UserAvidexBird birdData;
     private System.Action<UserAvidexBird> onClickCallback;
 
     public void Setup(UserAvidexBird data, System.Action<UserAvidexBird> onClick)
