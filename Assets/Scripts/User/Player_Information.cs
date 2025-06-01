@@ -61,9 +61,18 @@ public class Player_Information : MonoBehaviour
 	    Debug.Log("[DEBUG]: Attempting offline load");
             No_Token_Path.SetActive(true);
             Attempting_Log_In.SetActive(false);
-            Offline_Load();
+            //Offline_Load();
             //Load SignIn/LogIn
         }
+
+        StartCoroutine(Test_Ping());
+    }
+
+    IEnumerator Test_Ping()
+    {
+        yield return new WaitForSeconds(1f);
+        Debug.Log("Player_Information Exists");
+        StartCoroutine(Test_Ping());
     }
 
     async private void Sign_In_Cached_Player()
@@ -115,8 +124,10 @@ public class Player_Information : MonoBehaviour
         {
             DateTime prefTime = DateTime.ParseExact(PlayerPrefs.GetString("time"), "yyyy-MM-dd HH:mm:ss,fff",
                 System.Globalization.CultureInfo.InvariantCulture);
+            Debug.Log("Pref Time: " + prefTime);
             DateTime cloudTime = DateTime.ParseExact(tim.Value.GetAs<string>(), "yyyy-MM-dd HH:mm:ss,fff",
                 System.Globalization.CultureInfo.InvariantCulture);
+            Debug.Log("Cloud Time: " + cloudTime);
             int result = DateTime.Compare(cloudTime, prefTime);
             // if(result < 0) // cloudtime is earlier than preftime
             // {
@@ -125,6 +136,7 @@ public class Player_Information : MonoBehaviour
             // }
         }
 
+        Debug.Log("Online Load");
         if (playerData.TryGetValue("birdsCaptured", out var bC))
         {
             BirdsCaptured = bC.Value.GetAs<int>();
@@ -145,7 +157,7 @@ public class Player_Information : MonoBehaviour
             }
         }
 
-        PersistentDataManager.userProfileData = new UserProfileData(Player_Name, BirdsCaptured, Points, Unique_Birds_Caught);
+        PersistentDataManager.Instance.userProfileData = new UserProfileData(Player_Name, BirdsCaptured, Points, Unique_Birds_Caught);
         SceneManager.LoadScene("MapScene", LoadSceneMode.Single);
     }
 

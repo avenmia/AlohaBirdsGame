@@ -172,7 +172,7 @@ PlayerSettings:
   androidSupportedAspectRatio: 1
   androidMaxAspectRatio: 2.1
   applicationIdentifier:
-    Android: com.CodeWithAloha.AlohaBirdsGame
+    Android: com.CodeWithAloha.AR_Test
     Standalone: com.DefaultCompany.AlohaBirdsGame
     iPhone: com.DefaultCompany.AlohaBirdsGame
   buildNumber:

@@ -20,10 +20,14 @@ public class PlayerDataManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Debug.Log("Peristent Data Manager");
         var player = PersistentDataManager.Instance.userProfileData;
         userNameText.text = player.username.ToString();
+        Debug.Log("Username text:" + userNameText.text);
         birdCapturedCountText.text = player.birdsCaptured.ToString();
+        Debug.Log("Bird Captured Count Text: " + birdCapturedCountText.text);
         pointsText.text = player.points.ToString();
+        Debug.Log("Points Text: " + pointsText.text);
         totalCapturesText.text = player.totalCaptures.ToString();
         Debug.Log("PlayerDataManager: Player data initialized.");
     }
