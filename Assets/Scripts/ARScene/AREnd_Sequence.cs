@@ -5,6 +5,7 @@ using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using System.IO;
 
 public class AREnd_Sequence : MonoBehaviour
 {
@@ -88,7 +89,22 @@ public class AREnd_Sequence : MonoBehaviour
             Debug.LogError("Bird should exist before adding image to gallery");
         }
 
+        // Convert texture to PNG bytes
+        byte[] bytes = (Polaroids[index].texture as Texture2D).EncodeToPNG();
 
+        // Get the persistent data path (this works on Android)
+        string folderPath = Application.persistentDataPath;
+        string filePath = Path.Combine(folderPath, birdName + System.DateTime.Now);
+
+        // Save the file
+        File.WriteAllBytes(filePath, bytes);
+
+        Debug.Log("Texture saved to: " + filePath);
+
+        // Refresh Android media gallery (optional)
+#if UNITY_ANDROID && !UNITY_EDITOR
+        AndroidMediaGalleryUtils.ScanFile(filePath);
+#endif
 
         StartCoroutine(ReturnToMap(2.0f));
     }
