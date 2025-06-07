@@ -44,6 +44,8 @@ public class MapGameState : MonoBehaviour
     private LightshipMapView _lightshipMapView;
     [SerializeField]
     private string _layerName = "MapLayer";
+    [SerializeField]
+    private LayerMask birdCollisionMask;
 
     internal string LayerName
     {
@@ -161,6 +163,8 @@ public class MapGameState : MonoBehaviour
 
                 Debug.Log("[DEBUG] Removing selected bird if captured");
                 RemoveSelectedBirdIfCaptured();
+                Debug.Log("[DEBUG] Adding Non-Captured birds back in");
+                RepopulateMapWithUncapturedBirds();
             }
         }
 #if UNITY_EDITOR
@@ -246,14 +250,56 @@ public class MapGameState : MonoBehaviour
                 var latlng = new LatLng(playerLocation.x, playerLocation.y);
                 _lightshipMapView.SetMapCenter(latlng);
 
-                // If no birds exist spawn a bird
-                if (birdsOnMap.Count == 0 )
+                if (birdsOnMap.Count < 5 )
                 {
-                    Debug.Log($"[DEBUG] 0 birds on map. Spawning bird at user's location");
+                    Debug.Log($"[DEBUG] There are {birdsOnMap.Count} birds on map. Spawning bird at user's location");
                     MapGameState.Instance.TrySpawnBirdsAtLocation(playerLocation);
                 }
             }
         }
+    }
+
+    public void RepopulateMapWithUncapturedBirds()
+    {
+        Debug.Log($"[DEBUG]: Repopulating birds");
+        Debug.Log($"[DEBUG]: Birds on map: {birdsOnMap.Count}");
+        foreach (var id in birdsOnMap.Keys.ToList())
+        {
+            Debug.Log($"[DEBUG]: Restoring Bird:{id}");
+            var pooled = birdsOnMap[id];
+            var birdData = spawnedBirds.FirstOrDefault(b => b.id == id);
+            if (birdData == null)
+            {
+                Debug.Log("[DEBUG]: Bird is being removed, but should not be happening");
+                birdsOnMap.Remove(id);
+                continue;
+            }
+
+            if (pooled.Value == null)
+            {
+                Debug.Log("[DEBUG]: Bird was destroyed, recreating");
+                var latLng = new LatLng(birdData.location.x, birdData.location.y);
+                var scenePos = _lightshipMapView.LatLngToScene(latLng);
+                var camForward = new Vector3(_mapCamera.transform.forward.x, 0, _mapCamera.transform.forward.z);
+                var rotation = Quaternion.LookRotation(camForward);
+
+                var newPooled = _birdSpawner.PlaceBirdInstance(
+                                        scenePos,
+                                        rotation,
+                                        birdData.birdType,
+                                        birdData.id);
+                 Debug.Log("[DEBUG]: Bird was recreated adding back to birds on map");
+                birdsOnMap[id] = newPooled;           // replace the stale entry
+                continue;
+
+            }
+            else
+            {
+                Debug.Log($"[DEBUG]: Repopulating with: {id} {pooled.Value}");
+                _birdSpawner.RestoreBirdPosition(pooled);
+            }
+        }
+
     }
 
     public void RemoveSelectedBirdIfCaptured()
@@ -275,7 +321,7 @@ public class MapGameState : MonoBehaviour
                 Debug.Log($"[DEBUG]: User captured Selected bird: {userCapturedSelectedBird}");
                 Debug.Log("[DEBUG] Removing selected bird from map and PDM");
                 RemoveBird(selectedBird.id);
-                if(spawnedBirds.Contains(selectedBird))
+                if (spawnedBirds.Contains(selectedBird))
                 {
                     Debug.Log("[DEBUG] Removing selected bird from spawned birds");
                     spawnedBirds.Remove(selectedBird);
@@ -460,11 +506,39 @@ public class MapGameState : MonoBehaviour
 
     private Vector3 CalculateSpawnPosition(Vector2 playerLocation, BirdDataObject birdData, Vector3 forward)
     {
+        // TODO: Move to constant
+        int maxAttempts = 5;
+        float minRadiusFromPlayer = 20f;
+        float maxRadiusFromPlayer = 60f;
+        float minSeparationBetweenBirds = 30f;
+
         var latLng = new LatLng(playerLocation.x, playerLocation.y);
 
         // Convert the LatLng to scene coordinates
         var scenePosition = _lightshipMapView.LatLngToScene(latLng);
+        Vector3 result;
 
+        for ( int attempt = 0; attempt < maxAttempts; attempt++)
+        {
+            var random2D   = UnityEngine.Random.insideUnitCircle.normalized;
+            var distance   = UnityEngine.Random.Range(minRadiusFromPlayer, maxRadiusFromPlayer);
+                
+            var candidate  = scenePosition + new Vector3(random2D.x, 0, random2D.y) * distance;
+            var colliders = Physics.OverlapSphere(candidate, minSeparationBetweenBirds, birdCollisionMask, QueryTriggerInteraction.Ignore);
+
+            if (colliders.Length > 0)
+            {
+                continue;
+            }
+
+            result = candidate;
+            Debug.Log($"[DEBUG]:Returning candidate result {result}");
+            return result; 
+
+        }
+
+        // TODO: Remove this?
+        Debug.Log("[DEBUG]:Didn't find a candidate position");
         float offsetDistance = 45.0f;
 
         // Define the offset distance in Unity units (1 unit = 1 meter)
@@ -475,7 +549,7 @@ public class MapGameState : MonoBehaviour
             forward = new Vector3(0, 2, 1);
         }
         // forward += new Vector3(0, 7, 0);
-        var result = scenePosition + forward * offsetDistance;
+        result = scenePosition + forward * offsetDistance;
         return result;
     }
 

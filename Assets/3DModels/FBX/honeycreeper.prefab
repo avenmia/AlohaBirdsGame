@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 7148963269052484643}
   - component: {fileID: 4581571058683552024}
   - component: {fileID: 6390124009854949772}
-  m_Layer: 0
-  m_Name: Honeycreeper
+  m_Layer: 6
+  m_Name: honeycreeper
   m_TagString: Bird
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -112,6 +112,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Bird_Path: []
   Camera: {fileID: 0}
+  Hide_Aura: {fileID: 0}
 --- !u!1 &2994626605141191375
 GameObject:
   m_ObjectHideFlags: 0
@@ -123,7 +124,7 @@ GameObject:
   - component: {fileID: 5792846682358396388}
   - component: {fileID: 8499263773385684669}
   - component: {fileID: 176675318152610427}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: "B\xE9zierCurve.003"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -206,7 +207,7 @@ GameObject:
   - component: {fileID: 8454637792001720205}
   - component: {fileID: 2621007416757203276}
   - component: {fileID: 1134595382214874256}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
