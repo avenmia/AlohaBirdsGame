@@ -69,6 +69,10 @@ PrefabInstance:
       value: housesparrow
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 3d188a9f49407f847a0152714a207aba, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 3d188a9f49407f847a0152714a207aba, type: 3}
       propertyPath: m_TagString
       value: Bird
       objectReference: {fileID: 0}

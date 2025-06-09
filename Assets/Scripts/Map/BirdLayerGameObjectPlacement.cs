@@ -136,12 +136,9 @@ public class BirdLayerGameObjectPlacement : LayerGameObjectPlacement
             var pooledObject = pool.GetOrCreate();
 
             var instance = pooledObject.Value;
+            Debug.Log($"[DEBUG]: Is instance null: {instance == null}");
             instance.name = instanceName ?? birdType.ToString();
 
-        PositionInstance(instance, position, rotation);
-        instance.transform.localScale = _birdPrefabs[birdType].transform.localScale;
-        instance.transform.localPosition += new Vector3(0, 100, 0);
-        instance.transform.DOMoveY(10, 5f);
             Debug.Log($"[DEBUG]: Adding Pooled object value: {instance}");
             _instances.Add(instance, (position, rotation));
 
@@ -167,11 +164,28 @@ public class BirdLayerGameObjectPlacement : LayerGameObjectPlacement
         }
     }
 
+    public void RestoreBirdPosition(PooledObject<GameObject> birdToRestore)
+    {
+        Debug.Log($"[DEBUG]: Number of instances when restoring: {_instances.Count}");
+        if (_instances.TryGetValue(birdToRestore.Value, out var result))
+        {
+            var (Position, Rotation) = result;
+             Debug.Log($"[DEBUG]: Restoring at position: {Position} {Rotation}");
+            PositionInstance(birdToRestore.Value, Position, Rotation);
+            Debug.Log($"[DEBUG]: Bird restored successfully");
+        }
+        // var (Position, Rotation) = _instances[birdToRestore];
+        // Debug.Log($"[DEBUG]: Restoring at position: {Position} {Rotation}");
+        // PositionInstance(birdToRestore, Position, Rotation);
+        Debug.Log($"[DEBUG]: Bird restored successfully");
+
+    }
+
     public void RemoveBirdInstance(PooledObject<GameObject> birdToRemove)
     {
         if (_instances.TryGetValue(birdToRemove.Value, out var instanceData))
         {
-            Debug.Log($"[DEBUG] Remove Bird Instance GameObject: {birdToRemove}");
+            Debug.Log($"[DEBUG] Remove Bird Instance GameObject: {birdToRemove.Value}");
 
             _instances.Remove(birdToRemove.Value);
         }
@@ -180,7 +194,7 @@ public class BirdLayerGameObjectPlacement : LayerGameObjectPlacement
             Debug.LogWarning("[DEBUG]: Tried to remove bird instance, but not found in dictionary.");
         }
 
-        if(birdToRemove.Value != null)
+        if (birdToRemove.Value != null)
         {
             Debug.Log("[DEBUG] calling dispose on pooled object");
             birdToRemove.Dispose();
@@ -199,11 +213,17 @@ public class BirdLayerGameObjectPlacement : LayerGameObjectPlacement
     /// <param name="rotation">The object's local rotation</param>
     private void PositionInstance(GameObject instance, in LatLng location, in Quaternion rotation)
     {
+        Debug.Log("[DEBUG]: Positioning instance");
         // Hook this up to the parent and set its transform
         var instanceTransform = GetTransform(instance);
+        Debug.Log("[DEBUG]: After instance transform");
+
         instanceTransform.SetParent(ParentMapLayer.transform, false);
+        Debug.Log("[DEBUG]: After setting parent map layer");
         // instanceTransform.localScale = GetObjectScale(LightshipMapView.MapRadius);
         instanceTransform.localRotation = GetObjectRotation(rotation);
+        Debug.Log("[DEBUG]: After local rotation");
         instanceTransform.position = GetObjectPosition(location);
+        Debug.Log("[DEBUG]: Instance positioned successfully");
     }
 }

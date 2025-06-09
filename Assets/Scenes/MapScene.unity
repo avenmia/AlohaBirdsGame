@@ -356,6 +356,9 @@ MonoBehaviour:
   _mapCamera: {fileID: 355520862}
   _lightshipMapView: {fileID: 7395098618855432449}
   _layerName: MapLayer
+  birdCollisionMask:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!4 &299130263
 Transform:
   m_ObjectHideFlags: 0
