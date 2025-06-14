@@ -250,10 +250,15 @@ public class MapGameState : MonoBehaviour
                 var latlng = new LatLng(playerLocation.x, playerLocation.y);
                 _lightshipMapView.SetMapCenter(latlng);
 
-                if (birdsOnMap.Count < 5 )
+                if (birdsOnMap.Count < 1)
                 {
-                    Debug.Log($"[DEBUG] There are {birdsOnMap.Count} birds on map. Spawning bird at user's location");
-                    MapGameState.Instance.TrySpawnBirdsAtLocation(playerLocation);
+                    int maxBirdCount = 8;
+                    int birdCount = UnityEngine.Random.Range(1, maxBirdCount);
+                    for (int birdNum = 0; birdNum < birdCount; birdNum++)
+                    {
+                        Debug.Log($"[DEBUG] There are {birdsOnMap.Count} birds on map. Spawning bird at user's location");
+                        MapGameState.Instance.TrySpawnBirdsAtLocation(playerLocation);
+                    }
                 }
             }
         }
