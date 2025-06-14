@@ -50,10 +50,16 @@ public class PersistentDataManager : MonoBehaviour
         var timeNow = System.DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss,fff");
 
         var userBirds = PersistentDataManager.Instance.userCapturedBirds;
+        Dictionary<string, string> userBirdsToSave = new Dictionary<string, string>();
         foreach (var userBird in userBirds)
         {
-            var birdData = userBird.birdData;
-            List<Guid> caughtBirds = userBird.caughtBirds;
+            var id = userBird.birdData.id.ToString();
+            var name = userBird.birdData.birdName;
+            Debug.Log($"[DEBUG]: Saving user bird id: {id}, name: {name}");
+            userBirdsToSave.Add(id,name);
+            // userBirdsToSave.Add(new UserBirdData(birdData, caughtBirds));
+
+
             // TODO: Add screenshot information, captureData
 
             // Convert to DTO
@@ -67,7 +73,8 @@ public class PersistentDataManager : MonoBehaviour
             {"totalCaptures", userProfileData.totalCaptures},
             {"uniqueBirds", uniqueBirds},
             {"birdsCaptured", userProfileData.birdsCaptured },
-            {"points", userProfileData.points }
+            {"points", userProfileData.points },
+            {"userCapturedBirds", userBirdsToSave}
         };
         Debug.Log($"[DEBUG] uniqueBirds: {uniqueBirds}, birdsCaptured: {userProfileData.birdsCaptured}, points: {userProfileData.points}");
 

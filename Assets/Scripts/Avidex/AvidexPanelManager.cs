@@ -21,6 +21,7 @@ public class AvidexPanelManager : MonoBehaviour
 
     public void ShowDetailPanel(UserAvidexBird birdData)
     {
+        Debug.Log($"[DEBUG]: Showing detailed panel for: {birdData.birdData.birdName}");
         // Update detail panel content
         BirdDetailUIManager.Instance.ShowDetails(birdData);
         avidexPanel.SetActive(false);

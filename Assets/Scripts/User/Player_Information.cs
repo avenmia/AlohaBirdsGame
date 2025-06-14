@@ -9,6 +9,7 @@ using Unity.Services.CloudSave.Models.Data.Player;
 using SaveOptions = Unity.Services.CloudSave.Models.Data.Player.SaveOptions;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Linq;
 
 //Primary function is to load user data from cloud or playerpref, PDM updates the loaded files
 public class Player_Information : MonoBehaviour
@@ -18,6 +19,8 @@ public class Player_Information : MonoBehaviour
     //[SerializeField] public float Current_EXP = 0;
     //[SerializeField] public float Max_EXP = 5;
     [SerializeField] public List<string> Unique_Birds_Caught;
+    [SerializeField] public Dictionary<string, string> UserCapturedBirds;
+
     //[SerializeField] public List<string> Achievements;
     public int Points = 0;
     public int BirdsCaptured = 0;
@@ -28,7 +31,6 @@ public class Player_Information : MonoBehaviour
     [SerializeField] private GameObject Attempting_Log_In;
     [SerializeField] private bool Clear_Token;
 
-    [SerializeField] private PersistentDataManager PersistentDataManager;
 
     private async void Awake()
     {
@@ -107,11 +109,12 @@ public class Player_Information : MonoBehaviour
     {
         Debug.Log("Load Player: " + Player_Name);
         var playerData = await CloudSaveService.Instance.Data.Player.LoadAsync(new HashSet<string> {
-            "time", 
+            "time",
             "uniqueBirds",
-            "totalCaptures", 
+            "totalCaptures",
             "birdsCaptured",
             "points",
+            "userCapturedBirds"
         }, new LoadOptions(new PublicReadAccessClassOptions()));
         Player_Name = await AuthenticationService.Instance.GetPlayerNameAsync();
 
@@ -128,6 +131,28 @@ public class Player_Information : MonoBehaviour
             //    Offline_Load();
             //    return;
             // }
+        }
+
+
+        if (playerData.TryGetValue("userCapturedBirds", out var userCapturedBirds))
+        {
+            var rawDict = userCapturedBirds.Value.GetAs<Dictionary<string, object>>();
+
+            var birds = rawDict.ToDictionary(
+                        kv => kv.Key,
+                        kv => kv.Value as string);
+
+            UserCapturedBirds = birds;
+            foreach (var bird in UserCapturedBirds)
+            {
+                Debug.Log($"[DEBUG]: Loading from unity cloud bird: Id{bird.Key}, Name: {bird.Value}");
+                if (PersistentDataManager.Instance.gameBirds.TryGetValue(bird.Value, out GameBird gameBird))
+                {
+                    var userAvidexBird = new UserAvidexBird(gameBird);
+                    PersistentDataManager.Instance.userCapturedBirds.Add(userAvidexBird);
+                }
+            }
+
         }
 
         if (playerData.TryGetValue("birdsCaptured", out var bC))
@@ -155,7 +180,7 @@ public class Player_Information : MonoBehaviour
             }
         }
 
-        PersistentDataManager.userProfileData = new UserProfileData(Player_Name, BirdsCaptured, Points, Unique_Birds_Caught, TotalCaptures);
+        PersistentDataManager.Instance.userProfileData = new UserProfileData(Player_Name, BirdsCaptured, Points, Unique_Birds_Caught, TotalCaptures);
         SceneManager.LoadScene("MapScene", LoadSceneMode.Single);
     }
 

@@ -7,7 +7,11 @@ using UnityEngine.UI;
 [System.Serializable]
 public class UserBirdData
 {
-    public BirdData BirdData;
+ 
+    public Dictionary<string,string> CaughtBirds;
 
-    public List<Guid> CaughtBirds;
+    public UserBirdData(Guid birdId, string birdType)
+    {
+        CaughtBirds.Add(birdId.ToString(), birdType);
+    }
 }
