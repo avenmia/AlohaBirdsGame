@@ -40,6 +40,7 @@ public class AvidexUIManager : MonoBehaviour
 
         List<UserAvidexBird> capturedBirds = PersistentDataManager.Instance.userCapturedBirds;
 
+        Debug.Log($"[DEBUG]: Adding {capturedBirds.Count} to Avidex");
         foreach (UserAvidexBird bird in capturedBirds)
         {
             GameObject newItem = Instantiate(birdListItemPrefab, contentPanel);

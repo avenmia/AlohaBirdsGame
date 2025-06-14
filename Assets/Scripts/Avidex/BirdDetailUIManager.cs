@@ -52,22 +52,34 @@ public class BirdDetailUIManager : MonoBehaviour
             Destroy(child.gameObject);
         }
 
-        Debug.Log("[DEBUG] Instantiating LoaduserBirdImage per capture");
-        foreach (var capture in currentBird.captureData)
+        if (currentBird == null || currentBird.captureData == null)
         {
-            Debug.Log($"[DEBUG]: Adding bird with Capture time: {capture.captureTime}");
-            GameObject newItem = Instantiate(galleryItemPrefab, galleryContentParent);
-            GalleryItemController controller = newItem.GetComponent<GalleryItemController>();
-            if (controller != null)
-            {
-                controller.Initialize(capture);
-            }
-            else
-            {
-                Debug.LogWarning("GalleryItemController not found on the instantiated item.");
-            }
-
+            Debug.Log("[DEBUG]: Current bird should not be null in bird image gallery");
+            return;
         }
+        
+        if (currentBird.captureData.Count == 0)
+        {
+            Debug.Log("[DEBUG]: No capture data to add");
+            return;
+        }
+
+        Debug.Log($"[DEBUG] Instantiating LoaduserBirdImage per capture. Count: {currentBird.captureData.Count}");
+        foreach (var capture in currentBird.captureData)
+            {
+                Debug.Log($"[DEBUG]: Adding bird with Capture time: {capture.captureTime}");
+                GameObject newItem = Instantiate(galleryItemPrefab, galleryContentParent);
+                GalleryItemController controller = newItem.GetComponent<GalleryItemController>();
+                if (controller != null)
+                {
+                    controller.Initialize(capture);
+                }
+                else
+                {
+                    Debug.LogWarning("GalleryItemController not found on the instantiated item.");
+                }
+
+            }
     }
 
     public void ShowMaximizedImage(BirdCaptureData data)

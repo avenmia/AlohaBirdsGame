@@ -1102,7 +1102,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: 0.000030517578, y: -432}
+  m_AnchoredPosition: {x: 0, y: -432}
   m_SizeDelta: {x: -213.06451, y: 83.4412}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &333746148
@@ -3368,7 +3368,7 @@ MonoBehaviour:
   BirdsCaptured: 0
   No_Token_Path: {fileID: 1776931932}
   Attempting_Log_In: {fileID: 402179138}
-  Clear_Token: 0
+  Clear_Token: 1
   PersistentDataManager: {fileID: 956248232}
 --- !u!1 &961739749
 GameObject:

@@ -19,7 +19,6 @@ public class PersistentDataManager : MonoBehaviour
     public BirdDataObject selectedBirdData; // The bird data to pass to the next scene
     public Dictionary<string, GameBird> gameBirds = new Dictionary<string, GameBird>();
     public List<UserAvidexBird> userCapturedBirds = new List<UserAvidexBird>();
-    public List<UserBirdUploadData> userGalleryPics = new List<UserBirdUploadData>();
     public static IList<string> GameBirdNames = new List<string>();
 
     private void Awake()
@@ -35,6 +34,7 @@ public class PersistentDataManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        Application.quitting += HandleQuitting;
     }
 
     private void OnDestroy()
@@ -49,14 +49,28 @@ public class PersistentDataManager : MonoBehaviour
 
         var timeNow = System.DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss,fff");
 
+        var userBirds = PersistentDataManager.Instance.userCapturedBirds;
+        Dictionary<string, string> userBirdsToSave = new Dictionary<string, string>();
+        foreach (var userBird in userBirds)
+        {
+            var id = userBird.birdData.id.ToString();
+            var name = userBird.birdData.birdName;
+            Debug.Log($"[DEBUG]: Saving user bird id: {id}, name: {name}");
+            userBirdsToSave.Add(id,name);
+            
+            // TODO: Add screenshot information, captureData
+        }
         var playerData = new Dictionary<string, object>()
         {
             {"time", timeNow },
             {"playerName", AuthenticationService.Instance.PlayerName},
+            {"totalCaptures", userProfileData.totalCaptures},
             {"uniqueBirds", uniqueBirds},
-            {"birdsCaptured", userProfileData.birdsCaptured},
-            {"points", userProfileData.points }
+            {"birdsCaptured", userProfileData.birdsCaptured },
+            {"points", userProfileData.points },
+            {"userCapturedBirds", userBirdsToSave}
         };
+        Debug.Log($"[DEBUG] uniqueBirds: {uniqueBirds}, birdsCaptured: {userProfileData.birdsCaptured}, points: {userProfileData.points}");
 
         //await CloudSaveService.Instance.Data.Player.SaveAsync(playerData);
 
@@ -71,28 +85,50 @@ public class PersistentDataManager : MonoBehaviour
             //doesn't work but do offline save anyway
         }
 
+        // TODO: Add offline functionality
         //Offline save
-        PlayerPrefs.SetString("time", timeNow);
-        PlayerPrefs.SetString("playerName", userProfileData.username);
-        PlayerPrefs.SetString("uniqueBirds", uniqueBirds);
-        PlayerPrefs.SetInt("birdsCaptured", userProfileData.birdsCaptured);
-        PlayerPrefs.SetInt("points", userProfileData.points);
+        // PlayerPrefs.SetString("time", timeNow);
+        // PlayerPrefs.SetString("playerName", userProfileData.username);
+        // PlayerPrefs.SetString("uniqueBirds", uniqueBirds);
+        // PlayerPrefs.SetString("totalCaptures", totalCaptures);
+        // PlayerPrefs.SetInt("birdsCaptured", userProfileData.birdsCaptured);
+        // PlayerPrefs.SetInt("points", userProfileData.points);
     }
 
     private void OnApplicationQuit()
     {
         if (userProfileData == null) { return; }
+        Debug.Log("[DEBUG] Saving Data to Unity Cloud From Quit");
         Save_Data();
+        Debug.Log("[DEBUG] Saved account data");
     }
 
-    //private void OnApplicationPause()
-    //{
-    //    Save_Data();
-    //}
-
-    public void AddUserGalleryBird(UserBirdUploadData birdData)
+    private void OnApplicationPause(bool isPaused)
     {
-        userGalleryPics.Add(birdData);
+       Debug.Log("[DEBUG] Saving Data to Unity Cloud From Pause");
+        Save_Data();
+        Debug.Log("[DEBUG] Saved account data");
+    }
+    
+    private void OnApplicationPause()
+    {
+       Debug.Log("[DEBUG] Saving Data to Unity Cloud From Pause");
+        Save_Data();
+        Debug.Log("[DEBUG] Saved account data");
+    }
+
+    private void HandleQuitting()
+    {
+        Debug.Log("[DEBUG] Saving Data to Unity Cloud From Quitting");
+        Save_Data();
+        Debug.Log("[DEBUG] Saved account data");
+    }
+    
+    private void SaveSession()
+    {
+       Debug.Log("[DEBUG] Saving Data to Unity Cloud From Session");
+        Save_Data();
+        Debug.Log("[DEBUG] Saved account data");
     }
 
     public void SetBirdData(BirdDataObject newBirdData)
@@ -137,14 +173,15 @@ public class PersistentDataManager : MonoBehaviour
     {
         userProfileData.birdsCaptured = userCapturedBirds.Count;
         int totalCount = 0;
-        foreach(var bird in userCapturedBirds)
+        foreach (var bird in userCapturedBirds)
         {
-            foreach(var capture in bird.captureData)
+            foreach (var capture in bird.captureData)
             {
                 totalCount++;
             }
         }
         userProfileData.totalCaptures = totalCount;
+        Save_Data();
     }
 
     public void AddUserAvidexBird(UserAvidexBird bird)
