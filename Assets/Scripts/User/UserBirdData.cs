@@ -1,11 +1,13 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 [System.Serializable]
-public class UserBirdUploadData
+public class UserBirdData
 {
-    public Sprite userImage;
-    public string aiDescription;
+    public BirdData BirdData;
+
+    public List<Guid> CaughtBirds;
 }
