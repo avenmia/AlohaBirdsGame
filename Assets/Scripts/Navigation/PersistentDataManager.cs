@@ -57,14 +57,8 @@ public class PersistentDataManager : MonoBehaviour
             var name = userBird.birdData.birdName;
             Debug.Log($"[DEBUG]: Saving user bird id: {id}, name: {name}");
             userBirdsToSave.Add(id,name);
-            // userBirdsToSave.Add(new UserBirdData(birdData, caughtBirds));
-
-
+            
             // TODO: Add screenshot information, captureData
-
-            // Convert to DTO
-            // Add to list
-            // Store list
         }
         var playerData = new Dictionary<string, object>()
         {
