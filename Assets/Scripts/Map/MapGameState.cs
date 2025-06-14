@@ -278,8 +278,7 @@ public class MapGameState : MonoBehaviour
             if (pooled.Value == null)
             {
                 Debug.Log("[DEBUG]: Bird was destroyed, recreating");
-                var latLng = new LatLng(birdData.location.x, birdData.location.y);
-                var scenePos = _lightshipMapView.LatLngToScene(latLng);
+                var scenePos = birdData.location;
                 var camForward = new Vector3(_mapCamera.transform.forward.x, 0, _mapCamera.transform.forward.z);
                 var rotation = Quaternion.LookRotation(camForward);
 
@@ -413,17 +412,17 @@ public class MapGameState : MonoBehaviour
             birdType = BirdTypeUtil.GetBirdType(bird),
             spawnProbability = 1,
             spawnRadius = 5,
-            location = new Vector3(playerLocation.x, playerLocation.y)
+            location = CalculateSpawnPosition(playerLocation, Vector3.zero)
         };
         if (!spawnedBirds.Contains(spawnBird))
         {
             spawnedBirds.Add(spawnBird);
-            SpawnBird(spawnBird, playerLocation);
+            SpawnBird(spawnBird);
         }
 
     }
 
-    private void SpawnBird(BirdDataObject birdData, Vector2 playerLocation, bool isRespawn = false)
+    private void SpawnBird(BirdDataObject birdData, bool isRespawn = false)
     {
         string pinName = BirdTypeUtil.GetBirdPinName(birdData.birdName);
 
@@ -433,15 +432,14 @@ public class MapGameState : MonoBehaviour
             var forward = new Vector3(cameraForward.x, 0f, cameraForward.z).normalized;
             var rotation = Quaternion.LookRotation(forward);
 
-            if(playerLocation == null || rotation == null || birdData == null || birdData.birdName == null)
+            if(rotation == null || birdData == null || birdData.birdName == null)
             {
                 Debug.LogWarning("player location, rotation, or bird name should not be null");
             }
 
-            Vector3 spawnPosition = CalculateSpawnPosition(playerLocation, birdData, forward);
-                birdData.location = playerLocation;
+            // birdData.location = playerLocation;
 
-            var spawnedBird = _birdSpawner.PlaceBirdInstance(spawnPosition, rotation, birdData.birdType, birdData.id);
+            var spawnedBird = _birdSpawner.PlaceBirdInstance(birdData.location, rotation, birdData.birdType, birdData.id);
             Debug.Log($"[DEBUG]: Adding {birdData.birdType}: {birdData.id} to birds on map");
             birdsOnMap.Add(birdData.id, spawnedBird);
         }
@@ -497,14 +495,14 @@ public class MapGameState : MonoBehaviour
 #elif UNITY_ANDROID
             Vector2 playerLocation = new Vector2(Input.location.lastData.latitude, Input.location.lastData.longitude);
 #endif
-            Vector3 spawnPosition = CalculateSpawnPosition(playerLocation, birdData, forward);
+            Vector3 spawnPosition = CalculateSpawnPosition(playerLocation, forward);
             birdData.location = playerLocation;
 
             _birdSpawner.PlaceBirdInstance(spawnPosition, rotation, birdData.birdType, birdData.id);
         }
     }
 
-    private Vector3 CalculateSpawnPosition(Vector2 playerLocation, BirdDataObject birdData, Vector3 forward)
+    private Vector3 CalculateSpawnPosition(Vector2 playerLocation, Vector3 forward)
     {
         // TODO: Move to constant
         int maxAttempts = 5;
