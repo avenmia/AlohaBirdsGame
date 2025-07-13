@@ -181,7 +181,7 @@ public class Player_Information : MonoBehaviour
         }
 
         PersistentDataManager.Instance.userProfileData = new UserProfileData(Player_Name, BirdsCaptured, Points, Unique_Birds_Caught, TotalCaptures);
-        SceneManager.LoadScene("MapScene", LoadSceneMode.Single);
+        SceneManager.LoadScene("MigrateMapScene", LoadSceneMode.Single);
     }
 
     // TODO: Add offline 

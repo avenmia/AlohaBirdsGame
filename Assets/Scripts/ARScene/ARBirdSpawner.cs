@@ -7,6 +7,8 @@ public class ARBirdSpawner : MonoBehaviour
     [SerializeField]
     private BirdLayerGameObjectPlacement _birdSpawner;
 
+    [SerializeField] private BirdPrefabRegistry registry;
+
     private void Start()
     {
         SpawnBird();
@@ -25,7 +27,8 @@ public class ARBirdSpawner : MonoBehaviour
             var spawnPosition = new Vector3(0, 0, 70);
             Quaternion spawnRotation = Quaternion.Euler(0, 180, 0);
 
-            var birdPrefab = _birdSpawner.GetBirdPrefab(birdData.birdType);
+            // var birdPrefab = _birdSpawner.GetBirdPrefab(birdData.birdType);
+            var birdPrefab = registry.Get(birdData.birdType);
             var spawnedBird = Instantiate(birdPrefab, spawnPosition, spawnRotation);
             spawnedBird.name = PersistentDataManager.Instance.selectedBirdData.birdName;
             var birdMovement = spawnedBird.GetComponent<AR_Bird_Movement>();
