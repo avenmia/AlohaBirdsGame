@@ -32,16 +32,8 @@ public class AREnd_Sequence : MonoBehaviour
     public void Left_Next()
     {
         Polaroids[Polaroid_Index].gameObject.transform.parent.gameObject.SetActive(false);
-        Polaroid_Index--;
-        if(Polaroid_Index <= 0)
-        {
-            Left_Arrow.SetActive(false);
-        }
-        
-        if(Polaroid_Index < 2 && !Right_Arrow.activeInHierarchy)
-        {
-            Right_Arrow.SetActive(true);
-        }
+
+        Polaroid_Index = (Polaroid_Index - 1 + Polaroids.Count) % Polaroids.Count;
 
         Polaroids[Polaroid_Index].gameObject.transform.parent.gameObject.SetActive(true);
     }
@@ -49,16 +41,8 @@ public class AREnd_Sequence : MonoBehaviour
     public void Right_Next()
     {
         Polaroids[Polaroid_Index].gameObject.transform.parent.gameObject.SetActive(false);
-        Polaroid_Index++;
-        if(Polaroid_Index >= Polaroids.Count - 1)
-        {
-            Right_Arrow.SetActive(false);
-        }
 
-        if (Polaroid_Index > 0 && !Left_Arrow.activeInHierarchy)
-        {
-            Left_Arrow.SetActive(true);
-        }
+        Polaroid_Index = (Polaroid_Index + 1) % Polaroids.Count;
 
         Polaroids[Polaroid_Index].gameObject.transform.parent.gameObject.SetActive(true);
     }
@@ -87,8 +71,6 @@ public class AREnd_Sequence : MonoBehaviour
         {
             Debug.LogError("Bird should exist before adding image to gallery");
         }
-
-
 
         StartCoroutine(ReturnToMap(2.0f));
     }
