@@ -16,8 +16,6 @@ using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Esri.HPFramework;
-using Niantic.Lightship.Maps.ObjectPools;
-using Niantic.Lightship.Maps.MapLayers.Components.BaseTypes;
 using Esri.GameEngine;
 
 
@@ -44,8 +42,6 @@ public class MapGameState : MonoBehaviour
         = new Dictionary<Guid, BirdLayerGameObjectPlacement.PooledGO>();
 
 
-    private readonly List<MapLayerComponent> _components = new();
-
     [SerializeField]
     private BirdLayerGameObjectPlacement _birdSpawner;
     
@@ -61,7 +57,10 @@ public class MapGameState : MonoBehaviour
     private LayerMask birdCollisionMask;
 
     private bool _mapReady;            
-    private Coroutine _waiter;         
+    private Coroutine _waiter;
+
+    private const float DefaultLat  = 21.3096f;
+    private const float DefaultLong = 157.8600f;         
 
     internal string LayerName
     {
@@ -70,12 +69,14 @@ public class MapGameState : MonoBehaviour
 
     void Start()
     {
-        #if UNITY_ANDROID
+#if UNITY_ANDROID
         StartCoroutine(CheckAndRequest());
+        // #elif UNITY_EDITOR
+        // return;
         #else
         StartCoroutine(StartLocationService());
-        #endif
-        
+#endif
+
     }
 
     #if UNITY_ANDROID
@@ -156,7 +157,7 @@ public class MapGameState : MonoBehaviour
         _mapCamera = Camera.main; // Or find it by name or tag if it's not the main camera
         _arcGISMap = FindObjectOfType<ArcGISMapComponent>();
         _birdSpawner = FindObjectOfType<BirdLayerGameObjectPlacement>();
-        
+
 
         if (_mapCamera == null)
         {
@@ -168,30 +169,52 @@ public class MapGameState : MonoBehaviour
             _mapCamera.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
             Debug.LogWarning("Camera forward vector was zero. Setting default rotation.");
         }
-
+        Vector2 playerLocation;
         if (Input.location != null && Input.location.status == LocationServiceStatus.Running)
         {
-           
-            Vector2 playerLocation = new Vector2(Input.location.lastData.latitude, Input.location.lastData.longitude);
-            if (_arcGISMap != null)
-            {
-                ArcGISPoint wgs84 = new ArcGISPoint(
-                    playerLocation.y,            
-                    playerLocation.x,            
-                    0,
-                    ArcGISSpatialReference.WGS84()
-                );
-                _arcGISMap.OriginPosition = wgs84; 
-
-                Debug.Log("[DEBUG] Removing selected bird if captured");
-                RemoveSelectedBirdIfCaptured();
-                Debug.Log("[DEBUG] Adding Non-Captured birds back in");
-                RepopulateMapWithUncapturedBirds();
-            }
+            Debug.Log("[DEBUG]: setting player location");
+            playerLocation = new Vector2(Input.location.lastData.latitude, Input.location.lastData.longitude);
+            Debug.Log($"[DEBUG]: Player location: {playerLocation}");
+            UpdateMapForLocation(playerLocation);
         }
-#if UNITY_EDITOR
-        Spawn_Bird_Button();
-#endif
+// #if UNITY_EDITOR
+            //         playerLocation = new Vector2(DefaultLat, DefaultLong);
+            // #else
+            //         if (Input.location == null || Input.location.status != LocationServiceStatus.Running)
+            //         {
+            //             Debug.LogWarning("[DEBUG]: Input location is null, returning");
+            //             return;
+            //         }
+            //         Debug.Log($"[DEBUG]: Player location: latitude:{Input.location.lastData.latitude} longitude:{Input.location.lastData.longitude}");
+            //         playerLocation = new Vector2(Input.location.lastData.latitude, Input.location.lastData.longitude);
+            // #endif
+            //         UpdateMapForLocation(playerLocation);
+            // #if UNITY_EDITOR
+            //         Spawn_Bird_Button();
+            // #endif
+        }
+
+    private void UpdateMapForLocation(Vector2 latlng)
+    {
+        if (_arcGISMap != null)
+        {
+            ArcGISPoint wgs84 = new ArcGISPoint(
+                latlng.y,
+                latlng.x,
+                0,
+                ArcGISSpatialReference.WGS84()
+            );
+            _arcGISMap.OriginPosition = wgs84;
+
+            Debug.Log("[DEBUG] Removing selected bird if captured");
+            RemoveSelectedBirdIfCaptured();
+            Debug.Log("[DEBUG] Adding Non-Captured birds back in");
+            RepopulateMapWithUncapturedBirds();
+        }
+        else
+        {
+            Debug.LogError("[DEBUG]: ARCGIS Map is null");
+        }
     }
 
     private IEnumerator StartLocationService()
@@ -248,8 +271,10 @@ public class MapGameState : MonoBehaviour
             _mapReady = true;
             Debug.Log("[ArcGIS] Map is ready – starting gameplay systems");
 
-            // kick off whatever you postponed
+        // kick off whatever you postponed
+            // #if !UNITY_EDITOR
             StartCoroutine(StartLocationService());
+            // #endif
             RepopulateMapWithUncapturedBirds();
     }
 
@@ -288,15 +313,20 @@ public class MapGameState : MonoBehaviour
         if (Input.location.status == LocationServiceStatus.Running)
         {
             Vector2 playerLocation = new Vector2(Input.location.lastData.latitude, Input.location.lastData.longitude);
+            Debug.Log($"[DEBUG]: Center map around player location: latitude: {playerLocation.x} longitude: {playerLocation.y}");
             if (_arcGISMap != null)
             {
+                Debug.Log("[DEBUG]: About to set map's center");
                 ArcGISPoint wgs84 = new ArcGISPoint(
                     playerLocation.y,            //  X = longitude
                     playerLocation.x,            //  Y = latitude
                     0,
                     ArcGISSpatialReference.WGS84()
                 );
+
+                Debug.Log($"[DEBUG]: Setting arcgis map origin position: {wgs84.X} {wgs84.Y} {wgs84.Z}");
                 _arcGISMap.OriginPosition = wgs84;
+                _mapCamera.GetComponent<ArcGISLocationComponent>().Position = wgs84;
 
                 if (birdsOnMap.Count < 1)
                 {
