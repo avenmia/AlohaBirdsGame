@@ -4,6 +4,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.XR.ARFoundation;
 
 public class NavigationManager : MonoBehaviour
 {
@@ -15,6 +16,9 @@ public class NavigationManager : MonoBehaviour
     public Image image;
     public GameObject AR_Scene;
     public GameObject Map_Scene;
+
+    [SerializeField] private Camera AR_Camera;
+    [SerializeField] private Camera Map_Camera;
 
     private void Awake()
     {
@@ -41,7 +45,32 @@ public class NavigationManager : MonoBehaviour
 
     public void LoadAR_Scene()
     {
-        StartCoroutine(FadeInScene());
+        Debug.Log($"[DEBUG]: LoadAR_Scene activated");
+        StartCoroutine(Fade(0f, 1f)); // fade in
+        Debug.Log($"[DEBUG]: Fade in completed");
+        AR_Scene.gameObject.SetActive(true);
+        Toggle_Camera(AR_Camera, Map_Camera);
+        StartCoroutine(AwaitCamera());
+        Map_Scene.gameObject.SetActive(false);
+        StartCoroutine(Fade(1f, 0f)); // fade out
+        Debug.Log($"[DEBUG]: Fade out completed");
+    }
+
+    private void Toggle_Camera(Camera activeCam, Camera inactiveCam)
+    {
+        activeCam.depth = 1;
+        inactiveCam.depth = -1;
+    }
+
+    IEnumerator AwaitCamera()
+    {
+        while (ARSession.state != ARSessionState.SessionTracking)
+        {
+            Debug.Log("Waiting for AR Session to start tracking. Current state: " + ARSession.state);
+            yield return null; // Wait for the next frame
+        }
+
+        yield return new WaitForSeconds(0.5f);
     }
 
     public void ReturnToPrevScene() 
@@ -68,35 +97,24 @@ public class NavigationManager : MonoBehaviour
         if(toInactivate != null) { toInactivate.SetActive(false); }
         AR_Scene.gameObject.SetActive(false);
         Map_Scene.gameObject.SetActive(true);
+        Toggle_Camera(Map_Camera, AR_Camera);
     }
 
-    IEnumerator FadeInScene()
+    IEnumerator Fade(float startAlpha, float endAlpha)
     {
-        Color startColor = image.color;
-        Color endColor = new Color(startColor.r, startColor.g, startColor.b, 255f); // Fully opaque
-        image.CrossFadeColor(endColor, 3, true, true);
+        float timer = 0f;
+        Color color = image.color;
 
-        //yield return new WaitForSeconds(3.0f);
+        while (timer < 2.0f)
+        {
+            float alpha = Mathf.Lerp(startAlpha, endAlpha, timer / 2.0f);
+            image.color = new Color(color.r, color.g, color.b, alpha);
+            timer += Time.deltaTime;
+            yield return null;
+        }
 
-        AR_Scene.gameObject.SetActive(true);
-        Map_Scene.gameObject.SetActive(false);
-
-        image.color = endColor; // Ensure it's fully opaque at the end
-        yield return new WaitForEndOfFrame();
-
-        StartCoroutine(FadeOut());
-    }
-
-    IEnumerator FadeOut()
-    {
-        Color startColor = image.color;
-        Color endColor = new Color(startColor.r, startColor.g, startColor.b, 0f); // Fully transparent
-        image.CrossFadeColor(endColor, 3.0f, true, true);
-        //yield return new WaitForSeconds(3.0f);
-
-        yield return new WaitForEndOfFrame();
-        image.color = endColor; // Ensure it's fully transparent at the end
-        yield return new WaitForEndOfFrame();
+        // Ensure final alpha is exact
+        image.color = new Color(color.r, color.g, color.b, endAlpha);
     }
 
 }
