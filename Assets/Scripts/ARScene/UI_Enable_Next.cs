@@ -20,13 +20,18 @@ public class UI_Enable_Next : MonoBehaviour
         Next = true;
     }
 
+    public void Reset_Object()
+    {
+        Enabled_Next_Text.enabled = false;
+        Next = false;
+    }
+
     private void Update()
     {
 #if UNITY_EDITOR
         if(Input.GetMouseButtonUp(0) && Next)
         {
             this.gameObject.transform.parent.GetComponent<AREnd_Sequence>().Next_Sequence();
-            Destroy(this.gameObject);
         }
 #else
         if (Input.touchCount > 0 && Next)
@@ -35,7 +40,6 @@ public class UI_Enable_Next : MonoBehaviour
             if (Next && touch.phase == TouchPhase.Began)
             {
                 this.gameObject.transform.parent.GetComponent<AREnd_Sequence>().Next_Sequence();
-                Destroy(this.gameObject);
             }
         }
 #endif

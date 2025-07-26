@@ -28,7 +28,7 @@ public class ClickToNavigate : MonoBehaviour, IPointerClickHandler
             PersistentDataManager.Instance.SetBirdData(birdSpawnData);
             
             // find navManager if exists from other interactions
-            NavigationManager.Instance.LoadNewScene("ARScene");
+            NavigationManager.Instance.LoadAR_Scene();
 
         }
         else
