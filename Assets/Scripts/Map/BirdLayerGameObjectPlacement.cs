@@ -219,8 +219,11 @@ public class BirdLayerGameObjectPlacement : MonoBehaviour
 
     public void RemoveBirdInstance(PooledGO bird)
     {
-        _instances.Remove(bird.Value);
-        bird.Dispose();                       // back to pool
+        if (bird.Value != null)
+        {
+            _instances.Remove(bird.Value);
+            bird.Dispose();                       // back to pool
+        }
     }
 
     // public void RestoreBirdPosition(PooledObject<GameObject> birdToRestore)

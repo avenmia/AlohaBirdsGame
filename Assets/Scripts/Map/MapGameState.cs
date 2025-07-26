@@ -313,10 +313,8 @@ public class MapGameState : MonoBehaviour
         if (Input.location.status == LocationServiceStatus.Running)
         {
             Vector2 playerLocation = new Vector2(Input.location.lastData.latitude, Input.location.lastData.longitude);
-            Debug.Log($"[DEBUG]: Center map around player location: latitude: {playerLocation.x} longitude: {playerLocation.y}");
             if (_arcGISMap != null)
             {
-                Debug.Log("[DEBUG]: About to set map's center");
                 ArcGISPoint wgs84 = new ArcGISPoint(
                     playerLocation.y,            //  X = longitude
                     playerLocation.x,            //  Y = latitude
@@ -324,7 +322,6 @@ public class MapGameState : MonoBehaviour
                     ArcGISSpatialReference.WGS84()
                 );
 
-                Debug.Log($"[DEBUG]: Setting arcgis map origin position: {wgs84.X} {wgs84.Y} {wgs84.Z}");
                 _arcGISMap.OriginPosition = wgs84;
                 _mapCamera.GetComponent<ArcGISLocationComponent>().Position = wgs84;
 
