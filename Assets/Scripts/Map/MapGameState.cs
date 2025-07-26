@@ -594,8 +594,8 @@ public class MapGameState : MonoBehaviour
         float minSeparationBetweenBirds = 30f;
 
         ArcGISPoint wgs84 = new ArcGISPoint(
-            playerLocation.y,            
-            playerLocation.x,            
+            playerLocation.y, //Longitude            
+            playerLocation.x, //Latitude            
             0,
             ArcGISSpatialReference.WGS84()
         );

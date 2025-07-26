@@ -122,13 +122,12 @@ public class BirdLayerGameObjectPlacement : MonoBehaviour
 
         Debug.Log("[DEBUG]: 4");
         loc.Position = geo;
-        loc.Rotation = new ArcGISRotation(0, 0, 0);   // heading, pitch, roll in degrees
 
         Debug.Log("[DEBUG]: 5");
         /* 4 ─ visual tweaks & animation */
         Debug.Log($"[DEBUG]: Setting local scale for bird type: {birdType}");
         go.transform.localScale    = registry.Get(birdType).transform.localScale;
-        go.transform.localPosition += new Vector3(0, 100, 0);
+        go.transform.localPosition = new Vector3(0, 50, 0);
         go.transform.DOMoveY(10, 5f).SetEase(Ease.OutQuad);
 
         if (go.TryGetComponent(out ClickToNavigate nav)) nav.birdId = birdId;
