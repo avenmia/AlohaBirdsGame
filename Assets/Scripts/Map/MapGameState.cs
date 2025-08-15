@@ -1,11 +1,9 @@
 using DataBank;
-using Esri.GameEngine.Geometry;              
-using Esri.Unity;                            
-using Esri.ArcGISMapsSDK.Components;         
-using Esri.GameEngine.Geometry;
-using Esri.Unity;
-using Esri.GameEngine.Map;
-using Esri.ArcGISMapsSDK.Renderer;    // DrawStatus
+using Niantic.Lightship.Maps;
+using Niantic.Lightship.Maps.Core.Coordinates;
+using Niantic.Lightship.Maps.MapLayers.Components;
+using Niantic.Lightship.Maps.MapLayers.Components.BaseTypes;
+using Niantic.Lightship.Maps.ObjectPools;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -15,12 +13,6 @@ using Unity.Collections.LowLevel.Unsafe;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using Esri.HPFramework;
-using Esri.GameEngine;
-
-
-
-
 #if UNITY_ANDROID
 using UnityEngine.Android;
 #endif
@@ -38,29 +30,22 @@ public class MapGameState : MonoBehaviour
     public List<BirdDataObject> spawnedBirds = new List<BirdDataObject>();
 
     // Birds on the player's map
-    public Dictionary<Guid, BirdLayerGameObjectPlacement.PooledGO> birdsOnMap
-        = new Dictionary<Guid, BirdLayerGameObjectPlacement.PooledGO>();
+    public Dictionary<Guid, PooledObject<GameObject>> birdsOnMap = new Dictionary<Guid, PooledObject<GameObject>>();
 
+
+    private readonly List<MapLayerComponent> _components = new();
 
     [SerializeField]
     private BirdLayerGameObjectPlacement _birdSpawner;
     
     [SerializeField]
     private Camera _mapCamera;
-    
-    [SerializeField] 
-    private ArcGISMapComponent _arcGISMap;
-
+    [SerializeField]
+    private LightshipMapView _lightshipMapView;
     [SerializeField]
     private string _layerName = "MapLayer";
     [SerializeField]
     private LayerMask birdCollisionMask;
-
-    private bool _mapReady;            
-    private Coroutine _waiter;
-
-    private const float DefaultLat  = 21.3096f;
-    private const float DefaultLong = 157.8600f;         
 
     internal string LayerName
     {
@@ -69,14 +54,12 @@ public class MapGameState : MonoBehaviour
 
     void Start()
     {
-#if UNITY_ANDROID
+        #if UNITY_ANDROID
         StartCoroutine(CheckAndRequest());
-        // #elif UNITY_EDITOR
-        // return;
         #else
         StartCoroutine(StartLocationService());
-#endif
-
+        #endif
+        
     }
 
     #if UNITY_ANDROID
@@ -138,26 +121,25 @@ public class MapGameState : MonoBehaviour
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
-    // public void Initialize(ArcGISMapComponent arcGISMap, Transform parent)
-    // {
-    //     var mapLayer = new GameObject(_layerName);
-    //     mapLayer.transform.SetParent(parent);
+    public void Initialize(LightshipMapView lightshipMapView, Transform parent)
+    {
+        var mapLayer = new GameObject(_layerName);
+        mapLayer.transform.SetParent(parent);
 
-    //     _components.AddRange(gameObject.GetComponentsInChildren<MapLayerComponent>());
+        _components.AddRange(gameObject.GetComponentsInChildren<MapLayerComponent>());
 
-    //     foreach (var component in _components)
-    //     {
-    //         component.Initialize(arcGISMap, mapLayer);
-    //     }
-    // }
+        foreach (var component in _components)
+        {
+            component.Initialize(lightshipMapView, mapLayer);
+        }
+    }
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         // Reassign the _mapCamera when the scene is loaded
         _mapCamera = Camera.main; // Or find it by name or tag if it's not the main camera
-        _arcGISMap = FindObjectOfType<ArcGISMapComponent>();
-        _birdSpawner = FindObjectOfType<BirdLayerGameObjectPlacement>();
-
+        _lightshipMapView = FindObjectOfType<LightshipMapView>();
+        
 
         if (_mapCamera == null)
         {
@@ -169,52 +151,25 @@ public class MapGameState : MonoBehaviour
             _mapCamera.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
             Debug.LogWarning("Camera forward vector was zero. Setting default rotation.");
         }
-        Vector2 playerLocation;
+
         if (Input.location != null && Input.location.status == LocationServiceStatus.Running)
         {
-            Debug.Log("[DEBUG]: setting player location");
-            playerLocation = new Vector2(Input.location.lastData.latitude, Input.location.lastData.longitude);
-            Debug.Log($"[DEBUG]: Player location: {playerLocation}");
-            UpdateMapForLocation(playerLocation);
-        }
-// #if UNITY_EDITOR
-            //         playerLocation = new Vector2(DefaultLat, DefaultLong);
-            // #else
-            //         if (Input.location == null || Input.location.status != LocationServiceStatus.Running)
-            //         {
-            //             Debug.LogWarning("[DEBUG]: Input location is null, returning");
-            //             return;
-            //         }
-            //         Debug.Log($"[DEBUG]: Player location: latitude:{Input.location.lastData.latitude} longitude:{Input.location.lastData.longitude}");
-            //         playerLocation = new Vector2(Input.location.lastData.latitude, Input.location.lastData.longitude);
-            // #endif
-            //         UpdateMapForLocation(playerLocation);
-            // #if UNITY_EDITOR
-            //         Spawn_Bird_Button();
-            // #endif
-        }
+           
+            Vector2 playerLocation = new Vector2(Input.location.lastData.latitude, Input.location.lastData.longitude);
+            if (_lightshipMapView != null)
+            {
+                var latlng = new LatLng(playerLocation.x, playerLocation.y);
+                _lightshipMapView.SetMapCenter(latlng);
 
-    private void UpdateMapForLocation(Vector2 latlng)
-    {
-        if (_arcGISMap != null)
-        {
-            ArcGISPoint wgs84 = new ArcGISPoint(
-                latlng.y,
-                latlng.x,
-                0,
-                ArcGISSpatialReference.WGS84()
-            );
-            _arcGISMap.OriginPosition = wgs84;
-
-            Debug.Log("[DEBUG] Removing selected bird if captured");
-            RemoveSelectedBirdIfCaptured();
-            Debug.Log("[DEBUG] Adding Non-Captured birds back in");
-            RepopulateMapWithUncapturedBirds();
+                Debug.Log("[DEBUG] Removing selected bird if captured");
+                RemoveSelectedBirdIfCaptured();
+                Debug.Log("[DEBUG] Adding Non-Captured birds back in");
+                RepopulateMapWithUncapturedBirds();
+            }
         }
-        else
-        {
-            Debug.LogError("[DEBUG]: ARCGIS Map is null");
-        }
+#if UNITY_EDITOR
+        Spawn_Bird_Button();
+#endif
     }
 
     private IEnumerator StartLocationService()
@@ -257,30 +212,8 @@ public class MapGameState : MonoBehaviour
         }
     }
 
-    private IEnumerator WaitForMapReady()
-    {
-            // 0️⃣ make sure we actually have the component
-            while (_arcGISMap == null || _arcGISMap.View == null || _arcGISMap.View.Map == null)
-                yield return null;
-
-            // 1️⃣ wait for the base map + elevation to load
-            while (_arcGISMap.View.Map.LoadStatus != ArcGISLoadStatus.Loaded) 
-                yield return null;
-
-            // 3️⃣ good to go!
-            _mapReady = true;
-            Debug.Log("[ArcGIS] Map is ready – starting gameplay systems");
-
-        // kick off whatever you postponed
-            // #if !UNITY_EDITOR
-            StartCoroutine(StartLocationService());
-            // #endif
-            RepopulateMapWithUncapturedBirds();
-    }
-
     private void Awake()
     {
-        _waiter = StartCoroutine(WaitForMapReady());
         _mapCamera = Camera.main;
         if (_mapCamera != null)
         {
@@ -309,21 +242,13 @@ public class MapGameState : MonoBehaviour
 
     private void Update()
     {
-        if (!_mapReady) return;   
         if (Input.location.status == LocationServiceStatus.Running)
         {
             Vector2 playerLocation = new Vector2(Input.location.lastData.latitude, Input.location.lastData.longitude);
-            if (_arcGISMap != null)
+            if (_lightshipMapView != null)
             {
-                ArcGISPoint wgs84 = new ArcGISPoint(
-                    playerLocation.y,            //  X = longitude
-                    playerLocation.x,            //  Y = latitude
-                    0,
-                    ArcGISSpatialReference.WGS84()
-                );
-
-                _arcGISMap.OriginPosition = wgs84;
-                _mapCamera.GetComponent<ArcGISLocationComponent>().Position = wgs84;
+                var latlng = new LatLng(playerLocation.x, playerLocation.y);
+                _lightshipMapView.SetMapCenter(latlng);
 
                 if (birdsOnMap.Count < 1)
                 {
@@ -590,19 +515,10 @@ public class MapGameState : MonoBehaviour
         float maxRadiusFromPlayer = 60f;
         float minSeparationBetweenBirds = 30f;
 
-        ArcGISPoint wgs84 = new ArcGISPoint(
-            playerLocation.y, //Longitude            
-            playerLocation.x, //Latitude            
-            0,
-            ArcGISSpatialReference.WGS84()
-        );
+        var latLng = new LatLng(playerLocation.x, playerLocation.y);
 
-        Debug.Log($"[DEBUG]: WGS84 {wgs84}");
-
-        double3 hpCartesian = _arcGISMap.View.GeographicToWorld(wgs84);
-        Debug.Log($"[DEBUG]: hpCartesian {hpCartesian}");
-        Vector3 scenePosition    = hpCartesian.ToVector3(); 
-   
+        // Convert the LatLng to scene coordinates
+        var scenePosition = _lightshipMapView.LatLngToScene(latLng);
         Vector3 result;
 
         for ( int attempt = 0; attempt < maxAttempts; attempt++)
@@ -644,7 +560,7 @@ public class MapGameState : MonoBehaviour
     //{
     //    var clickRay = _mapCamera.ScreenPointToRay(screenPosition);
     //    var pointOnMap = clickRay.origin + clickRay.direction * (-clickRay.origin.y / clickRay.direction.y);
-    //    return _arcGISMap.SceneToLatLng(pointOnMap);
+    //    return _lightshipMapView.SceneToLatLng(pointOnMap);
     //}
 
 }

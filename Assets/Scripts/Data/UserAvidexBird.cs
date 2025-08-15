@@ -14,10 +14,4 @@ public class UserAvidexBird
         caughtBirds.Add(bird.birdData.id);
         birdData = bird.birdData;
     }
-
-    public UserAvidexBird(GameBird bird, List<Guid> caughtBirdIds)
-    {
-        caughtBirds = caughtBirdIds;
-        birdData = bird.birdData;
-    }
 }
