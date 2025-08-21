@@ -94,7 +94,8 @@ public class ARBirdCaptureManager : MonoBehaviour
         AR_Camera_Manager.enabled = false;
         Capture_Attempts = 3;
         Timer = 30.0f;
-        foreach(var vis in Visual_Attempts)
+        Time_Text.text = Timer.ToString("0.00");
+        foreach (var vis in Visual_Attempts)
         {
             vis.SetActive(true);
         }

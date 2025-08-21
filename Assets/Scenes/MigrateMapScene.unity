@@ -393,7 +393,7 @@ Camera:
   field of view: 85
   orthographic: 0
   orthographic size: 5
-  m_Depth: -1
+  m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -1511,12 +1511,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6321558810448120179, guid: 21163c0f2dd5750469e617038c711b21, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 88e152a6d1d6aaea598e2712882dfade, type: 3}
     - target: {fileID: 6568681194808903268, guid: 21163c0f2dd5750469e617038c711b21, type: 3}
       propertyPath: AR_Camera_Manager
       value: 
       objectReference: {fileID: 1550535028}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 540328354465704417, guid: 21163c0f2dd5750469e617038c711b21, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 21163c0f2dd5750469e617038c711b21, type: 3}
@@ -1816,6 +1821,8 @@ MonoBehaviour:
   image: {fileID: 1988201226}
   AR_Scene: {fileID: 1098231470}
   Map_Scene: {fileID: 361910806}
+  AR_Camera: {fileID: 1550535033}
+  Map_Camera: {fileID: 61913277}
 --- !u!4 &1279876163
 Transform:
   m_ObjectHideFlags: 0
@@ -2161,6 +2168,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4966719baa26e4b0e8231a24d9bd491a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!20 &1550535033 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 2269960692276279390, guid: 21163c0f2dd5750469e617038c711b21, type: 3}
+  m_PrefabInstance: {fileID: 1098231469}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1623988511
 GameObject:
   m_ObjectHideFlags: 0
