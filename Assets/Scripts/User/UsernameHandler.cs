@@ -42,6 +42,6 @@ public class UsernameHandler : MonoBehaviour
     void LoadMainScene()
     {
         // Replace "MainGameScene" with the actual name of your main scene
-        SceneManager.LoadScene("MapScene");
+        SceneManager.LoadScene("MigrateMapScene");
     }
 }

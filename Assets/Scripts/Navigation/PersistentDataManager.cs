@@ -53,10 +53,12 @@ public class PersistentDataManager : MonoBehaviour
         Dictionary<string, string> userBirdsToSave = new Dictionary<string, string>();
         foreach (var userBird in userBirds)
         {
-            var id = userBird.birdData.id.ToString();
             var name = userBird.birdData.birdName;
-            Debug.Log($"[DEBUG]: Saving user bird id: {id}, name: {name}");
-            userBirdsToSave.Add(id,name);
+            foreach (var caughtBirdId in userBird.caughtBirds)
+            {
+                userBirdsToSave.Add(caughtBirdId.ToString(),name);
+                Debug.Log($"[DEBUG]: Saving user bird id: {caughtBirdId}, name: {name}");
+            }
             
             // TODO: Add screenshot information, captureData
         }
