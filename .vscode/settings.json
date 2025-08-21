@@ -1,0 +1,5 @@
+{
+    "unityDebugger.trace": "verbose",
+    "debug.trace": "verbose",
+    "unity.debugger.preferredDebuggerEngine": "VSTUC"
+}

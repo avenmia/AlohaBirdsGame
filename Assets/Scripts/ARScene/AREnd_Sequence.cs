@@ -5,15 +5,18 @@ using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.XR.ARFoundation;
 
 public class AREnd_Sequence : MonoBehaviour
 {
     public List<GameObject> Sequence;
     private int Sequence_Index = 0;
     public List<RawImage> Polaroids;
-    [SerializeField] private int Polaroid_Index = 1; //Start with index in middle
+    [SerializeField] private ARBirdSpawner AR_Bird_Spawner;
+    [SerializeField] private int Polaroid_Index = 0;
     [SerializeField] private GameObject Left_Arrow;
     [SerializeField] private GameObject Right_Arrow;
+    [SerializeField] private ARCameraManager AR_Camera_Manager;
 
     [SerializeField] private TMP_Text Score;
     [SerializeField] private TMP_Text Bird_Name;
@@ -31,36 +34,27 @@ public class AREnd_Sequence : MonoBehaviour
 
     public void Left_Next()
     {
-        Polaroids[Polaroid_Index].gameObject.transform.parent.gameObject.SetActive(false);
-        Polaroid_Index--;
-        if(Polaroid_Index <= 0)
-        {
-            Left_Arrow.SetActive(false);
-        }
-        
-        if(Polaroid_Index < 2 && !Right_Arrow.activeInHierarchy)
-        {
-            Right_Arrow.SetActive(true);
-        }
+        Polaroids[Polaroid_Index].gameObject.transform.gameObject.SetActive(false);
 
-        Polaroids[Polaroid_Index].gameObject.transform.parent.gameObject.SetActive(true);
+        Polaroid_Index = (Polaroid_Index - 1 + Polaroids.Count) % Polaroids.Count;
+
+        Polaroids[Polaroid_Index].gameObject.transform.gameObject.SetActive(true);
+
+        Debug.Log($"Current Polaroid Index: {Polaroid_Index}");
     }
 
     public void Right_Next()
     {
-        Polaroids[Polaroid_Index].gameObject.transform.parent.gameObject.SetActive(false);
-        Polaroid_Index++;
-        if(Polaroid_Index >= Polaroids.Count - 1)
-        {
-            Right_Arrow.SetActive(false);
-        }
+        Polaroids[Polaroid_Index].gameObject.transform.gameObject.SetActive(false);
 
         if (Polaroid_Index > 0 && !Left_Arrow.activeInHierarchy)
         {
             Left_Arrow.SetActive(true);
         }
 
-        Polaroids[Polaroid_Index].gameObject.transform.parent.gameObject.SetActive(true);
+        Polaroids[Polaroid_Index].gameObject.transform.gameObject.SetActive(true);
+
+        Debug.Log($"Current Polaroid Index: {Polaroid_Index}");
     }
     
     public void Choose_Polaroid()
@@ -88,15 +82,24 @@ public class AREnd_Sequence : MonoBehaviour
             Debug.LogError("Bird should exist before adding image to gallery");
         }
 
-
-
-        StartCoroutine(ReturnToMap(2.0f));
+        Debug.Log($"[DEBUG] Resetting AR_Scene");
+        Reset_Object();
+        Debug.Log($"[DEBUG] Successfully reset AR_Scene");
+        NavigationManager.Instance.ReturnToMapScene(this.gameObject);
     }
 
-    private IEnumerator ReturnToMap(float waitTime)
+    void Reset_Object()
     {
-        yield return new WaitForSeconds(waitTime);
-        NavigationManager.Instance.ReturnToPrevScene();
+        Destroy(AR_Bird_Spawner.Spawn_Bird);
+        Debug.Log($"[DEBUG] Destroyed Spawned Bird");
+        foreach (var seq in Sequence)
+        {
+            seq.SetActive(false);
+        }
+        Sequence_Index = 0;
+        Debug.Log($"[DEBUG] Set Sequence Objects inactive");
+        AR_Camera_Manager.enabled = true;
+        Debug.Log($"[DEBUG] Disabled AR_Camera_Manager");
     }
 
     void CaptureBird()
