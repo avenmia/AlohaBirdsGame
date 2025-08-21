@@ -143,14 +143,12 @@ public class Player_Information : MonoBehaviour
                         kv => kv.Value as string);
 
             UserCapturedBirds = birds;
-            Dictionary<string, List<Guid>> birdsByName = new Dictionary<string, List<Guid>>();
-            birdsByName = birds.GroupBy(kvp => kvp.Value).ToDictionary(g => g.Key, g => g.Select(kvp => Guid.Parse(kvp.Key)).ToList());
-            foreach (var bird in birdsByName)
+            foreach (var bird in UserCapturedBirds)
             {
                 Debug.Log($"[DEBUG]: Loading from unity cloud bird: Id{bird.Key}, Name: {bird.Value}");
-                if (PersistentDataManager.Instance.gameBirds.TryGetValue(bird.Key, out GameBird gameBird))
+                if (PersistentDataManager.Instance.gameBirds.TryGetValue(bird.Value, out GameBird gameBird))
                 {
-                    var userAvidexBird = new UserAvidexBird(gameBird, bird.Value);
+                    var userAvidexBird = new UserAvidexBird(gameBird);
                     PersistentDataManager.Instance.userCapturedBirds.Add(userAvidexBird);
                 }
             }
@@ -183,7 +181,7 @@ public class Player_Information : MonoBehaviour
         }
 
         PersistentDataManager.Instance.userProfileData = new UserProfileData(Player_Name, BirdsCaptured, Points, Unique_Birds_Caught, TotalCaptures);
-        SceneManager.LoadScene("MigrateMapScene", LoadSceneMode.Single);
+        SceneManager.LoadScene("MapScene", LoadSceneMode.Single);
     }
 
     // TODO: Add offline 

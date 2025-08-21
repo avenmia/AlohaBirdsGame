@@ -817,8 +817,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36014aa643efb56449332e3be6512797, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _birdSpawner: {fileID: 0}
-  registry: {fileID: 11400000, guid: 103236841363f2f5591e94b37b912039, type: 2}
+  _birdSpawner: {fileID: 7067019542376699034, guid: 3b48cc82061099e4299d1ae76cfb9bac, type: 3}
 --- !u!1 &460131523
 GameObject:
   m_ObjectHideFlags: 0

@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7995791888248751353}
+  - component: {fileID: 7373279264270522132}
   - component: {fileID: 7067019542376699034}
   m_Layer: 0
   m_Name: BirdObjectPlacementLayer
@@ -32,6 +33,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7373279264270522132
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1424568087026788675}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ffb84d268cd3443e999c11bfadbe1597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _layerName: BirdObjectPlacementLayer
 --- !u!114 &7067019542376699034
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -44,8 +58,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e545c8cff3a9f66459c5910f55beb55f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _arcGISMap: {fileID: 0}
-  _layerRoot: {fileID: 0}
+  _name: Prefab
+  _prefab: {fileID: 7087833928533607845, guid: bb3522c58f8bd1c42a9e625b5abb2c1a, type: 3}
+  _heightOffset: 0
+  _scaleWithMapRadius: 0
+  _relativeScale: 1
+  _minimumScale: 0
+  _maximumScale: Infinity
   _pigeonPrefab: {fileID: 7087833928533607845, guid: bb3522c58f8bd1c42a9e625b5abb2c1a, type: 3}
   _barnowlPrefab: {fileID: 7087833928533607845, guid: 8d3a086f4dae52b4d85c1a18f477ef20, type: 3}
   _africansilverbillPrefab: {fileID: 3272135469425168573, guid: 508bd9aeff9967f4ba8c66f53c2434a2, type: 3}
