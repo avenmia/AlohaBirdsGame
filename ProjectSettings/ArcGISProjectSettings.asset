@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &11400000
+--- !u!114 &1
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c614a2c214f1c634dac1b68ce4624b91, type: 3}
-  m_Name: ArcGISProjectSettingsAsset
+  m_Script: {fileID: 11500000, guid: 440292c6b7b936b42b794116ef2759e0, type: 3}
+  m_Name: 
   m_EditorClassIdentifier: 
   apiKey: AAPTxy8BH1VEsoebNVZXo8HurNdMzJx_qnxc0I86OgcBu_g5wD8grPxhCB48khTPI3jRkZ7H_wNv8nURUtt-Kc7_aD0lmx8YpyiQSZNzEk6V9-9FypAhYuZmnvc3Jzic12YDNnof99BNhmFhUprkeBrixammjFpXfMC-DPgfrxQcTakBLkwE0_roPzAIcV08sGbyMdjtUCWRHzp4F5lqQa8_ZKSOsOrow_cjShMmzfjhSDw.AT1_FMKpBiuP
