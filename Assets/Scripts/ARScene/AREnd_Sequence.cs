@@ -12,6 +12,9 @@ public class AREnd_Sequence : MonoBehaviour
     public List<GameObject> Sequence;
     private int Sequence_Index = 0;
     public List<RawImage> Polaroids;
+
+    public bool TimerRanOut = false;
+
     [SerializeField] private ARBirdSpawner AR_Bird_Spawner;
     [SerializeField] private int Polaroid_Index = 0;
     [SerializeField] private GameObject Left_Arrow;
@@ -22,6 +25,12 @@ public class AREnd_Sequence : MonoBehaviour
     [SerializeField] private TMP_Text Bird_Name;
     private void OnEnable()
     {
+        if (TimerRanOut)
+        {
+            Reset_Object();
+            TimerRanOut = false;
+            return;
+        }
         Bird_Name.text = Polaroids[0].GetComponent<Polaroid_Data>().Name;
         Sequence[0].SetActive(true); // Capture Popup
     }
@@ -99,7 +108,7 @@ public class AREnd_Sequence : MonoBehaviour
         Sequence_Index = 0;
         Debug.Log($"[DEBUG] Set Sequence Objects inactive");
         AR_Camera_Manager.enabled = true;
-        Debug.Log($"[DEBUG] Disabled AR_Camera_Manager");
+        Debug.Log($"[DEBUG] Resetting AR_Camera_Manager");
     }
 
     void CaptureBird()

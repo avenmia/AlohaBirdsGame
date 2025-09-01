@@ -57,6 +57,11 @@ public class ARBirdCaptureManager : MonoBehaviour
         
         if(Timer <= 0 && !End_Capture_Sequence.activeInHierarchy)
         {
+            mainCanvas.enabled = true;
+            Capture_Button.enabled = true;
+            End_Capture_Sequence.GetComponent<AREnd_Sequence>().TimerRanOut = true;
+            End_Capture_Sequence.SetActive(true);
+
             NavigationManager.Instance.ReturnToMapScene();
         }
     }

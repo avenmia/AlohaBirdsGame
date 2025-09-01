@@ -8,7 +8,7 @@ public static class BirdTypeUtil
         Debug.Log($"[DEBUG]: Getting pin name for bird: {birdName}");
         switch (birdName)
         {
-            case "Rock Pigeon": return "PigeonPin";
+            case "Rock Pigeon": return "pigeon";
             case "Barn Owl": return "BarnOwlPin";
             case "African Silverbill": return "African Silverbill";
             case "House Sparrow": return "housesparrow";
