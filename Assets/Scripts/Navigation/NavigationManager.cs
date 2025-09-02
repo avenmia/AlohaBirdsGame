@@ -48,18 +48,18 @@ public class NavigationManager : MonoBehaviour
         Debug.Log($"[DEBUG]: LoadAR_Scene activated");
         StartCoroutine(Fade(0f, 1f)); // fade in
         Debug.Log($"[DEBUG]: Fade in completed");
+        Map_Scene.gameObject.SetActive(false);
         AR_Scene.gameObject.SetActive(true);
         Toggle_Camera(AR_Camera, Map_Camera);
         StartCoroutine(AwaitCamera());
-        Map_Scene.gameObject.SetActive(false);
         StartCoroutine(Fade(1f, 0f)); // fade out
         Debug.Log($"[DEBUG]: Fade out completed");
     }
 
     private void Toggle_Camera(Camera activeCam, Camera inactiveCam)
     {
-        activeCam.depth = 1;
-        inactiveCam.depth = -1;
+        activeCam.enabled = true;
+        inactiveCam.enabled = false;
     }
 
     IEnumerator AwaitCamera()
