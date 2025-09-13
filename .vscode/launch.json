@@ -1,0 +1,13 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Attach to Unity Android",
+            "type": "vstuc",
+            "request": "attach",
+            "endPoint": "127.0.0.1:56455",
+            "trace": "verbose",                 // <- log every DAP packet
+            "logFile": "${workspaceFolder}/.vscode/unity-debug.log"
+        }
+     ]
+}
