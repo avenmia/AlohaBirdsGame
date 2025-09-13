@@ -1,0 +1,137 @@
+.esri-logo {
+	-unity-background-scale-mode: scale-to-fit;
+	background-image: resource("Images/MapCreator/MapTool/esri_logo");
+	flex: 1;
+	min-height: 100px;
+}
+
+#map-coordinate-system-buttons {
+	align-items: flex-start;
+	flex-direction: row;
+	justify-content: flex-start;
+	margin-left: 32px;
+}
+
+#map-extent-fields {
+	margin-left: 4px;
+}
+
+#map-type-buttons {
+	align-items: flex-start;
+	flex-direction: row;
+	justify-content: flex-start;
+	margin-left: 132px;
+	margin-right: 0px;
+}
+
+.dark #map-type-buttons .map-type:hover {
+	background-color: #7E7E7E;
+}
+
+.dark #map-type-buttons .map-type:disabled {
+	background-color: #46607C;
+	border-color: black;
+	opacity: 1.0;
+}
+
+.light #map-type-buttons .map-type:disabled {
+	background-color: #96C3FB;
+	border-color: #B2B2B2;
+	opacity: 1.0;
+}
+
+.light #map-type-buttons .map-type:enabled {
+	background-color: #E4E4E4;
+	border-color: #E4E4E4;
+	opacity: 1.0;
+}
+
+#button-create-map {
+	margin: 8px 2px 8px 119px;
+	max-height: 23px;
+	max-width: 230px;
+	min-height: 22px;
+	min-width: 229px;
+}
+
+#select-global-button {
+	border-bottom-right-radius: 0px;
+	border-right-width: 0px;
+	border-top-right-radius: 0px;
+	flex: 1;
+	height: 25px;
+	margin-left: 0px;
+	margin-right: 0px;
+	max-width: 101px;
+	min-width: 100px;
+}
+
+#select-local-button {
+	border-bottom-left-radius: 0px;
+	border-left-width: 0px;
+	border-top-left-radius: 0px;
+	flex: 1;
+	height: 25px;
+	margin-left: 0px;
+	margin-right: 0px;
+	max-width: 101px;
+	min-width: 100px;
+}
+
+#toggle-override-coordinate-system {
+	margin-left: 18px;
+}
+
+.extent-shape-dimensions-holder {
+	flex-direction: row;
+	margin-left: 3px;
+}
+
+.extent-shape-dimensions-holder #extent-shape-dimensions-label {
+	margin-right: 51px;
+}
+
+.extent-shape-dimensions-holder > DoubleField {
+	flex: 1;
+}
+
+.extent-shape-dimensions-holder > DoubleField > .unity-base-field__label {
+	margin-right: 2px;
+	min-width: 20px;
+}
+
+.map-origin-spatial-reference-holder,
+.map-extent-spatial-reference-holder {
+	flex-direction: row;
+	margin-left: 3px;
+}
+
+.map-extent-spatial-reference-holder #map-extent-spatial-reference-label {
+	margin-right: 56px;
+	padding-top: 2px;
+}
+
+.map-origin-spatial-reference-holder #map-origin-spatial-reference-label {
+	margin-right: 75px;
+	padding-top: 2px;
+}
+
+.map-origin-spatial-reference-holder > IntegerField,
+.map-extent-spatial-reference-holder > IntegerField {
+	flex: 1;
+}
+
+.map-origin-spatial-reference-holder > IntegerField > .unity-base-field__label,
+.map-extent-spatial-reference-holder > IntegerField > .unity-base-field__label {
+	margin-right: 4px;
+	min-width: 20px;
+}
+
+.map-vertical-buttons{
+	flex-direction: column;
+	height: 41px;
+}
+
+.map-vertical-buttons .unity-base-text-field__input--single-line {
+	-unity-text-align: middle-center;
+}

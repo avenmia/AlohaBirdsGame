@@ -1,0 +1,27 @@
+#button-create-camera {
+	margin: 8px 2px 8px 119px;
+	max-height: 23px;
+	max-width: 230px;
+	min-height: 22px;
+	min-width: 229px;
+}
+
+.position-spatial-reference-holder {
+	flex-direction: row;
+	margin-left: 3px;
+}
+
+.position-spatial-reference-holder #position-spatial-reference-label {
+	margin-right: -13px;
+	min-width: 185px;
+	padding-top: 2px;
+}
+
+.position-spatial-reference-holder > IntegerField {
+	flex: 1;
+}
+
+.position-spatial-reference-holder > IntegerField > .unity-base-field__label {
+	margin-right: 4px;
+	min-width: 20px;
+}
