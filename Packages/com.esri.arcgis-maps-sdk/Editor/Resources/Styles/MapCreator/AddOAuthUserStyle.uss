@@ -1,0 +1,63 @@
+:root {
+	padding: 10px;
+}
+
+.add-portal-window {
+	flex-grow: 1;
+}
+
+#info-center {
+	flex-grow: 1;
+	height: 45px;
+	justify-content: center;
+}
+
+#info-holder {
+	border-color: rgb(35, 35, 35);
+	border-radius: 4px;
+	border-width: 1px;
+	flex-direction: row;
+	margin-bottom: 10px;
+	margin-left: 0;
+	margin-right: 0;
+	margin-top: 10px;
+	padding: 6px;
+}
+
+#info-icon {
+	background-image: resource('Images/BuildingSceneLayer/warning-icon');
+}
+#warning-icon {
+	background-image: resource('Images/MapCreator/WarningIcon');
+	display: none;
+}
+
+.icons {
+	align-self: center;
+	height: 30px;
+	width: 30px;
+}
+
+#info-label {
+	-unity-text-align: middle-left;
+	margin: 6px;
+}
+
+.hidden-fields {
+	display: flex;
+	visibility: hidden;
+}
+
+.buttons {
+	align-self: flex-end;
+	flex-direction: row;
+	margin-top: 10px;
+}
+
+.buttons Button {
+	width: 80px;
+}
+
+#add-button{
+	display: none;
+}

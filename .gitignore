@@ -78,9 +78,11 @@ Assets/Samples/**
 
 
 # Esri SDK (ignore all large/vendor files)
-Packages/com.esri.arcgis-maps-sdk/Binaries/
-Packages/com.esri.arcgis-maps-sdk/Extras/
-Packages/com.esri.arcgis-maps-sdk/Legal/
-Packages/com.esri.arcgis-maps-sdk/Editor/Resources/
-Packages/com.esri.arcgis-maps-sdk/SDK/Resources/
+Packages/com.esri.arcgis-maps-sdk/Binaries/iOS/
+Packages/com.esri.arcgis-maps-sdk/Binaries/macOS/
+Packages/com.esri.arcgis-maps-sdk/Binaries/xrOS/
+# Packages/com.esri.arcgis-maps-sdk/Extras/
+# Packages/com.esri.arcgis-maps-sdk/Legal/
+# Packages/com.esri.arcgis-maps-sdk/Editor/Resources/
+# Packages/com.esri.arcgis-maps-sdk/SDK/Resources/
 Packages/com.esri.arcgis-maps-sdk/Samples~/
