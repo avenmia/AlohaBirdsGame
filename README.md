@@ -62,7 +62,7 @@ Given more time, we plan to add:
 
 ## Requirements
 
-- **Unity**: Version 2022.3.50f1
+- **Unity**: Version 2022.3.62f1
 - **Niantic Lightship ARDK**: Installed in Unity
 - **Xcode(iOS)**: For building and deploying to iOS devices
 - **Lightship API Key**: Required for ARDK functionalities
