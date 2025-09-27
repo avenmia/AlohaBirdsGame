@@ -262,12 +262,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   position:
-    x: -157.8583
-    y: 21.306900000000002
+    x: -17572705.57349182
+    y: 2428510.982556826
     z: 0
     SRWkid: 4326
     spatialReference:
-      wkid: 4326
+      wkid: 3857
       verticalWKID: 0
     version: 1
   rotation:
@@ -937,6 +937,11 @@ Transform:
   - {fileID: 1246340900}
   m_Father: {fileID: 361910807}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!223 &518787966 stripped
+Canvas:
+  m_CorrespondingSourceObject: {fileID: 7202116128849291400, guid: 21163c0f2dd5750469e617038c711b21, type: 3}
+  m_PrefabInstance: {fileID: 1098231469}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &592418009
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1190,6 +1195,17 @@ RectTransform:
   m_AnchoredPosition: {x: -300.00003, y: -339.05515}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &666038276 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1479638100211158321, guid: 21163c0f2dd5750469e617038c711b21, type: 3}
+  m_PrefabInstance: {fileID: 1098231469}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf614d1063a65744aa69d575f457065f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &927335524
 GameObject:
   m_ObjectHideFlags: 0
@@ -1316,6 +1332,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 927335524}
   m_CullTransparentMesh: 1
+--- !u!1 &1009903362 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 373181324939599477, guid: 21163c0f2dd5750469e617038c711b21, type: 3}
+  m_PrefabInstance: {fileID: 1098231469}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1009903363 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7567452448115912843, guid: 21163c0f2dd5750469e617038c711b21, type: 3}
+  m_PrefabInstance: {fileID: 1098231469}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1009903362}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1009903367
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1009903362}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30e36a3337648410faa90dc61a3a7591, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  captureButton: {fileID: 1009903363}
+  uiCanvas: {fileID: 518787966}
+  uiWorldCamera: {fileID: 1550535033}
 --- !u!1 &1021034149
 GameObject:
   m_ObjectHideFlags: 0
@@ -1488,19 +1535,26 @@ PrefabInstance:
       propertyPath: AR_Camera_Manager
       value: 
       objectReference: {fileID: 1550535028}
-    - target: {fileID: 8176233163302806778, guid: 21163c0f2dd5750469e617038c711b21, type: 3}
-      propertyPath: m_IsActive
-      value: 0
+    - target: {fileID: 7567452448115912843, guid: 21163c0f2dd5750469e617038c711b21, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 666038276}
+    - target: {fileID: 7567452448115912843, guid: 21163c0f2dd5750469e617038c711b21, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: onClickCapture
       objectReference: {fileID: 0}
-    - target: {fileID: 8760002569365098700, guid: 21163c0f2dd5750469e617038c711b21, type: 3}
-      propertyPath: m_Color.a
-      value: 1
+    - target: {fileID: 7567452448115912843, guid: 21163c0f2dd5750469e617038c711b21, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ARBirdCaptureManager, Assembly-CSharp
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 540328354465704417, guid: 21163c0f2dd5750469e617038c711b21, type: 3}
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 373181324939599477, guid: 21163c0f2dd5750469e617038c711b21, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1009903367}
   m_SourcePrefab: {fileID: 100100000, guid: 21163c0f2dd5750469e617038c711b21, type: 3}
 --- !u!1 &1098231470 stripped
 GameObject:
