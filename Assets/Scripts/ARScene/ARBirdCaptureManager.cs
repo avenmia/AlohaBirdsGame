@@ -49,7 +49,7 @@ public class ARBirdCaptureManager : MonoBehaviour
             isBirdCaptured = false;
         }
 
-        if(ARSession.state == ARSessionState.SessionTracking && !End_Capture_Sequence.activeInHierarchy)
+        if(!End_Capture_Sequence.activeInHierarchy)
         {
             Timer -= Time.deltaTime;
             Time_Text.text = Timer.ToString("0.00");

@@ -47,10 +47,7 @@ public class AREnd_Sequence : MonoBehaviour
     {
         Polaroids[Polaroid_Index].gameObject.transform.gameObject.SetActive(false);
 
-        if (Polaroid_Index > 0 && !Left_Arrow.activeInHierarchy)
-        {
-            Left_Arrow.SetActive(true);
-        }
+        Polaroid_Index = (Polaroid_Index + 1 + Polaroids.Count) % Polaroids.Count;
 
         Polaroids[Polaroid_Index].gameObject.transform.gameObject.SetActive(true);
 

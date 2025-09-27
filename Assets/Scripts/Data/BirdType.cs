@@ -3,14 +3,20 @@ using System.Collections.Generic;
 public enum BirdType
 {
     None,
-    Pigeon,
-    BarnOwl,
     AfricanSilverbill,
+    Amahiki,
+    BarnOwl,
     HawaiianDuck,
-    KalijPheasant,
     HoneyCreeper,
     HouseSparrow,
+    PeregrineFalcon,
+    KalijPheasant,
+    Pigeon,
     RedFowl,
-    WhiteTern,
-    WhiterumpedShama
+    RedMaskedParakeet,
+    RedVentedBulbul,
+    WanderingTattler,
+    WarblingWhiteEye,
+    WhiterumpedShama,
+    WhiteTern
 }
