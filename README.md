@@ -83,6 +83,10 @@ Given more time, we plan to add:
 3. **Open one of the scenes in Unity Editor**
 4. **Open Build Settings and Deploy To Your Device**
 
+## Installing ArcGIS SDK
+1. Download the .tgz from ArcGIS Downloads https://developers.arcgis.com/unity/downloads/ 
+2. Put the downloaded .tgz in the following location LocalPackages/arcgis/
+
 
 ## Running the apk (Android)
 1. Clone the repo and open the AlohaBirdsGame.apk file in the **Builds** folder and launch it on your android device, the app should run successfully
