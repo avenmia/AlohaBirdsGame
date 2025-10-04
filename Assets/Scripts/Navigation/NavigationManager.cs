@@ -48,13 +48,13 @@ public class NavigationManager : MonoBehaviour
     public void LoadAR_Scene()
     {
         Debug.Log($"[DEBUG]: LoadAR_Scene activated");
-        StartCoroutine(Fade(0f, 1f)); // fade in
+        // StartCoroutine(Fade(0f, 1f)); // fade in
         Debug.Log($"[DEBUG]: Fade in completed");
         Map_Scene.gameObject.SetActive(false);
         AR_Scene.gameObject.SetActive(true);
         Toggle_Camera(AR_Camera, Map_Camera);
         StartCoroutine(AwaitCamera());
-        StartCoroutine(Fade(1f, 0f)); // fade out
+        // StartCoroutine(Fade(1f, 0f)); // fade out
         Debug.Log($"[DEBUG]: Fade out completed");
     }
 
