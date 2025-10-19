@@ -91,7 +91,7 @@ PrefabInstance:
       addedObject: {fileID: 8528315243867529908}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 2063707e9fbdc0145811b2dfbb24c318, type: 3}
       insertIndex: -1
-      addedObject: {fileID: -7061235375836905837}
+      addedObject: {fileID: 6570592850862271744}
   m_SourcePrefab: {fileID: 100100000, guid: 2063707e9fbdc0145811b2dfbb24c318, type: 3}
 --- !u!1 &4033103617402048047 stripped
 GameObject:
@@ -153,7 +153,7 @@ MonoBehaviour:
   Bird_Path: []
   Camera: {fileID: 0}
   Hide_Aura: {fileID: 0}
---- !u!114 &-7061235375836905837
+--- !u!114 &6570592850862271744
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -172,5 +172,5 @@ MonoBehaviour:
     spawnRadius: 0
     birdImage: {fileID: 0}
     location: {x: 0, y: 0, z: 0}
-  prefabName: pigeon
-  NavPrefab: {fileID: 919132149155446097, guid: 2063707e9fbdc0145811b2dfbb24c318, type: 3}
+  prefabName: Pigeon
+  NavPrefab: {fileID: 5603679508638401894, guid: 44736237b9191b34b9702516dd1eecb2, type: 3}

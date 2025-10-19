@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.XR.ARFoundation;
+using DG.Tweening;
 
 public class NavigationManager : MonoBehaviour
 {
@@ -29,6 +30,7 @@ public class NavigationManager : MonoBehaviour
         }
 
         Instance = this;
+        DOTween.Init();
         DontDestroyOnLoad(gameObject);
     }
 
@@ -46,13 +48,13 @@ public class NavigationManager : MonoBehaviour
     public void LoadAR_Scene()
     {
         Debug.Log($"[DEBUG]: LoadAR_Scene activated");
-        StartCoroutine(Fade(0f, 1f)); // fade in
+        // StartCoroutine(Fade(0f, 1f)); // fade in
         Debug.Log($"[DEBUG]: Fade in completed");
         Map_Scene.gameObject.SetActive(false);
         AR_Scene.gameObject.SetActive(true);
         Toggle_Camera(AR_Camera, Map_Camera);
         StartCoroutine(AwaitCamera());
-        StartCoroutine(Fade(1f, 0f)); // fade out
+        // StartCoroutine(Fade(1f, 0f)); // fade out
         Debug.Log($"[DEBUG]: Fade out completed");
     }
 
@@ -69,8 +71,6 @@ public class NavigationManager : MonoBehaviour
             Debug.Log("Waiting for AR Session to start tracking. Current state: " + ARSession.state);
             yield return null; // Wait for the next frame
         }
-
-        yield return new WaitForSeconds(0.5f);
     }
 
     public void ReturnToPrevScene() 
@@ -100,21 +100,17 @@ public class NavigationManager : MonoBehaviour
         Toggle_Camera(Map_Camera, AR_Camera);
     }
 
-    IEnumerator Fade(float startAlpha, float endAlpha)
+    IEnumerator Drop_Transistion()
     {
-        float timer = 0f;
-        Color color = image.color;
+        image.rectTransform.DOMoveY(0, 0.25f);
+        yield return new WaitForSeconds(0.25f);
+        image.rectTransform.DOMoveY(-Screen.height * 2, 0.25f);
+    }
 
-        while (timer < 2.0f)
-        {
-            float alpha = Mathf.Lerp(startAlpha, endAlpha, timer / 2.0f);
-            image.color = new Color(color.r, color.g, color.b, alpha);
-            timer += Time.deltaTime;
-            yield return null;
-        }
-
-        // Ensure final alpha is exact
-        image.color = new Color(color.r, color.g, color.b, endAlpha);
+    IEnumerator Lift_Transistion()
+    {
+        image.rectTransform.DOMoveY(Screen.height * 2, 0.25f);
+        yield return new WaitForSeconds(0.25f);
     }
 
 }

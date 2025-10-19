@@ -227,8 +227,6 @@ GameObject:
   - component: {fileID: 61913275}
   - component: {fileID: 61913274}
   - component: {fileID: 61913273}
-  - component: {fileID: 61913279}
-  - component: {fileID: 61913280}
   m_Layer: 0
   m_Name: ArcGISCamera
   m_TagString: MainCamera
@@ -285,7 +283,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 61913271}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8bbba49acb848c0448694828560b07fc, type: 3}
   m_Name: 
@@ -293,9 +291,9 @@ MonoBehaviour:
   UpdateClippingPlanes: 1
   UseCameraViewportProperties: 1
   verticalFov: 85
-  horizontalFov: 98.98544
-  viewportSizeX: 815
-  viewportSizeY: 638
+  horizontalFov: 54.50633
+  viewportSizeX: 484
+  viewportSizeY: 861
   qualityScalingFactor: 1
 --- !u!114 &61913275
 MonoBehaviour:
@@ -366,8 +364,8 @@ Camera:
   m_GameObject: {fileID: 61913271}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0.49065858, g: 0.65959597, b: 0.93207544, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -435,35 +433,6 @@ MonoBehaviour:
     x: 0.04545455
     y: 0.045454547
     z: 0.04545455
---- !u!114 &61913279
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 61913271}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 27afbdfc83e47004e95ef7726ed4a9cc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MaxSpeed: 2000000
-  MinSpeed: 1000
-  IgnoreUI: 0
-  EnableLeftDragging: 1
-  EnableRightDragging: 1
---- !u!114 &61913280
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 61913271}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f06874873cbe98e88be463d437c1e817, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &251960271
 GameObject:
   m_ObjectHideFlags: 0
@@ -824,7 +793,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c703502c1493f5b4eb3e95b2efe0271e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  apiKey: 
+  apiKey: AAPTxy8BH1VEsoebNVZXo8HurNdMzJx_qnxc0I86OgcBu_g5wD8grPxhCB48khTPI3jRkZ7H_wNv8nURUtt-Kc7_aD0lmx8YpyiQSZNzEk6V9-9FypAhYuZmnvc3Jzic12YDNnof99BNhmFhUprkeBrixammjFpXfMC-DPgfrxQcTakBLkwE0_roPzAIcV08sGbyMdjtUCWRHzp4F5lqQa8_ZKSOsOrow_cjShMmzfjhSDw.AT1_FMKpBiuP
   basemap: https://basemapstyles-api.arcgis.com/arcgis/rest/services/styles/v2/webmaps/arcgis/community
   basemapType: 0
   basemapAuthentication:
@@ -914,12 +883,12 @@ MonoBehaviour:
       verticalWKID: 0
     version: 1
   mapType: 1
-  useCustomMapSpatialReference: 0
+  useCustomMapSpatialReference: 1
   customMapSpatialReference:
     wkid: 3857
     verticalWKID: 0
   editorModeEnabled: 1
-  dataFetchWithSceneView: 1
+  dataFetchWithSceneView: 0
   rebaseWithSceneView: 0
   meshCollidersEnabled: 0
   configurations: []
@@ -2870,7 +2839,6 @@ MonoBehaviour:
   m_DeselectOnBackgroundClick: 1
   m_PointerBehavior: 0
   m_CursorLockBehavior: 0
-  m_ScrollDeltaPerTick: 6
 --- !u!1 &1963904816
 GameObject:
   m_ObjectHideFlags: 0
@@ -3049,7 +3017,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 1465}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &2003064217
@@ -3209,7 +3177,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _arcGISMap: {fileID: 408927177}
   _layerRoot: {fileID: 0}
-  _pigeonPrefab: {fileID: 7087833928533607845, guid: bb3522c58f8bd1c42a9e625b5abb2c1a, type: 3}
+  _pigeonPrefab: {fileID: 4033103617402048047, guid: 27ec0f4244c1c2f4a9c22ad1f3f3f6f6, type: 3}
   _barnowlPrefab: {fileID: 7087833928533607845, guid: 8d3a086f4dae52b4d85c1a18f477ef20, type: 3}
   _africansilverbillPrefab: {fileID: 3272135469425168573, guid: 508bd9aeff9967f4ba8c66f53c2434a2, type: 3}
   _hawaiianDuckPrefab: {fileID: 3134304419462725599, guid: d8fc1de742e83134f9e7076c22c3f673, type: 3}
