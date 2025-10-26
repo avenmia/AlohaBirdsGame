@@ -291,9 +291,9 @@ MonoBehaviour:
   UpdateClippingPlanes: 1
   UseCameraViewportProperties: 1
   verticalFov: 85
-  horizontalFov: 54.50633
-  viewportSizeX: 484
-  viewportSizeY: 861
+  horizontalFov: 79.089485
+  viewportSizeX: 1129
+  viewportSizeY: 1253
   qualityScalingFactor: 1
 --- !u!114 &61913275
 MonoBehaviour:
@@ -433,6 +433,51 @@ MonoBehaviour:
     x: 0.04545455
     y: 0.045454547
     z: 0.04545455
+--- !u!1 &166246810
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 166246812}
+  - component: {fileID: 166246811}
+  m_Layer: 0
+  m_Name: MapProvider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &166246811
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 166246810}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe421e8157706902887e2908c7ea0030, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _arcGISMapComponent: {fileID: 408927177}
+--- !u!4 &166246812
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 166246810}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.33120772, y: -0.1715329, z: -11.134493}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &251960271
 GameObject:
   m_ObjectHideFlags: 0
@@ -937,11 +982,6 @@ Transform:
   - {fileID: 1246340900}
   m_Father: {fileID: 361910807}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!223 &518787966 stripped
-Canvas:
-  m_CorrespondingSourceObject: {fileID: 7202116128849291400, guid: 21163c0f2dd5750469e617038c711b21, type: 3}
-  m_PrefabInstance: {fileID: 1098231469}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &592418009
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1337,17 +1377,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 373181324939599477, guid: 21163c0f2dd5750469e617038c711b21, type: 3}
   m_PrefabInstance: {fileID: 1098231469}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1009903363 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7567452448115912843, guid: 21163c0f2dd5750469e617038c711b21, type: 3}
-  m_PrefabInstance: {fileID: 1098231469}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1009903362}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1009903367
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1360,9 +1389,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30e36a3337648410faa90dc61a3a7591, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  captureButton: {fileID: 1009903363}
-  uiCanvas: {fileID: 518787966}
-  uiWorldCamera: {fileID: 1550535033}
 --- !u!1 &1021034149
 GameObject:
   m_ObjectHideFlags: 0
@@ -2839,6 +2865,7 @@ MonoBehaviour:
   m_DeselectOnBackgroundClick: 1
   m_PointerBehavior: 0
   m_CursorLockBehavior: 0
+  m_ScrollDeltaPerTick: 6
 --- !u!1 &1963904816
 GameObject:
   m_ObjectHideFlags: 0
@@ -3175,7 +3202,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e545c8cff3a9f66459c5910f55beb55f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _arcGISMap: {fileID: 408927177}
   _layerRoot: {fileID: 0}
   _pigeonPrefab: {fileID: 4033103617402048047, guid: 27ec0f4244c1c2f4a9c22ad1f3f3f6f6, type: 3}
   _barnowlPrefab: {fileID: 7087833928533607845, guid: 8d3a086f4dae52b4d85c1a18f477ef20, type: 3}
@@ -3195,3 +3221,4 @@ SceneRoots:
   - {fileID: 361910807}
   - {fileID: 1279876163}
   - {fileID: 1098231469}
+  - {fileID: 166246812}

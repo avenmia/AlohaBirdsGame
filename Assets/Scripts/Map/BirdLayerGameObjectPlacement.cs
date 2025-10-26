@@ -3,17 +3,14 @@ using UnityEngine;
 using DG.Tweening;
 using System;
 using Esri.GameEngine.Geometry;
-using Esri.Unity;                        
-using UnityEngine.Pool;
 using Esri.ArcGISMapsSDK.Components;
+using UnityEngine.Pool;
 using Unity.Mathematics;
-using Esri.ArcGISMapsSDK.Utils.GeoCoord;
 
 
 public class BirdLayerGameObjectPlacement : MonoBehaviour
 {
 
-    [SerializeField] private ArcGISMapComponent _arcGISMap;   // drag your ArcGIS Map here
     [SerializeField] private Transform _layerRoot;    // empty GameObject under the map
     [SerializeField] private GameObject _pigeonPrefab;
     [SerializeField] private GameObject _barnowlPrefab;
@@ -27,7 +24,6 @@ public class BirdLayerGameObjectPlacement : MonoBehaviour
 
     static BirdLayerGameObjectPlacement() => Debug.Log("[DEBUG]: Bird Layer DLL loaded");
 
-    private readonly Dictionary<GameObject, (ArcGISPoint Position, Quaternion Rotation)> _instances = new();
     private Dictionary<BirdType, ObjectPool<GameObject>> _birdPools;
 
 
@@ -42,12 +38,12 @@ public class BirdLayerGameObjectPlacement : MonoBehaviour
     public void InitializeArcGIS()
     {
         Debug.Log("[DEBUG]: Initializing Bird layer game object placement");
+        
+        var map = MapProvider.Instance.GetMap();
 
-        if (_arcGISMap == null) _arcGISMap = FindObjectOfType<ArcGISMapComponent>();
-
-        if (_arcGISMap == null)
+        if (map == null)
         {
-            Debug.Log("[DEBUG]: ARC GIS MAP is still null in initialize");
+            Debug.Log("[DEBUG]: MAP is still null in initialize");
         }
 
         // TODO: Not sure what this does?
@@ -55,7 +51,7 @@ public class BirdLayerGameObjectPlacement : MonoBehaviour
         {
             var go = new GameObject("BirdLayer");
             _layerRoot = go.transform;
-            _layerRoot.SetParent(_arcGISMap.transform, false);
+            _layerRoot.SetParent(map.transform, false);
         }
 
         SetupBirdPools();
@@ -99,12 +95,11 @@ public class BirdLayerGameObjectPlacement : MonoBehaviour
         BirdType birdType, Guid birdId, string instanceName = null)
     {
         var hpPos = new double3(scenePos.x, scenePos.y, scenePos.z);
-        ArcGISPoint geo = _arcGISMap.View.WorldToGeographic(hpPos);
+        ArcGISPoint geo = MapProvider.Instance.GetPoint(hpPos);
 
         var pool = _birdPools[birdType];
         var go   = pool.Get();
         go.name  = instanceName ?? birdType.ToString();
-        _instances[go] = (geo, rotation);
 
         var loc = go.GetComponent<ArcGISLocationComponent>()
                 ?? go.AddComponent<ArcGISLocationComponent>();
@@ -121,39 +116,11 @@ public class BirdLayerGameObjectPlacement : MonoBehaviour
         return new PooledGO(go, pool);
     }
 
-    public void RestoreBirdPosition(PooledGO bird)
-    {
-        // Do we have a geo-position stored for this pooled object?
-        if (!_instances.TryGetValue(bird.Value, out var data))
-            return;
-
-        var (geo, rot) = data;
-
-        /* 1 ─ update the location component */
-        ArcGISLocationComponent loc =
-            bird.Value.GetComponent<ArcGISLocationComponent>();
-
-        loc.Position = geo;                         // put it back on the street
-
-        // ArcGISLocationComponent no longer has Heading/Pitch/Roll properties,
-        // but it *does* still expose a single Rotation struct.
-        //
-        // Convert the quaternion we stored into heading-pitch-roll (Y-X-Z order):
-        Vector3 eul = rot.eulerAngles;              // degrees
-        loc.Rotation = new ArcGISRotation(
-            eul.y,                                  // heading  (yaw)
-            eul.x,                                  // pitch    (x)
-            eul.z);                                 // roll     (z)
-
-        /* 2 ─ ensure the visible transform matches the component */
-        bird.Value.transform.rotation = rot;
-    }
 
     public void RemoveBirdInstance(PooledGO bird)
     {
         if (bird.Value != null)
         {
-            _instances.Remove(bird.Value);
             bird.Dispose();                       // back to pool
         }
     }

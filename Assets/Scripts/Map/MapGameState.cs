@@ -1,11 +1,6 @@
 using DataBank;
 using Esri.GameEngine.Geometry;              
-using Esri.Unity;                            
 using Esri.ArcGISMapsSDK.Components;         
-using Esri.GameEngine.Geometry;
-using Esri.Unity;
-using Esri.GameEngine.Map;
-using Esri.ArcGISMapsSDK.Renderer;    // DrawStatus
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -289,11 +284,6 @@ public class MapGameState : MonoBehaviour
                 birdsOnMap[id] = newPooled;           // replace the stale entry
                 continue;
 
-            }
-            else
-            {
-                Debug.Log($"[DEBUG]: Repopulating with: {id} {pooled.Value}");
-                _birdSpawner.RestoreBirdPosition(pooled);
             }
         }
 
