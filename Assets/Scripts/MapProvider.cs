@@ -37,4 +37,14 @@ public class MapProvider : MonoBehaviour
     {
         return _arcGISMapComponent.View.WorldToGeographic(pos);
     }
+
+    public void SetPositionFromLocation(GameObject go, Vector3 scenePos)
+    {
+        var loc = go.GetComponent<ArcGISLocationComponent>() ?? go.AddComponent<ArcGISLocationComponent>();
+        var hpPos = new double3(scenePos.x, scenePos.y, scenePos.z);
+        ArcGISPoint geo = GetPoint(hpPos);
+        loc.Position = geo;
+    }
+
+
 }

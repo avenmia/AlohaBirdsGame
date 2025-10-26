@@ -2,8 +2,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using System;
-using Esri.GameEngine.Geometry;
-using Esri.ArcGISMapsSDK.Components;
 using UnityEngine.Pool;
 using Unity.Mathematics;
 
@@ -94,17 +92,11 @@ public class BirdLayerGameObjectPlacement : MonoBehaviour
         Vector3 scenePos, Quaternion rotation,
         BirdType birdType, Guid birdId, string instanceName = null)
     {
-        var hpPos = new double3(scenePos.x, scenePos.y, scenePos.z);
-        ArcGISPoint geo = MapProvider.Instance.GetPoint(hpPos);
-
         var pool = _birdPools[birdType];
         var go   = pool.Get();
         go.name  = instanceName ?? birdType.ToString();
 
-        var loc = go.GetComponent<ArcGISLocationComponent>()
-                ?? go.AddComponent<ArcGISLocationComponent>();
-
-        loc.Position = geo;
+        MapProvider.Instance.SetPositionFromLocation(go, scenePos);
 
         Debug.Log($"[DEBUG]: Setting local scale for bird type: {birdType}");
         go.transform.localScale    = registry.Get(birdType).transform.localScale;
