@@ -5,6 +5,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
+
 using Unity.Services.Authentication;
 using Unity.Services.CloudSave.Models.Data.Player;
 using Unity.Services.CloudSave;
@@ -211,6 +212,8 @@ public class PersistentDataManager : MonoBehaviour
     public void LoadGameBirds()
     {
         BirdData[] allBirdData = Resources.LoadAll<BirdData>("GameBirds");
+        var geoJsonLoader = new GeoJsonLoader();
+        geoJsonLoader.LoadGeoJson();
 
         foreach (BirdData birdData in allBirdData)
         {
